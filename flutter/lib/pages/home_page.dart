@@ -18,13 +18,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_client_php_backend/customviews/progress_dialog.dart';
-import 'package:flutter_client_php_backend/futures/app_futures.dart';
-import 'package:flutter_client_php_backend/models/User.dart';
-import 'package:flutter_client_php_backend/models/base/EventObject.dart';
-import 'package:flutter_client_php_backend/pages/splash_page.dart';
-import 'package:flutter_client_php_backend/utils/app_shared_preferences.dart';
-import 'package:flutter_client_php_backend/utils/constants.dart';
+import 'package:project_3s_mobile/customviews/progress_dialog.dart';
+import 'package:project_3s_mobile/futures/app_futures.dart';
+import 'package:project_3s_mobile/models/User.dart';
+import 'package:project_3s_mobile/models/base/EventObject.dart';
+import 'package:project_3s_mobile/pages/splash_page.dart';
+import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
+import 'package:project_3s_mobile/utils/constants.dart';
 
 class HomePage extends StatefulWidget {
   @override

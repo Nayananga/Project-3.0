@@ -16,11 +16,10 @@
  */
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_client_php_backend/pages/home_page.dart';
-import 'package:flutter_client_php_backend/pages/login_page.dart';
-import 'package:flutter_client_php_backend/utils/app_shared_preferences.dart';
+import 'package:project_3s_mobile/pages/home_page.dart';
+import 'package:project_3s_mobile/pages/login_page.dart';
+import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -81,7 +80,7 @@ class SplashPageState extends State<SplashPage> {
         } else {
           Navigator.pushReplacement(
             context,
-            new MaterialPageRoute(builder: (context) => new LoginPage()),
+            new MaterialPageRoute(builder: (context) => new SignInDemo()),
           );
         }
       });

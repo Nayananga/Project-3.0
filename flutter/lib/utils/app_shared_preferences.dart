@@ -17,9 +17,8 @@
 
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:flutter_client_php_backend/models/User.dart';
-import 'package:flutter_client_php_backend/utils/constants.dart';
+import 'package:project_3s_mobile/models/User.dart';
+import 'package:project_3s_mobile/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSharedPreferences {

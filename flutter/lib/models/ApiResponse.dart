@@ -15,7 +15,7 @@
  *
  */
 
-import 'package:flutter_client_php_backend/models/User.dart';
+import 'package:project_3s_mobile/models/User.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'ApiResponse.g.dart';

@@ -15,7 +15,7 @@
  *
  */
 
-import 'package:flutter_client_php_backend/utils/constants.dart';
+import 'package:project_3s_mobile/utils/constants.dart';
 
 class EventObject {
   int id;

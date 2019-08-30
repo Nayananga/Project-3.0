@@ -1,77 +1,61 @@
-/*
- * Copyright 2018 Harsh Sharma
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
+// Copyright 2019 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'dart:async';
+import 'dart:convert' show json;
+import "package:http/http.dart" as http;
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_client_php_backend/customviews/progress_dialog.dart';
-import 'package:flutter_client_php_backend/futures/app_futures.dart';
-import 'package:flutter_client_php_backend/models/base/EventObject.dart';
-import 'package:flutter_client_php_backend/pages/home_page.dart';
-import 'package:flutter_client_php_backend/pages/register_page.dart';
-import 'package:flutter_client_php_backend/utils/app_shared_preferences.dart';
-import 'package:flutter_client_php_backend/utils/constants.dart';
+import 'package:project_3s_mobile/customviews/progress_dialog.dart';
+import 'package:project_3s_mobile/futures/app_futures.dart';
+import 'package:project_3s_mobile/models/base/EventObject.dart';
+import 'package:project_3s_mobile/pages/home_page.dart';
+import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
+import 'package:project_3s_mobile/utils/constants.dart';
 
-class LoginPage extends StatefulWidget {
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
+
+class SignInDemo extends StatefulWidget {
   @override
-  createState() => new LoginPageState();
+  State createState() => SignInDemoState(); // or LoginPageState()
 }
 
-class LoginPageState extends State<LoginPage> {
-  final globalKey = new GlobalKey<ScaffoldState>();
+class SignInDemoState extends State<SignInDemo> {
+  GoogleSignInAccount _currentUser;
+  String _contactText;
 
-  ProgressDialog progressDialog =
-      ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_LOG_IN);
+  @override
+  void initState() {
+    super.initState();
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+      setState(() {
+        _currentUser = account;
+      });
+      if (_currentUser != null) {
+        _handleGetContact();  //TODO:NO NEED
+      }
+    });
+    _googleSignIn.signInSilently();
+  }
 
-  TextEditingController emailController = new TextEditingController(text: "");
-
-  TextEditingController passwordController =
-      new TextEditingController(text: "");
-
-//------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        key: globalKey,
-        backgroundColor: Colors.white,
-        body: new Stack(
-          children: <Widget>[_loginContainer(), progressDialog],
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Google Sign In'),
+        ),
+        body: ConstrainedBox(
+          constraints: const BoxConstraints.expand(),
+          child: _buildBody(),
         ));
   }
-
-//------------------------------------------------------------------------------
-  Widget _loginContainer() {
-    return new Container(
-        child: new ListView(
-      children: <Widget>[
-        new Center(
-          child: new Column(
-            children: <Widget>[
-//------------------------------------------------------------------------------
-              _appIcon(),
-//------------------------------------------------------------------------------
-              _formContainer(),
-//------------------------------------------------------------------------------
-            ],
-          ),
-        ),
-      ],
-    ));
-  }
-
-//------------------------------------------------------------------------------
 
   Widget _appIcon() {
     return new Container(
@@ -85,167 +69,150 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
-//------------------------------------------------------------------------------
-  Widget _formContainer() {
-    return new Container(
-      child: new Form(
-          child: new Theme(
-              data: new ThemeData(primarySwatch: Colors.pink),
-              child: new Column(
-                children: <Widget>[
-//------------------------------------------------------------------------------
-                  _emailContainer(),
-//------------------------------------------------------------------------------
-                  _passwordContainer(),
-//------------------------------------------------------------------------------
-                  _loginButtonContainer(),
-//------------------------------------------------------------------------------
-                  _registerNowLabel(),
-//------------------------------------------------------------------------------
-                ],
-              ))),
-      margin: EdgeInsets.only(top: 20.0, left: 25.0, right: 25.0),
-    );
-  }
-
-//------------------------------------------------------------------------------
-  Widget _emailContainer() {
-    return new Container(
-        child: new TextFormField(
-            controller: emailController,
-            decoration: InputDecoration(
-                suffixIcon: new Icon(
-                  Icons.email,
-                  color: Colors.pink,
-                ),
-                labelText: Texts.EMAIL,
-                labelStyle: TextStyle(fontSize: 18.0)),
-            keyboardType: TextInputType.emailAddress),
-        margin: EdgeInsets.only(bottom: 20.0));
-  }
-
-//------------------------------------------------------------------------------
-  Widget _passwordContainer() {
-    return new Container(
-        child: new TextFormField(
-          controller: passwordController,
-          decoration: InputDecoration(
-              suffixIcon: new Icon(
-                Icons.vpn_key,
-                color: Colors.pink,
-              ),
-              labelText: Texts.PASSWORD,
-              labelStyle: TextStyle(fontSize: 18.0)),
-          keyboardType: TextInputType.text,
-          obscureText: true,
-        ),
-        margin: EdgeInsets.only(bottom: 35.0));
-  }
-
-//------------------------------------------------------------------------------
-  Widget _loginButtonContainer() {
-    return new Container(
-        width: double.infinity,
-        decoration: new BoxDecoration(color: Colors.blue[400]),
-        child: new MaterialButton(
-          textColor: Colors.white,
-          padding: EdgeInsets.all(15.0),
-          onPressed: _loginButtonAction,
-          child: new Text(
-            Texts.LOGIN,
-            style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+  Widget _buildBody() {
+    if (_currentUser != null) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          ListTile(
+            leading: GoogleUserCircleAvatar(
+              identity: _currentUser,
+            ),
+            title: Text(_currentUser.displayName ?? ''),
+            subtitle: Text(_currentUser.email ?? ''),
           ),
-        ),
-        margin: EdgeInsets.only(bottom: 30.0));
-  }
-
-//------------------------------------------------------------------------------
-  Widget _registerNowLabel() {
-    return new GestureDetector(
-      onTap: _goToRegisterScreen,
-      child: new Container(
-          child: new Text(
-            Texts.REGISTER_NOW,
-            style: TextStyle(fontSize: 18.0, color: Colors.pink),
+          const Text("Signed in successfully."),
+          Text(_contactText ?? ''), //TODO:NO NEED
+          RaisedButton(
+            child: const Text('SIGN OUT'),
+            onPressed: _handleSignOut,
           ),
-          margin: EdgeInsets.only(bottom: 30.0)),
-    );
+          RaisedButton(
+            child: const Text('REFRESH'),
+            onPressed: _handleGetContact, //TODO:NO NEED
+          ),
+        ],
+      );
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          const Text("You are not currently signed in."),
+          RaisedButton(
+            child: const Text('SIGN IN'),
+            onPressed: _handleSignIn,
+          ),
+        ],
+      );
+    }
   }
 
-//------------------------------------------------------------------------------
-  void _loginButtonAction() {
-    if (emailController.text == "") {
-      globalKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(SnackBarText.ENTER_EMAIL),
-      ));
+  Future<void> _handleGetContact() async {  //TODO:NO NEED
+    setState(() {
+      _contactText = "Loading contact info...";
+    });
+    final http.Response response = await http.get(
+      'https://people.googleapis.com/v1/people/me/connections'
+          '?requestMask.includeField=person.names',
+      headers: await _currentUser.authHeaders,
+    );
+    if (response.statusCode != 200) {
+      setState(() {
+        _contactText = "People API gave a ${response.statusCode} "
+            "response. Check logs for details.";
+      });
+      print('People API ${response.statusCode} response: ${response.body}');
       return;
     }
-
-    if (passwordController.text == "") {
-      globalKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(SnackBarText.ENTER_PASS),
-      ));
-      return;
-    }
-    FocusScope.of(context).requestFocus(new FocusNode());
-    progressDialog.showProgress();
-    _loginUser(emailController.text, passwordController.text);
+    final Map<String, dynamic> data = json.decode(response.body);
+    final String namedContact = _pickFirstNamedContact(data);
+    setState(() {
+      if (namedContact != null) {
+        _contactText = "I see you know $namedContact!";
+      } else {
+        _contactText = "No contacts to display.";
+      }
+    });
   }
 
-//------------------------------------------------------------------------------
-  void _loginUser(String id, String password) async {
-    EventObject eventObject = await loginUser(id, password);
-    switch (eventObject.id) {
-      case EventConstants.LOGIN_USER_SUCCESSFUL:
-        {
-          setState(() {
-            AppSharedPreferences.setUserLoggedIn(true);
-            AppSharedPreferences.setUserProfile(eventObject.object);
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.LOGIN_SUCCESSFUL),
-            ));
-            progressDialog.hideProgress();
-            _goToHomeScreen();
-          });
-        }
-        break;
-      case EventConstants.LOGIN_USER_UN_SUCCESSFUL:
-        {
-          setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.LOGIN_UN_SUCCESSFUL),
-            ));
-            progressDialog.hideProgress();
-          });
-        }
-        break;
-      case EventConstants.NO_INTERNET_CONNECTION:
-        {
-          setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
-            ));
-            progressDialog.hideProgress();
-          });
-        }
-        break;
+  String _pickFirstNamedContact(Map<String, dynamic> data) {
+    final List<dynamic> connections = data['connections'];
+    final Map<String, dynamic> contact = connections?.firstWhere(
+          (dynamic contact) => contact['names'] != null,
+      orElse: () => null,
+    );
+    if (contact != null) {
+      final Map<String, dynamic> name = contact['names'].firstWhere(
+            (dynamic name) => name['displayName'] != null,
+        orElse: () => null,
+      );
+      if (name != null) {
+        return name['displayName'];
+      }
+    }
+    return null;
+  }
+
+  Future<void> _handleSignIn() async {
+    try {
+      await _googleSignIn.signIn();
+    } catch (error) {
+      print(error);
     }
   }
 
-//------------------------------------------------------------------------------
+  Future<void> _handleSignOut() async {
+    _googleSignIn.disconnect();
+  }
+
   void _goToHomeScreen() {
     Navigator.pushReplacement(
       context,
       new MaterialPageRoute(builder: (context) => new HomePage()),
     );
   }
-
-//------------------------------------------------------------------------------
-  void _goToRegisterScreen() {
-    Navigator.pushReplacement(
-      context,
-      new MaterialPageRoute(builder: (context) => new RegisterPage()),
-    );
-  }
-//------------------------------------------------------------------------------
 }
+
+//class LoginPageState extends State<LoginPage> {
+//  final globalKey = new GlobalKey<ScaffoldState>();
+
+////------------------------------------------------------------------------------
+//  void _loginUser(String id, String password) async {
+//    EventObject eventObject = await loginUser(id, password);
+//    switch (eventObject.id) {
+//      case EventConstants.LOGIN_USER_SUCCESSFUL:
+//        {
+//          setState(() {
+//            AppSharedPreferences.setUserLoggedIn(true);
+//            AppSharedPreferences.setUserProfile(eventObject.object);
+//            globalKey.currentState.showSnackBar(new SnackBar(
+//              content: new Text(SnackBarText.LOGIN_SUCCESSFUL),
+//            ));
+//            progressDialog.hideProgress();
+//            _goToHomeScreen();
+//          });
+//        }
+//        break;
+//      case EventConstants.LOGIN_USER_UN_SUCCESSFUL:
+//        {
+//          setState(() {
+//            globalKey.currentState.showSnackBar(new SnackBar(
+//              content: new Text(SnackBarText.LOGIN_UN_SUCCESSFUL),
+//            ));
+//            progressDialog.hideProgress();
+//          });
+//        }
+//        break;
+//      case EventConstants.NO_INTERNET_CONNECTION:
+//        {
+//          setState(() {
+//            globalKey.currentState.showSnackBar(new SnackBar(
+//              content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
+//            ));
+//            progressDialog.hideProgress();
+//          });
+//        }
+//        break;
+//    }
+//  }
+//}
