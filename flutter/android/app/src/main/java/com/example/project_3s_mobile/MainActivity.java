@@ -1,7 +1,6 @@
-package com.example.flutterclientphpbackend;
+package com.example.project_3s_mobile;
 
 import android.os.Bundle;
-
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 

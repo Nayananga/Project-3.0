@@ -22,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.flutterclientphpbackend"
+        applicationId "com.example.project_3s_mobile"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
