@@ -2,10 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'dart:async';
+import 'dart:io';
 import 'dart:convert' show json;
 import "package:http/http.dart" as http;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:flutter/material.dart';
@@ -15,6 +14,8 @@ import 'package:project_3s_mobile/models/base/EventObject.dart';
 import 'package:project_3s_mobile/pages/home_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
+import 'package:project_3s_mobile/models/ApiRequest.dart';
+
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
@@ -142,13 +143,26 @@ class SignInDemoState extends State<SignInDemo> {
   Future<void> _handleSignInCredential() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
 //    final AuthCredential credential = GoogleAuthProvider.getCredential(
 //      accessToken: googleAuth.accessToken,
 //      idToken: googleAuth.idToken,
 //    );
-
     idToken = googleAuth.idToken;
+    _sendCredential();
+  }
+
+  Future<void> _sendCredential() async {
+    String url = APIConstants.API_BASE_URL+APIRoutes.LOGIN_USER;
+    Map jsonMap = {
+      'data': {'idToken': Text(idToken ?? 'not found bro')}
+    };
+    String key = "Content-Type";
+    Object value = "application/json";
+    try {
+      HttpClientResponse response = await apiRequest(url, jsonMap, key, value); // TODO: CHECK STATUS CODE
+    } catch (error) {
+      print(error);
+    }
   }
 
   Future<void> _handleSignIn() async {

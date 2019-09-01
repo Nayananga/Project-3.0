@@ -18,7 +18,33 @@
 ///////////////////////////////////////////////////////////////////////////////
 class APIConstants {
   static const String OCTET_STREAM_ENCODING = "application/octet-stream";
-  static const String API_BASE_URL = "https://hafinse.000webhostapp.com";
+  static const String API_BASE_URL = "";
+}
+
+///////////////////////////////////////////////////////////////////////////////
+class APIRoutes {
+  static const String GET_HELP = "/";
+  static const String GET_STATUS = "/status";
+  static const String LOGIN_USER = "/login";
+  static const String GET_ALL_REVIEWS = "/api/v1/reviews";
+  static const String GET_ONE_REVIEW = "/api/v1/reviews/"; // [{id}]
+  static const String SEARCH_REVIEW = "/api/v1/reviews/search/"; // [{query}]
+  static const String CREATE_REVIEW = "/api/v1/reviews";
+  static const String UPDATE_REVIEW = "/api/v1/reviews/"; // [{id}]
+  static const String DELETE_REVIEW = "/api/v1/reviews/"; // [{id}]
+  static const String GET_ALL_USERS = "/api/v1/users";
+  static const String GET_ONE_USER = "/api/v1/users/"; // [{id}]
+  static const String SEARCH_USERS = "/api/v1/users/search/"; // [{query}]
+  static const String CREATE_USER = "/api/v1/users";
+  static const String UPDATE_USER = "/api/v1/users/"; // [{id}]
+  static const String DELETE_USER = "/api/v1/users/"; // [{id}]
+  static const String GET_ALL_COMPLAINTS = "/api/v1/complaints";
+  static const String GET_ONE_COMPLAINTS = "/api/v1/complaints/"; // [{id}]
+  static const String SEARCH_COMPLAINTS = "/api/v1/complaints/"; // [{query}]
+  static const String CREATE_COMPLAINTS = "/api/v1/complaints";
+  static const String UPDATE_COMPLAINTS = "/api/v1/complaints/"; // [{id}]
+  static const String DELETE_COMPLAINTS = "/api/v1/complaints/"; // [{id}]
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////

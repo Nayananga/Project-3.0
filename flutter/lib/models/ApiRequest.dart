@@ -1,32 +1,14 @@
-/*
- * Copyright 2018 Harsh Sharma
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
+import 'dart:convert';
+import 'dart:io';
 
-import 'package:project_3s_mobile/models/User.dart';
-import 'package:json_annotation/json_annotation.dart';
-
-part 'ApiRequest.g.dart';
-
-@JsonSerializable()
-class ApiRequest extends Object with _$ApiRequestSerializerMixin {
-  String operation;
-  User user;
-
-  ApiRequest({this.operation, this.user});
-
-  factory ApiRequest.fromJson(Map<String, dynamic> json) =>
-      _$ApiRequestFromJson(json);
+Future<HttpClientResponse> apiRequest(String url, Map jsonMap, String key, Object value) async {
+  HttpClient httpClient = new HttpClient();
+  HttpClientRequest request = await httpClient.postUrl(Uri.parse(url));
+  request.headers.set(key, value);
+  request.add(utf8.encode(json.encode(jsonMap)));
+  HttpClientResponse response = await request.close();
+  // todo - you should check the response.statusCode
+//    String reply = await response.transform(utf8.decoder).join();
+  httpClient.close();
+  return response;
 }
