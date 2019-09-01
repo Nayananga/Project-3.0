@@ -19,7 +19,7 @@ import 'package:project_3s_mobile/utils/constants.dart';
 
 class EventObject {
   int id;
-  Object object;
+  dynamic object;
 
   EventObject(
       {this.id: EventConstants.NO_INTERNET_CONNECTION, this.object: null});

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "460939779565",
+    "firebase_url": "https://stately-moon-251411.firebaseio.com",
+    "project_id": "stately-moon-251411",
+    "storage_bucket": "stately-moon-251411.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460939779565:android:aafc5794642b668d",
+        "android_client_info": {
+          "package_name": "com.example.project_3s_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460939779565-3n2rmcfn7ifjvjmupv7613cp2d3d9t4s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.project_3s_mobile",
+            "certificate_hash": "c937184bb930b79f32cd3e14bcbc31ea5b8d1cee"
+          }
+        },
+        {
+          "client_id": "460939779565-du3v25ebf5t7jes87pdue8t3u3qojoki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA27VRXFpA3C-r0Qs3qGV_4TUEh1JQRdkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460939779565-du3v25ebf5t7jes87pdue8t3u3qojoki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

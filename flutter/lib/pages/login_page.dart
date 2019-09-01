@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:convert' show json;
 import "package:http/http.dart" as http;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:flutter/material.dart';
@@ -15,21 +16,23 @@ import 'package:project_3s_mobile/pages/home_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
+final GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/user.phonenumbers.read',
+    'https://www.googleapis.com/auth/contacts.readonly'
   ],
 );
 
 class SignInDemo extends StatefulWidget {
   @override
-  State createState() => SignInDemoState(); // or LoginPageState()
+  State createState() => SignInDemoState();
 }
 
 class SignInDemoState extends State<SignInDemo> {
   GoogleSignInAccount _currentUser;
-  String _contactText;
+  String _contactText, idToken;  //TODO:NO NEED
 
   @override
   void initState() {
@@ -39,6 +42,7 @@ class SignInDemoState extends State<SignInDemo> {
         _currentUser = account;
       });
       if (_currentUser != null) {
+        _handleSignInCredential();
         _handleGetContact();  //TODO:NO NEED
       }
     });
@@ -53,21 +57,21 @@ class SignInDemoState extends State<SignInDemo> {
         ),
         body: ConstrainedBox(
           constraints: const BoxConstraints.expand(),
-          child: _buildBody(),
+          child: _buildBody(),  //TODO:NEED TO MOVE INTO HOMEPAGE
         ));
   }
 
-  Widget _appIcon() {
-    return new Container(
-      decoration: new BoxDecoration(color: Colors.blue[400]),
-      child: new Image(
-        image: new AssetImage("assets/images/ic_launcher.png"),
-        height: 170.0,
-        width: 170.0,
-      ),
-      margin: EdgeInsets.only(top: 20.0),
-    );
-  }
+//  Widget _appIcon() {
+//    return new Container(
+//      decoration: new BoxDecoration(color: Colors.blue[400]),
+//      child: new Image(
+//        image: new AssetImage("assets/images/ic_launcher.png"),
+//        height: 170.0,
+//        width: 170.0,
+//      ),
+//      margin: EdgeInsets.only(top: 20.0),
+//    );
+//  }
 
   Widget _buildBody() {
     if (_currentUser != null) {
@@ -111,9 +115,9 @@ class SignInDemoState extends State<SignInDemo> {
     setState(() {
       _contactText = "Loading contact info...";
     });
-    final http.Response response = await http.get(
-      'https://people.googleapis.com/v1/people/me/connections'
-          '?requestMask.includeField=person.names',
+    final http.Response response = await http.get( // request phoneNumber
+      'https://people.googleapis.com/v1/people/me'
+          '?personFields=phoneNumbers',
       headers: await _currentUser.authHeaders,
     );
     if (response.statusCode != 200) {
@@ -135,22 +139,28 @@ class SignInDemoState extends State<SignInDemo> {
     });
   }
 
-  String _pickFirstNamedContact(Map<String, dynamic> data) {
-    final List<dynamic> connections = data['connections'];
-    final Map<String, dynamic> contact = connections?.firstWhere(
-          (dynamic contact) => contact['names'] != null,
+  String _pickFirstNamedContact(Map<String, dynamic> data) { // get phoneNumber
+    final List<dynamic> phoneNumbers = data['phoneNumbers'];
+    final Map<String, dynamic> phoneNumber = phoneNumbers?.firstWhere(
+          (dynamic phoneNumber) => phoneNumber['value'] != null,
       orElse: () => null,
     );
-    if (contact != null) {
-      final Map<String, dynamic> name = contact['names'].firstWhere(
-            (dynamic name) => name['displayName'] != null,
-        orElse: () => null,
-      );
-      if (name != null) {
-        return name['displayName'];
-      }
+    if (phoneNumber != null) {
+      return phoneNumber['value'];
     }
     return null;
+  }
+
+  Future<void> _handleSignInCredential() async {
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+//    final AuthCredential credential = GoogleAuthProvider.getCredential(
+//      accessToken: googleAuth.accessToken,
+//      idToken: googleAuth.idToken,
+//    );
+
+    idToken = googleAuth.idToken;
   }
 
   Future<void> _handleSignIn() async {

@@ -43,7 +43,7 @@ Future<EventObject> loginUser(String emailId, String password) async {
           response.body != null) {
         final responseJson = json.decode(response.body);
         ApiResponse apiResponse = ApiResponse.fromJson(responseJson);
-        if (apiResponse.result == APIOperations.SUCCESS) {
+        if (apiResponse.result == APIOperations.SUCCESS) {  //status code should be like result
           return new EventObject(
               id: EventConstants.LOGIN_USER_SUCCESSFUL,
               object: apiResponse.user);

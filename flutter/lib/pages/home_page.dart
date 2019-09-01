@@ -34,13 +34,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   final globalKey = new GlobalKey<ScaffoldState>();
 
-  User user;
-
-  TextEditingController oldPasswordController =
-      new TextEditingController(text: "");
-
-  TextEditingController newPasswordController =
-      new TextEditingController(text: "");
+  User user; //TOD0: NO NEED
 
 //------------------------------------------------------------------------------
 
