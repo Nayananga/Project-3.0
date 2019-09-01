@@ -61,18 +61,6 @@ class SignInDemoState extends State<SignInDemo> {
         ));
   }
 
-//  Widget _appIcon() {
-//    return new Container(
-//      decoration: new BoxDecoration(color: Colors.blue[400]),
-//      child: new Image(
-//        image: new AssetImage("assets/images/ic_launcher.png"),
-//        height: 170.0,
-//        width: 170.0,
-//      ),
-//      margin: EdgeInsets.only(top: 20.0),
-//    );
-//  }
-
   Widget _buildBody() {
     if (_currentUser != null) {
       return Column(
@@ -181,6 +169,18 @@ class SignInDemoState extends State<SignInDemo> {
       new MaterialPageRoute(builder: (context) => new HomePage()),
     );
   }
+
+//  Widget _appIcon() {
+//    return new Container(
+//      decoration: new BoxDecoration(color: Colors.blue[400]),
+//      child: new Image(
+//        image: new AssetImage("assets/images/ic_launcher.png"),
+//        height: 170.0,
+//        width: 170.0,
+//      ),
+//      margin: EdgeInsets.only(top: 20.0),
+//    );
+//  }
 }
 
 //class LoginPageState extends State<LoginPage> {
