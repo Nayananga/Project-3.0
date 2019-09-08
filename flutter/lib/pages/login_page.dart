@@ -15,7 +15,6 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
     'https://www.googleapis.com/auth/userinfo.profile',
     'https://www.googleapis.com/auth/userinfo.email',
-    'https://www.googleapis.com/auth/user.phonenumbers.read',
   ],
 );
 
@@ -91,8 +90,13 @@ class SignInDemoState extends State<SignInDemo> {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     idToken = googleAuth.idToken;
-    print(idToken);
+    printWrapped(idToken);
     _sendCredential();
+  }
+
+  void printWrapped(String text) {
+    final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
+    pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
 
   Future<void> _sendCredential() async {
