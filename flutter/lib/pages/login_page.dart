@@ -3,16 +3,10 @@
 // found in the LICENSE file.
 
 import 'dart:io';
-import 'dart:convert' show json;
-import "package:http/http.dart" as http;
+import 'dart:convert';
 import 'package:google_sign_in/google_sign_in.dart';
-
 import 'package:flutter/material.dart';
-import 'package:project_3s_mobile/customviews/progress_dialog.dart';
-import 'package:project_3s_mobile/futures/app_futures.dart';
-import 'package:project_3s_mobile/models/base/EventObject.dart';
 import 'package:project_3s_mobile/pages/home_page.dart';
-import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 import 'package:project_3s_mobile/models/ApiRequest.dart';
 
@@ -22,7 +16,6 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
     'https://www.googleapis.com/auth/userinfo.profile',
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/user.phonenumbers.read',
-    'https://www.googleapis.com/auth/contacts.readonly'
   ],
 );
 
@@ -33,7 +26,7 @@ class SignInDemo extends StatefulWidget {
 
 class SignInDemoState extends State<SignInDemo> {
   GoogleSignInAccount _currentUser;
-  String _contactText, idToken;  //TODO:NO NEED
+  String idToken;
 
   @override
   void initState() {
@@ -44,7 +37,6 @@ class SignInDemoState extends State<SignInDemo> {
       });
       if (_currentUser != null) {
         _handleSignInCredential();
-        _handleGetContact();  //TODO:NO NEED
       }
     });
     _googleSignIn.signInSilently();
@@ -58,7 +50,7 @@ class SignInDemoState extends State<SignInDemo> {
         ),
         body: ConstrainedBox(
           constraints: const BoxConstraints.expand(),
-          child: _buildBody(),  //TODO:NEED TO MOVE INTO HOMEPAGE
+          child: _buildBody(),
         ));
   }
 
@@ -75,14 +67,9 @@ class SignInDemoState extends State<SignInDemo> {
             subtitle: Text(_currentUser.email ?? ''),
           ),
           const Text("Signed in successfully."),
-          Text(_contactText ?? ''), //TODO:NO NEED
           RaisedButton(
             child: const Text('SIGN OUT'),
             onPressed: _handleSignOut,
-          ),
-          RaisedButton(
-            child: const Text('REFRESH'),
-            onPressed: _handleGetContact, //TODO:NO NEED
           ),
         ],
       );
@@ -100,66 +87,23 @@ class SignInDemoState extends State<SignInDemo> {
     }
   }
 
-  Future<void> _handleGetContact() async {  //TODO:NO NEED
-    setState(() {
-      _contactText = "Loading contact info...";
-    });
-    final http.Response response = await http.get( // request phoneNumber
-      'https://people.googleapis.com/v1/people/me'
-          '?personFields=phoneNumbers',
-      headers: await _currentUser.authHeaders,
-    );
-    if (response.statusCode != 200) {
-      setState(() {
-        _contactText = "People API gave a ${response.statusCode} "
-            "response. Check logs for details.";
-      });
-      print('People API ${response.statusCode} response: ${response.body}');
-      return;
-    }
-    final Map<String, dynamic> data = json.decode(response.body);
-    final String namedContact = _pickFirstNamedContact(data);
-    setState(() {
-      if (namedContact != null) {
-        _contactText = "I see you know $namedContact!";
-      } else {
-        _contactText = "No contacts to display.";
-      }
-    });
-  }
-
-  String _pickFirstNamedContact(Map<String, dynamic> data) { // get phoneNumber
-    final List<dynamic> phoneNumbers = data['phoneNumbers'];
-    final Map<String, dynamic> phoneNumber = phoneNumbers?.firstWhere(
-          (dynamic phoneNumber) => phoneNumber['value'] != null,
-      orElse: () => null,
-    );
-    if (phoneNumber != null) {
-      return phoneNumber['value'];
-    }
-    return null;
-  }
-
   Future<void> _handleSignInCredential() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-//    final AuthCredential credential = GoogleAuthProvider.getCredential(
-//      accessToken: googleAuth.accessToken,
-//      idToken: googleAuth.idToken,
-//    );
     idToken = googleAuth.idToken;
+    print(idToken);
     _sendCredential();
   }
 
   Future<void> _sendCredential() async {
-    String url = APIConstants.API_BASE_URL+APIRoutes.LOGIN_USER;
-    Map jsonMap = {
-      'data': {'idToken': Text(idToken ?? 'not found bro')}
+    String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
+    var body = json.encode('');
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.authorizationHeader: idToken,
     };
-    String key = "Content-Type";
-    Object value = "application/json";
     try {
-      HttpClientResponse response = await apiRequest(url, jsonMap, key, value); // TODO: CHECK STATUS CODE
+      await apiRequest('post',url, headers, body);
     } catch (error) {
       print(error);
     }
