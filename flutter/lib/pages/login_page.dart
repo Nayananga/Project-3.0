@@ -4,12 +4,12 @@
 
 import 'dart:io';
 import 'dart:convert';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:project_3s_mobile/pages/home_page.dart';
+import 'package:http/http.dart' as http;
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 import 'package:project_3s_mobile/models/ApiRequest.dart';
-
+import 'package:project_3s_mobile/pages/home_page.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
@@ -25,7 +25,7 @@ class SignInDemo extends StatefulWidget {
 
 class SignInDemoState extends State<SignInDemo> {
   GoogleSignInAccount _currentUser;
-  String idToken;
+  String google_id;
 
   @override
   void initState() {
@@ -65,6 +65,10 @@ class SignInDemoState extends State<SignInDemo> {
             title: Text(_currentUser.displayName ?? ''),
             subtitle: Text(_currentUser.email ?? ''),
           ),
+          RaisedButton(
+            child: const Text('Lets Chat'),
+            onPressed: _goToChatScreen,
+          ),
           const Text("Signed in successfully."),
           RaisedButton(
             child: const Text('SIGN OUT'),
@@ -89,28 +93,33 @@ class SignInDemoState extends State<SignInDemo> {
   Future<void> _handleSignInCredential() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    idToken = googleAuth.idToken;
+    final idToken = googleAuth.idToken;
     printWrapped(idToken);
-    _sendCredential();
+    _sendCredential(idToken);
   }
 
+// to print idToken in console
   void printWrapped(String text) {
     final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
 
-  Future<void> _sendCredential() async {
+  Future<void> _sendCredential(String idToken) async {
     String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
-    var body = json.encode('');
+    var body = jsonEncode('');
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.authorizationHeader: idToken,
     };
-    try {
-      await apiRequest('post',url, headers, body);
-    } catch (error) {
-      print(error);
-    }
+      http.Response response = await apiRequest('post',url, headers, body);
+      try{
+        var responseData = jsonDecode(response.body);
+//        print(responseData['message']['Logged_User_Id']);
+        google_id = responseData['message']['Logged_User_Id'];
+      }
+      catch (error){
+        print(error);
+      }
   }
 
   Future<void> _handleSignIn() async {
@@ -125,66 +134,10 @@ class SignInDemoState extends State<SignInDemo> {
     _googleSignIn.disconnect();
   }
 
-  void _goToHomeScreen() {
+  void _goToChatScreen() {
     Navigator.pushReplacement(
       context,
-      new MaterialPageRoute(builder: (context) => new HomePage()),
+      new MaterialPageRoute(builder: (context) => new HomePage(google_id)), //change names later
     );
   }
-
-//  Widget _appIcon() {
-//    return new Container(
-//      decoration: new BoxDecoration(color: Colors.blue[400]),
-//      child: new Image(
-//        image: new AssetImage("assets/images/ic_launcher.png"),
-//        height: 170.0,
-//        width: 170.0,
-//      ),
-//      margin: EdgeInsets.only(top: 20.0),
-//    );
-//  }
 }
-
-//class LoginPageState extends State<LoginPage> {
-//  final globalKey = new GlobalKey<ScaffoldState>();
-
-////------------------------------------------------------------------------------
-//  void _loginUser(String id, String password) async {
-//    EventObject eventObject = await loginUser(id, password);
-//    switch (eventObject.id) {
-//      case EventConstants.LOGIN_USER_SUCCESSFUL:
-//        {
-//          setState(() {
-//            AppSharedPreferences.setUserLoggedIn(true);
-//            AppSharedPreferences.setUserProfile(eventObject.object);
-//            globalKey.currentState.showSnackBar(new SnackBar(
-//              content: new Text(SnackBarText.LOGIN_SUCCESSFUL),
-//            ));
-//            progressDialog.hideProgress();
-//            _goToHomeScreen();
-//          });
-//        }
-//        break;
-//      case EventConstants.LOGIN_USER_UN_SUCCESSFUL:
-//        {
-//          setState(() {
-//            globalKey.currentState.showSnackBar(new SnackBar(
-//              content: new Text(SnackBarText.LOGIN_UN_SUCCESSFUL),
-//            ));
-//            progressDialog.hideProgress();
-//          });
-//        }
-//        break;
-//      case EventConstants.NO_INTERNET_CONNECTION:
-//        {
-//          setState(() {
-//            globalKey.currentState.showSnackBar(new SnackBar(
-//              content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
-//            ));
-//            progressDialog.hideProgress();
-//          });
-//        }
-//        break;
-//    }
-//  }
-//}

@@ -17,9 +17,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:project_3s_mobile/pages/home_page.dart';
 import 'package:project_3s_mobile/pages/login_page.dart';
-import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -69,20 +67,12 @@ class SplashPageState extends State<SplashPage> {
   }
 //------------------------------------------------------------------------------
   void _handleTapEvent() async {
-    bool isLoggedIn = await AppSharedPreferences.isUserLoggedIn();
     if (this.mounted) {
       setState(() {
-        if (isLoggedIn != null && isLoggedIn) {
-          Navigator.pushReplacement(
-            context,
-            new MaterialPageRoute(builder: (context) => new HomePage()),
-          );
-        } else {
           Navigator.pushReplacement(
             context,
             new MaterialPageRoute(builder: (context) => new SignInDemo()),
           );
-        }
       });
     }
   }

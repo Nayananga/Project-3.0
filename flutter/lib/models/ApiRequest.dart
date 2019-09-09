@@ -10,6 +10,8 @@ Future<http.Response> apiRequest(String type,String url,Map headers, var body) a
           headers: headers,
           body: body, encoding:utf8);
       return uriResponse;
+    }catch (error) {
+      print(error);
     } finally {
       client.close();
     }
@@ -19,7 +21,9 @@ Future<http.Response> apiRequest(String type,String url,Map headers, var body) a
       http.Response uriResponse = await client.get(url,
           headers: headers);
       return uriResponse;
-    } finally {
+    } catch (error) {
+      print(error);
+    }finally {
       client.close();
     }
   }
