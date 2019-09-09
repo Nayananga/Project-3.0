@@ -26,6 +26,7 @@ class SignInDemo extends StatefulWidget {
 class SignInDemoState extends State<SignInDemo> {
   GoogleSignInAccount _currentUser;
   String google_id;
+  String name;
 
   @override
   void initState() {
@@ -114,8 +115,9 @@ class SignInDemoState extends State<SignInDemo> {
       http.Response response = await apiRequest('post',url, headers, body);
       try{
         var responseData = jsonDecode(response.body);
-//        print(responseData['message']['Logged_User_Id']);
+        print(responseData['message']['Logged_User_Id']);
         google_id = responseData['message']['Logged_User_Id'];
+        name = responseData['message']['Logged_User_Name'];
       }
       catch (error){
         print(error);
@@ -137,7 +139,7 @@ class SignInDemoState extends State<SignInDemo> {
   void _goToChatScreen() {
     Navigator.pushReplacement(
       context,
-      new MaterialPageRoute(builder: (context) => new HomePage(google_id)), //change names later
+      new MaterialPageRoute(builder: (context) => new HomePage(google_id, name)), //change names later
     );
   }
 }

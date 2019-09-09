@@ -1,343 +1,195 @@
-/*
- * Copyright 2018 Harsh Sharma
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:project_3s_mobile/customviews/progress_dialog.dart';
-import 'package:project_3s_mobile/futures/app_futures.dart';
-import 'package:project_3s_mobile/models/User.dart';
-import 'package:project_3s_mobile/models/base/EventObject.dart';
-import 'package:project_3s_mobile/pages/splash_page.dart';
-import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
-import 'package:project_3s_mobile/utils/constants.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+
+final ThemeData iOSTheme = new ThemeData(
+  primarySwatch: Colors.red,
+  primaryColor: Colors.grey[400],
+  primaryColorBrightness: Brightness.dark,
+);
+
+final ThemeData androidTheme = new ThemeData(
+  primarySwatch: Colors.blue,
+  accentColor: Colors.green,
+);
+
+String defaultUserName = "John Doe";
 
 class HomePage extends StatefulWidget {
+
+  final String _google_id;
+  final String _name;
+
+  HomePage(this._google_id, this._name);
+
   @override
-  createState() => new HomePageState();
+  createState() => new HomePageState(_google_id,_name);
 }
 
 class HomePageState extends State<HomePage> {
-  final globalKey = new GlobalKey<ScaffoldState>();
+  final String _google_id;
+  final String _name;
 
-  User user;
+  HomePageState(this._google_id, this._name);
 
-  TextEditingController oldPasswordController =
-  new TextEditingController(text: "");
-
-  TextEditingController newPasswordController =
-  new TextEditingController(text: "");
-
-//------------------------------------------------------------------------------
 
   @override
-  Future<void> didChangeDependencies() async {
-    super.didChangeDependencies();
-    if (user == null) {
-      await initUserProfile();
-    }
+  Widget build(BuildContext ctx) {
+    return new MaterialApp(
+      title: "Chat Application",
+      theme: defaultTargetPlatform == TargetPlatform.iOS
+          ? iOSTheme
+          : androidTheme,
+      home: new Chat(),
+    );
   }
+}
 
-//------------------------------------------------------------------------------
+class Chat extends StatefulWidget {
+  @override
+  State createState() => new ChatWindow();
+}
 
-  Future<void> initUserProfile() async {
-    User up = await AppSharedPreferences.getUserProfile();
-    setState(() {
-      user = up;
-    });
-  }
-
-//------------------------------------------------------------------------------
-
-  static ProgressDialog progressDialog = ProgressDialog
-      .getProgressDialog(ProgressDialogTitles.USER_CHANGE_PASSWORD);
-
-//------------------------------------------------------------------------------
+class ChatWindow extends State<Chat> with TickerProviderStateMixin {
+  final List<Msg> _messages = <Msg>[];
+  final TextEditingController _textController = new TextEditingController();
+  bool _isWriting = false;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return new Scaffold(
-      key: globalKey,
-      body: new Stack(
-        children: <Widget>[homeText(), progressDialog],
+      appBar: new AppBar(
+        title: new Text("Chat Application"),
+        elevation:
+        Theme.of(ctx).platform == TargetPlatform.iOS ? 0.0 : 6.0,
+      ),
+      body: new Column(children: <Widget>[
+        new Flexible(
+            child: new ListView.builder(
+              itemBuilder: (_, int index) => _messages[index],
+              itemCount: _messages.length,
+              reverse: true,
+              padding: new EdgeInsets.all(6.0),
+            )),
+        new Divider(height: 1.0),
+        new Container(
+          child: _buildComposer(),
+          decoration: new BoxDecoration(color: Theme.of(ctx).cardColor),
+        ),
+      ]),
+    );
+  }
+
+
+  Widget _buildComposer() {
+    return new IconTheme(
+      data: new IconThemeData(color: Theme.of(context).accentColor),
+      child: new Container(
+          margin: const EdgeInsets.symmetric(horizontal: 9.0),
+          child: new Row(
+            children: <Widget>[
+              new Flexible(
+                child: new TextField(
+                  controller: _textController,
+                  onChanged: (String txt) {
+                    setState(() {
+                      _isWriting = txt.length > 0;
+                    });
+                  },
+                  onSubmitted: _submitMsg,
+                  decoration:
+                  new InputDecoration.collapsed(hintText: "Enter some text to send a message"),
+                ),
+              ),
+              new Container(
+                  margin: new EdgeInsets.symmetric(horizontal: 3.0),
+                  child: Theme.of(context).platform == TargetPlatform.iOS
+                      ? new CupertinoButton(
+                      child: new Text("Submit"),
+                      onPressed: _isWriting ? () => _submitMsg(_textController.text)
+                          : null
+                  )
+                      : new IconButton(
+                    icon: new Icon(Icons.message),
+                    onPressed: _isWriting
+                        ? () => _submitMsg(_textController.text)
+                        : null,
+                  )
+              ),
+            ],
+          ),
+          decoration: Theme.of(context).platform == TargetPlatform.iOS
+              ? new BoxDecoration(
+              border:
+              new Border(top: new BorderSide(color: Colors.brown))) :
+          null
       ),
     );
   }
 
-//------------------------------------------------------------------------------
-
-  void _logoutFromTheApp() {
-    AppSharedPreferences.clear();
+  void _submitMsg(String txt) {
+    _textController.clear();
     setState(() {
-      Navigator.pushReplacement(
-        context,
-        new MaterialPageRoute(builder: (context) => new SplashPage()),
-      );
+      _isWriting = false;
     });
+    Msg msg = new Msg(
+      txt: txt,
+      animationController: new AnimationController(
+          vsync: this,
+          duration: new Duration(milliseconds: 800)
+      ),
+    );
+    setState(() {
+      _messages.insert(0, msg);
+    });
+    msg.animationController.forward();
   }
 
-//------------------------------------------------------------------------------
+  @override
+  void dispose() {
+    for (Msg msg in _messages) {
+      msg.animationController.dispose();
+    }
+    super.dispose();
+  }
 
-  Widget homeText() {
-    return Container(
-        height: double.infinity,
-        width: double.infinity,
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
+}
+
+class Msg extends StatelessWidget {
+  Msg({this.txt, this.animationController});
+  final String txt;
+  final AnimationController animationController;
+
+  @override
+  Widget build(BuildContext ctx) {
+    return new SizeTransition(
+      sizeFactor: new CurvedAnimation(
+          parent: animationController, curve: Curves.easeOut),
+      axisAlignment: 0.0,
+      child: new Container(
+        margin: const EdgeInsets.symmetric(vertical: 8.0),
+        child: new Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new Container(
-              child: new Text(
-                "Welcome : " + ((user == null) ? "User Name" : user.name),
-                style: new TextStyle(color: Colors.pink, fontSize: 26.0),
-              ),
-              margin: EdgeInsets.only(bottom: 10.0),
+              margin: const EdgeInsets.only(right: 18.0),
+              child: new CircleAvatar(child: new Text(defaultUserName[0])),
             ),
-            new Container(
-              margin: EdgeInsets.only(bottom: 10.0),
-              child: new Text(
-                ((user == null) ? "User Email" : user.email),
-                style: new TextStyle(color: Colors.grey, fontSize: 22.0),
-              ),
-            ),
-            new Container(
-              margin: EdgeInsets.only(bottom: 10.0),
-              child: new Text(
-                ((user == null) ? "User Unique Id" : user.unique_id),
-                style: new TextStyle(color: Colors.grey, fontSize: 22.0),
-              ),
-            ),
-            new Container(
-              margin: EdgeInsets.only(bottom: 10.0),
-              decoration: new BoxDecoration(color: Colors.blue[400]),
-              child: new MaterialButton(
-                textColor: Colors.white,
-                padding: EdgeInsets.all(15.0),
-                onPressed: () {
-                  showDialog(
-                      barrierDismissible: false,
-                      context: globalKey.currentContext);
-//                      child: _changePasswordDialog());
-                },
-                child: new Text(
-                  Texts.CHANGE_PASSWORD,
-                  style: new TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16.0),
-                ),
-              ),
-            ),
-            new Container(
-              decoration: new BoxDecoration(color: Colors.blue[400]),
-              child: new MaterialButton(
-                textColor: Colors.white,
-                padding: EdgeInsets.all(15.0),
-                onPressed: () {
-                  showDialog(
-                      barrierDismissible: false,
-                      context: globalKey.currentContext,
-                      child: _logOutDialog());
-                },
-                child: new Text(
-                  Texts.LOGOUT,
-                  style: new TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16.0),
-                ),
+            new Expanded(
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Text(defaultUserName, style: Theme.of(ctx).textTheme.subhead),
+                  new Container(
+                    margin: const EdgeInsets.only(top: 6.0),
+                    child: new Text(txt),
+                  ),
+                ],
               ),
             ),
           ],
-        ));
-  }
-
-//------------------------------------------------------------------------------
-
-  Widget _logOutDialog() {
-    return new AlertDialog(
-      title: new Text(
-        "Logout",
-        style: new TextStyle(color: Colors.blue[400], fontSize: 20.0),
-      ),
-      content: new Text(
-        "Are you sure you want to Logout from the App",
-        style: new TextStyle(color: Colors.grey, fontSize: 20.0),
-      ),
-      actions: <Widget>[
-        new FlatButton(
-          child: new Text("OK",
-              style: new TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-          onPressed: () {
-            AppSharedPreferences.clear();
-            Navigator.pushReplacement(
-              globalKey.currentContext,
-              new MaterialPageRoute(builder: (context) => new SplashPage()),
-            );
-          },
         ),
-        new FlatButton(
-          child: new Text("Cancel",
-              style: new TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-          onPressed: () {
-            Navigator.of(globalKey.currentContext).pop();
-          },
-        ),
-      ],
+      ),
     );
   }
-
-//------------------------------------------------------------------------------
-
-//  Widget _changePasswordDialog() {
-//    return new AlertDialog(
-//      title: new Text(
-//        "Change Password",
-//        style: new TextStyle(color: Colors.blue[400], fontSize: 20.0),
-//      ),
-//      content: new Container(
-//        child: new Form(
-//            child: new Theme(
-//                data: new ThemeData(primarySwatch: Colors.pink),
-//                child: new Column(
-//                  mainAxisSize: MainAxisSize.min,
-//                  children: <Widget>[
-//                    new Container(
-//                        child: new TextFormField(
-//                          controller: oldPasswordController,
-//                          decoration: InputDecoration(
-//                              suffixIcon: new Icon(
-//                                Icons.vpn_key,
-//                                color: Colors.pink,
-//                              ),
-//                              labelText: Texts.OLD_PASSWORD,
-//                              labelStyle: TextStyle(fontSize: 18.0)),
-//                          keyboardType: TextInputType.text,
-//                          obscureText: true,
-//                        ),
-//                        margin: EdgeInsets.only(bottom: 10.0)),
-//                    new Container(
-//                        child: new TextFormField(
-//                          controller: newPasswordController,
-//                          decoration: InputDecoration(
-//                              suffixIcon: new Icon(
-//                                Icons.vpn_key,
-//                                color: Colors.pink,
-//                              ),
-//                              labelText: Texts.NEW_PASSWORD,
-//                              labelStyle: TextStyle(fontSize: 18.0)),
-//                          keyboardType: TextInputType.text,
-//                          obscureText: true,
-//                        ),
-//                        margin: EdgeInsets.only(bottom: 10.0)),
-//                  ],
-//                ))),
-//      ),
-//      actions: <Widget>[
-//        new FlatButton(
-//          child: new Text("OK",
-//              style: new TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-//          onPressed: () {
-//            if (oldPasswordController.text == "") {
-//              globalKey.currentState.showSnackBar(new SnackBar(
-//                content: new Text(SnackBarText.ENTER_OLD_PASS),
-//              ));
-//              return;
-//            }
-//
-//            if (newPasswordController.text == "") {
-//              globalKey.currentState.showSnackBar(new SnackBar(
-//                content: new Text(SnackBarText.ENTER_NEW_PASS),
-//              ));
-//              return;
-//            }
-//
-//            FocusScope
-//                .of(globalKey.currentContext)
-//                .requestFocus(new FocusNode());
-//            Navigator.of(globalKey.currentContext).pop();
-//            progressDialog.showProgress();
-//            _changePassword(user.email, oldPasswordController.text,
-//                newPasswordController.text);
-//          },
-//        ),
-//        new FlatButton(
-//          child: new Text("Cancel",
-//              style: new TextStyle(color: Colors.blue[400], fontSize: 20.0)),
-//          onPressed: () {
-//            Navigator.of(globalKey.currentContext).pop();
-//          },
-//        ),
-//      ],
-//    );
-//  }
-
-//------------------------------------------------------------------------------
-
-//  void _changePassword(
-//      String emailID, String oldPassword, String newPassword) async {
-//    EventObject eventObject =
-//        await changePassword(emailID, oldPassword, newPassword);
-//    switch (eventObject.id) {
-//      case EventConstants.CHANGE_PASSWORD_SUCCESSFUL:
-//        {
-//          setState(() {
-//            oldPasswordController.text = "";
-//            newPasswordController.text = "";
-//            globalKey.currentState.showSnackBar(new SnackBar(
-//              content: new Text(SnackBarText.CHANGE_PASSWORD_SUCCESSFUL),
-//            ));
-//            progressDialog.hideProgress();
-//          });
-//        }
-//        break;
-//      case EventConstants.CHANGE_PASSWORD_UN_SUCCESSFUL:
-//        {
-//          setState(() {
-//            oldPasswordController.text = "";
-//            newPasswordController.text = "";
-//            globalKey.currentState.showSnackBar(new SnackBar(
-//              content: new Text(SnackBarText.CHANGE_PASSWORD_UN_SUCCESSFUL),
-//            ));
-//            progressDialog.hideProgress();
-//          });
-//        }
-//        break;
-//      case EventConstants.INVALID_OLD_PASSWORD:
-//        {
-//          setState(() {
-//            oldPasswordController.text = "";
-//            newPasswordController.text = "";
-//            globalKey.currentState.showSnackBar(new SnackBar(
-//              content: new Text(SnackBarText.INVALID_OLD_PASSWORD),
-//            ));
-//            progressDialog.hideProgress();
-//          });
-//        }
-//        break;
-//      case EventConstants.NO_INTERNET_CONNECTION:
-//        {
-//          setState(() {
-//            oldPasswordController.text = "";
-//            newPasswordController.text = "";
-//            globalKey.currentState.showSnackBar(new SnackBar(
-//              content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
-//            ));
-//            progressDialog.hideProgress();
-//          });
-//        }
-//        break;
-//    }
-//  }
 }
