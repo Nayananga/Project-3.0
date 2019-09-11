@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<http.Response> apiRequest(String type,String url,Map headers, var body) async {
+  http.Response uriResponse;
   var client = new http.Client();
   if(type == 'post'){
     try {
-      http.Response uriResponse = await client.post(url,
+      uriResponse = await client.post(url,
           headers: headers,
           body: body, encoding:utf8);
       return uriResponse;
@@ -18,7 +19,7 @@ Future<http.Response> apiRequest(String type,String url,Map headers, var body) a
   }
   if(type == 'get'){
     try {
-      http.Response uriResponse = await client.get(url,
+      uriResponse = await client.get(url,
           headers: headers);
       return uriResponse;
     } catch (error) {
@@ -27,5 +28,5 @@ Future<http.Response> apiRequest(String type,String url,Map headers, var body) a
       client.close();
     }
   }
-
+  return uriResponse;
 }

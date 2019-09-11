@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
+import 'package:project_3s_mobile/models/User.dart';
 
 final ThemeData iOSTheme = new ThemeData(
   primarySwatch: Colors.red,
@@ -12,31 +14,20 @@ final ThemeData androidTheme = new ThemeData(
   primarySwatch: Colors.blue,
   accentColor: Colors.green,
 );
-
-String defaultUserName = "John Doe";
+String defaultUserName = "John Doy";
+User logged_user;
 
 class HomePage extends StatefulWidget {
-
-  final String _google_id;
-  final String _name;
-
-  HomePage(this._google_id, this._name);
-
   @override
-  createState() => new HomePageState(_google_id,_name);
+  createState() => new HomePageState();
 }
 
 class HomePageState extends State<HomePage> {
-  final String _google_id;
-  final String _name;
-
-  HomePageState(this._google_id, this._name);
-
 
   @override
   Widget build(BuildContext ctx) {
     return new MaterialApp(
-      title: "Chat Application",
+      title: "Chat Application", // iOS
       theme: defaultTargetPlatform == TargetPlatform.iOS
           ? iOSTheme
           : androidTheme,
@@ -54,6 +45,12 @@ class ChatWindow extends State<Chat> with TickerProviderStateMixin {
   final List<Msg> _messages = <Msg>[];
   final TextEditingController _textController = new TextEditingController();
   bool _isWriting = false;
+
+  @override
+  void initState() {
+    initUserProfile();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext ctx) {
@@ -79,7 +76,6 @@ class ChatWindow extends State<Chat> with TickerProviderStateMixin {
       ]),
     );
   }
-
 
   Widget _buildComposer() {
     return new IconTheme(
@@ -153,6 +149,12 @@ class ChatWindow extends State<Chat> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  Future<void> initUserProfile() async {
+    logged_user = await AppSharedPreferences.getUserProfile();
+    setState(() {
+      defaultUserName = logged_user.nickname;
+    });
+  }
 }
 
 class Msg extends StatelessWidget {

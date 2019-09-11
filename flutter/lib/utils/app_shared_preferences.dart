@@ -35,15 +35,15 @@ class AppSharedPreferences {
   }
 
 ///////////////////////////////////////////////////////////////////////////////
-  static Future<bool> isUserLoggedIn() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(SharedPreferenceKeys.IS_USER_LOGGED_IN);
-  }
-
-  static Future<void> setUserLoggedIn(bool isLoggedIn) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(SharedPreferenceKeys.IS_USER_LOGGED_IN, isLoggedIn);
-  }
+//  static Future<bool> isUserLoggedIn() async {
+//    SharedPreferences prefs = await SharedPreferences.getInstance();
+//    return prefs.getBool(SharedPreferenceKeys.IS_USER_LOGGED_IN);
+//  }
+//
+//  static Future<void> setUserLoggedIn(bool isLoggedIn) async {
+//    SharedPreferences prefs = await SharedPreferences.getInstance();
+//    return prefs.setBool(SharedPreferenceKeys.IS_USER_LOGGED_IN, isLoggedIn);
+//  }
 
 ///////////////////////////////////////////////////////////////////////////////
   static Future<User> getUserProfile() async {
@@ -55,7 +55,7 @@ class AppSharedPreferences {
   static Future<void> setUserProfile(User user) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String userProfileJson = json.encode(user);
-    return prefs.setString(SharedPreferenceKeys.USER, userProfileJson);
+    prefs.setString(SharedPreferenceKeys.USER, userProfileJson);
   }
 
 }

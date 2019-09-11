@@ -21,20 +21,21 @@ part 'User.g.dart';
 
 @JsonSerializable()
 class User extends Object with _$UserSerializerMixin {
-  String name;
+  String google_id;
   String email;
-  String unique_id;
-  String password;
-  String old_password;
-  String new_password;
+  String nickname;
+  String image;
+  String phoneNo;
+  String nic;
 
   User(
-      {this.name,
-      this.email,
-      this.unique_id,
-      this.password,
-      this.old_password,
-      this.new_password});
+      {
+        this.google_id,
+        this.email,
+        this.nickname,
+        this.image,
+        this.phoneNo,
+        this.nic});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }

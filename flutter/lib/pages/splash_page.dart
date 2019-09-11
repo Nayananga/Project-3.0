@@ -66,7 +66,7 @@ class SplashPageState extends State<SplashPage> {
             )));
   }
 //------------------------------------------------------------------------------
-  void _handleTapEvent() async {
+  Future<void> _handleTapEvent() async {
     if (this.mounted) {
       setState(() {
           Navigator.pushReplacement(

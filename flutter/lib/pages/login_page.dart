@@ -6,10 +6,13 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:project_3s_mobile/utils/constants.dart';
 import 'package:project_3s_mobile/models/ApiRequest.dart';
+import 'package:project_3s_mobile/models/User.dart';
+import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/pages/home_page.dart';
+import 'package:project_3s_mobile/utils/constants.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
@@ -24,9 +27,8 @@ class SignInDemo extends StatefulWidget {
 }
 
 class SignInDemoState extends State<SignInDemo> {
+  ProgressDialog pr;
   GoogleSignInAccount _currentUser;
-  String google_id;
-  String name;
 
   @override
   void initState() {
@@ -44,6 +46,7 @@ class SignInDemoState extends State<SignInDemo> {
 
   @override
   Widget build(BuildContext context) {
+    pr = new ProgressDialog(context,ProgressDialogType.Normal);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Google Sign In'),
@@ -51,6 +54,7 @@ class SignInDemoState extends State<SignInDemo> {
         body: ConstrainedBox(
           constraints: const BoxConstraints.expand(),
           child: _buildBody(),
+
         ));
   }
 
@@ -113,15 +117,16 @@ class SignInDemoState extends State<SignInDemo> {
       HttpHeaders.authorizationHeader: idToken,
     };
       http.Response response = await apiRequest('post',url, headers, body);
-      try{
-        var responseData = jsonDecode(response.body);
-        print(responseData['message']['Logged_User_Id']);
-        google_id = responseData['message']['Logged_User_Id'];
-        name = responseData['message']['Logged_User_Name'];
-      }
-      catch (error){
-        print(error);
-      }
+      _handleResponce(response);
+  }
+
+  void _handleResponce(http.Response response) {
+      var responseData = jsonDecode(response.body);
+      print(responseData['message']['Logged_User_Id']);
+      String google_id = responseData['message']['Logged_User_Id'];
+      String nickname = responseData['message']['Logged_User_Name'];
+      User user = new User(google_id: google_id, email: '', nickname: nickname, image: '', phoneNo: '',nic: '');
+      AppSharedPreferences.setUserProfile(user);
   }
 
   Future<void> _handleSignIn() async {
@@ -134,12 +139,13 @@ class SignInDemoState extends State<SignInDemo> {
 
   Future<void> _handleSignOut() async {
     _googleSignIn.disconnect();
+    AppSharedPreferences.clear();
   }
 
   void _goToChatScreen() {
     Navigator.pushReplacement(
       context,
-      new MaterialPageRoute(builder: (context) => new HomePage(google_id, name)), //change names later
+      new MaterialPageRoute(builder: (context) => new Chat()), //change names later
     );
   }
 }
