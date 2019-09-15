@@ -39,7 +39,7 @@ class SplashPageState extends State<SplashPage> {
       setState(() {
         Navigator.pushReplacement(
           context,
-          new MaterialPageRoute(builder: (context) => new SignInDemo()),
+          new MaterialPageRoute(builder: (context) => new LogInPage()),
         );
       });
     }

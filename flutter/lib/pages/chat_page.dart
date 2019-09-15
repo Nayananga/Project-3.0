@@ -4,25 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:project_3s_mobile/models/User.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
-final ThemeData androidTheme = new ThemeData(
-  primarySwatch: Colors.blue,
-  accentColor: Colors.green,
-);
-
 String defaultUserName = "John Doy";
-final ThemeData iOSTheme = new ThemeData(
-  primarySwatch: Colors.red,
-  primaryColor: Colors.grey[400],
-  primaryColorBrightness: Brightness.dark,
-);
+
 User logged_user;
 
-class Chat extends StatefulWidget {
+class ChatPage extends StatefulWidget {
   @override
   State createState() => new ChatWindow();
 }
 
-class ChatWindow extends State<Chat> with TickerProviderStateMixin {
+class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
   final List<Msg> _messages = <Msg>[];
   final TextEditingController _textController = new TextEditingController();
   bool _isWriting = false;
@@ -129,23 +120,6 @@ class ChatWindow extends State<Chat> with TickerProviderStateMixin {
       _messages.insert(0, msg);
     });
     msg.animationController.forward();
-  }
-}
-
-class HomePage extends StatefulWidget {
-  @override
-  createState() => new HomePageState();
-}
-
-class HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext ctx) {
-    return new MaterialApp(
-      title: "Chat Application", // iOS
-      theme:
-          defaultTargetPlatform == TargetPlatform.iOS ? iOSTheme : androidTheme,
-      home: new Chat(),
-    );
   }
 }
 

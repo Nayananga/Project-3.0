@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:project_3s_mobile/models/ApiRequest.dart';
 import 'package:project_3s_mobile/models/User.dart';
-import 'package:project_3s_mobile/pages/home_page.dart';
+import 'package:project_3s_mobile/pages/chat_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 
@@ -22,12 +22,12 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
   ],
 );
 
-class SignInDemo extends StatefulWidget {
+class LogInPage extends StatefulWidget {
   @override
-  State createState() => SignInDemoState();
+  State createState() => LogInPageState();
 }
 
-class SignInDemoState extends State<SignInDemo> {
+class LogInPageState extends State<LogInPage> {
   ProgressDialog pr;
   GoogleSignInAccount _currentUser;
 
@@ -50,14 +50,13 @@ class SignInDemoState extends State<SignInDemo> {
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       setState(() {
         _currentUser = account;
-      });
-      if (_currentUser != null) {
         _handleSignInCredential();
-      }
+      });
     });
     _googleSignIn.signInSilently();
   }
 
+  // to print idToken in console
   void printWrapped(String text) {
     final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
@@ -100,12 +99,10 @@ class SignInDemoState extends State<SignInDemo> {
     }
   }
 
-// to print idToken in console
   void _goToChatScreen() {
     Navigator.pushReplacement(
       context,
-      new MaterialPageRoute(
-          builder: (context) => new Chat()), //change names later
+      new MaterialPageRoute(builder: (context) => new ChatPage()),
     );
   }
 

@@ -15,10 +15,22 @@
  *
  */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:project_3s_mobile/pages/splash_page.dart';
 
 void main() => runApp(new FlutterClientPHPBackendApp());
+
+final ThemeData androidTheme = new ThemeData(
+  primarySwatch: Colors.blue,
+  accentColor: Colors.green,
+);
+
+final ThemeData iOSTheme = new ThemeData(
+  primarySwatch: Colors.red,
+  primaryColor: Colors.grey[400],
+  primaryColorBrightness: Brightness.dark,
+);
 
 class FlutterClientPHPBackendApp extends StatelessWidget {
   @override
@@ -26,9 +38,8 @@ class FlutterClientPHPBackendApp extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Client PHP Backend',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme:
+          defaultTargetPlatform == TargetPlatform.iOS ? iOSTheme : androidTheme,
       home: new SplashPage(),
     );
   }
