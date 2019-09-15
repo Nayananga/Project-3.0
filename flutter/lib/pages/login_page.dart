@@ -2,16 +2,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_3s_mobile/models/ApiRequest.dart';
 import 'package:project_3s_mobile/models/User.dart';
-import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/pages/home_page.dart';
+import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -31,6 +32,19 @@ class SignInDemoState extends State<SignInDemo> {
   GoogleSignInAccount _currentUser;
 
   @override
+  Widget build(BuildContext context) {
+    pr = new ProgressDialog(context, ProgressDialogType.Normal);
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Google Sign In'),
+        ),
+        body: ConstrainedBox(
+          constraints: const BoxConstraints.expand(),
+          child: _buildBody(),
+        ));
+  }
+
+  @override
   void initState() {
     super.initState();
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
@@ -44,18 +58,9 @@ class SignInDemoState extends State<SignInDemo> {
     _googleSignIn.signInSilently();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    pr = new ProgressDialog(context,ProgressDialogType.Normal);
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Google Sign In'),
-        ),
-        body: ConstrainedBox(
-          constraints: const BoxConstraints.expand(),
-          child: _buildBody(),
-
-        ));
+  void printWrapped(String text) {
+    final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
+    pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
 
   Widget _buildBody() {
@@ -95,38 +100,28 @@ class SignInDemoState extends State<SignInDemo> {
     }
   }
 
-  Future<void> _handleSignInCredential() async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    final idToken = googleAuth.idToken;
-    printWrapped(idToken);
-    _sendCredential(idToken);
-  }
-
 // to print idToken in console
-  void printWrapped(String text) {
-    final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
-    pattern.allMatches(text).forEach((match) => print(match.group(0)));
-  }
-
-  Future<void> _sendCredential(String idToken) async {
-    String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
-    var body = jsonEncode('');
-    Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: "application/json",
-      HttpHeaders.authorizationHeader: idToken,
-    };
-      http.Response response = await apiRequest('post',url, headers, body);
-      _handleResponce(response);
+  void _goToChatScreen() {
+    Navigator.pushReplacement(
+      context,
+      new MaterialPageRoute(
+          builder: (context) => new Chat()), //change names later
+    );
   }
 
   void _handleResponce(http.Response response) {
-      var responseData = jsonDecode(response.body);
-      print(responseData['message']['Logged_User_Id']);
-      String google_id = responseData['message']['Logged_User_Id'];
-      String nickname = responseData['message']['Logged_User_Name'];
-      User user = new User(google_id: google_id, email: '', nickname: nickname, image: '', phoneNo: '',nic: '');
-      AppSharedPreferences.setUserProfile(user);
+    var responseData = jsonDecode(response.body);
+    print(responseData['message']['Logged_User_Id']);
+    String google_id = responseData['message']['Logged_User_Id'];
+    String nickname = responseData['message']['Logged_User_Name'];
+    User user = new User(
+        google_id: google_id,
+        email: '',
+        nickname: nickname,
+        image: '',
+        phoneNo: '',
+        nic: '');
+    AppSharedPreferences.setUserProfile(user);
   }
 
   Future<void> _handleSignIn() async {
@@ -137,15 +132,28 @@ class SignInDemoState extends State<SignInDemo> {
     }
   }
 
+  Future<void> _handleSignInCredential() async {
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final idToken = googleAuth.idToken;
+    printWrapped(idToken);
+    _sendCredential(idToken);
+  }
+
   Future<void> _handleSignOut() async {
     _googleSignIn.disconnect();
     AppSharedPreferences.clear();
   }
 
-  void _goToChatScreen() {
-    Navigator.pushReplacement(
-      context,
-      new MaterialPageRoute(builder: (context) => new Chat()), //change names later
-    );
+  Future<void> _sendCredential(String idToken) async {
+    String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
+    var body = jsonEncode('');
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.authorizationHeader: idToken,
+    };
+    http.Response response = await apiRequest('post', url, headers, body);
+    _handleResponce(response);
   }
 }

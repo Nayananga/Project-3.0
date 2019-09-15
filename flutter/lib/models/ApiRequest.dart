@@ -1,30 +1,30 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
-Future<http.Response> apiRequest(String type,String url,Map headers, var body) async {
+Future<http.Response> apiRequest(
+    String type, String url, Map headers, var body) async {
   http.Response uriResponse;
   var client = new http.Client();
-  if(type == 'post'){
+  if (type == 'post') {
     try {
-      uriResponse = await client.post(url,
-          headers: headers,
-          body: body, encoding:utf8);
+      uriResponse =
+          await client.post(url, headers: headers, body: body, encoding: utf8);
       return uriResponse;
-    }catch (error) {
+    } catch (error) {
       print(error);
     } finally {
       client.close();
     }
   }
-  if(type == 'get'){
+  if (type == 'get') {
     try {
-      uriResponse = await client.get(url,
-          headers: headers);
+      uriResponse = await client.get(url, headers: headers);
       return uriResponse;
     } catch (error) {
       print(error);
-    }finally {
+    } finally {
       client.close();
     }
   }

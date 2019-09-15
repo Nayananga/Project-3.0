@@ -18,7 +18,21 @@
 ///////////////////////////////////////////////////////////////////////////////
 class APIConstants {
   static const String OCTET_STREAM_ENCODING = "application/octet-stream";
-  static const String API_BASE_URL = "https://03f993f0.ngrok.io";
+  static const String API_BASE_URL = "https://d4b3cff4.ngrok.io";
+}
+
+///////////////////////////////////////////////////////////////////////////////
+class APIOperations {
+  static const String LOGIN = "login";
+  static const String REGISTER = "register";
+  static const String CHANGE_PASSWORD = "chgPass";
+  static const String SUCCESS = "success";
+  static const String FAILURE = "failure";
+}
+
+///////////////////////////////////////////////////////////////////////////////
+class APIResponseCode {
+  static const int SC_OK = 200;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -45,15 +59,6 @@ class APIRoutes {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-class APIOperations {
-  static const String LOGIN = "login";
-  static const String REGISTER = "register";
-  static const String CHANGE_PASSWORD = "chgPass";
-  static const String SUCCESS = "success";
-  static const String FAILURE = "failure";
-}
-
-///////////////////////////////////////////////////////////////////////////////
 class EventConstants {
   static const int NO_INTERNET_CONNECTION = 0;
 
@@ -74,22 +79,18 @@ class EventConstants {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-class APIResponseCode {
-  static const int SC_OK = 200;
-}
-///////////////////////////////////////////////////////////////////////////////
-
-class SharedPreferenceKeys {
-  static const String IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
-  static const String USER = "USER";
-}
-
-///////////////////////////////////////////////////////////////////////////////
 class ProgressDialogTitles {
   static const String IN_PROGRESS = "In Progress...";
   static const String USER_LOG_IN = "Logging In...";
   static const String USER_CHANGE_PASSWORD = "Changing...";
   static const String USER_REGISTER = "Registering...";
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+class SharedPreferenceKeys {
+  static const String IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
+  static const String USER = "USER";
 }
 
 ///////////////////////////////////////////////////////////////////////////////

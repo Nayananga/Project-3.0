@@ -105,6 +105,25 @@ class ProgressDialogState extends State<ProgressDialog> {
               ));
   }
 
+  void hideProgress() {
+    setState(() {
+      _opacity = false;
+    });
+  }
+
+  void showProgress() {
+    setState(() {
+      _opacity = true;
+    });
+  }
+
+  void showProgressWithText(String title) {
+    setState(() {
+      _opacity = true;
+      text = title;
+    });
+  }
+
   Widget _getCenterContent() {
     if (text == null || text.isEmpty) {
       return _getCircularProgress();
@@ -130,24 +149,5 @@ class ProgressDialogState extends State<ProgressDialog> {
   Widget _getCircularProgress() {
     return new CircularProgressIndicator(
         valueColor: new AlwaysStoppedAnimation(color));
-  }
-
-  void hideProgress() {
-    setState(() {
-      _opacity = false;
-    });
-  }
-
-  void showProgress() {
-    setState(() {
-      _opacity = true;
-    });
-  }
-
-  void showProgressWithText(String title) {
-    setState(() {
-      _opacity = true;
-      text = title;
-    });
   }
 }

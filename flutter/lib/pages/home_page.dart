@@ -1,40 +1,21 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
+import 'package:flutter/material.dart';
 import 'package:project_3s_mobile/models/User.dart';
-
-final ThemeData iOSTheme = new ThemeData(
-  primarySwatch: Colors.red,
-  primaryColor: Colors.grey[400],
-  primaryColorBrightness: Brightness.dark,
-);
+import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
 final ThemeData androidTheme = new ThemeData(
   primarySwatch: Colors.blue,
   accentColor: Colors.green,
 );
+
 String defaultUserName = "John Doy";
+final ThemeData iOSTheme = new ThemeData(
+  primarySwatch: Colors.red,
+  primaryColor: Colors.grey[400],
+  primaryColorBrightness: Brightness.dark,
+);
 User logged_user;
-
-class HomePage extends StatefulWidget {
-  @override
-  createState() => new HomePageState();
-}
-
-class HomePageState extends State<HomePage> {
-
-  @override
-  Widget build(BuildContext ctx) {
-    return new MaterialApp(
-      title: "Chat Application", // iOS
-      theme: defaultTargetPlatform == TargetPlatform.iOS
-          ? iOSTheme
-          : androidTheme,
-      home: new Chat(),
-    );
-  }
-}
 
 class Chat extends StatefulWidget {
   @override
@@ -47,27 +28,20 @@ class ChatWindow extends State<Chat> with TickerProviderStateMixin {
   bool _isWriting = false;
 
   @override
-  void initState() {
-    initUserProfile();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext ctx) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Chat Application"),
-        elevation:
-        Theme.of(ctx).platform == TargetPlatform.iOS ? 0.0 : 6.0,
+        elevation: Theme.of(ctx).platform == TargetPlatform.iOS ? 0.0 : 6.0,
       ),
       body: new Column(children: <Widget>[
         new Flexible(
             child: new ListView.builder(
-              itemBuilder: (_, int index) => _messages[index],
-              itemCount: _messages.length,
-              reverse: true,
-              padding: new EdgeInsets.all(6.0),
-            )),
+          itemBuilder: (_, int index) => _messages[index],
+          itemCount: _messages.length,
+          reverse: true,
+          padding: new EdgeInsets.all(6.0),
+        )),
         new Divider(height: 1.0),
         new Container(
           child: _buildComposer(),
@@ -75,6 +49,27 @@ class ChatWindow extends State<Chat> with TickerProviderStateMixin {
         ),
       ]),
     );
+  }
+
+  @override
+  void dispose() {
+    for (Msg msg in _messages) {
+      msg.animationController.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    initUserProfile();
+    super.initState();
+  }
+
+  Future<void> initUserProfile() async {
+    logged_user = await AppSharedPreferences.getUserProfile();
+    setState(() {
+      defaultUserName = logged_user.nickname;
+    });
   }
 
   Widget _buildComposer() {
@@ -93,33 +88,30 @@ class ChatWindow extends State<Chat> with TickerProviderStateMixin {
                     });
                   },
                   onSubmitted: _submitMsg,
-                  decoration:
-                  new InputDecoration.collapsed(hintText: "Enter some text to send a message"),
+                  decoration: new InputDecoration.collapsed(
+                      hintText: "Enter some text to send a message"),
                 ),
               ),
               new Container(
                   margin: new EdgeInsets.symmetric(horizontal: 3.0),
                   child: Theme.of(context).platform == TargetPlatform.iOS
                       ? new CupertinoButton(
-                      child: new Text("Submit"),
-                      onPressed: _isWriting ? () => _submitMsg(_textController.text)
-                          : null
-                  )
+                          child: new Text("Submit"),
+                          onPressed: _isWriting
+                              ? () => _submitMsg(_textController.text)
+                              : null)
                       : new IconButton(
-                    icon: new Icon(Icons.message),
-                    onPressed: _isWriting
-                        ? () => _submitMsg(_textController.text)
-                        : null,
-                  )
-              ),
+                          icon: new Icon(Icons.message),
+                          onPressed: _isWriting
+                              ? () => _submitMsg(_textController.text)
+                              : null,
+                        )),
             ],
           ),
           decoration: Theme.of(context).platform == TargetPlatform.iOS
               ? new BoxDecoration(
-              border:
-              new Border(top: new BorderSide(color: Colors.brown))) :
-          null
-      ),
+                  border: new Border(top: new BorderSide(color: Colors.brown)))
+              : null),
     );
   }
 
@@ -131,36 +123,37 @@ class ChatWindow extends State<Chat> with TickerProviderStateMixin {
     Msg msg = new Msg(
       txt: txt,
       animationController: new AnimationController(
-          vsync: this,
-          duration: new Duration(milliseconds: 800)
-      ),
+          vsync: this, duration: new Duration(milliseconds: 800)),
     );
     setState(() {
       _messages.insert(0, msg);
     });
     msg.animationController.forward();
   }
+}
 
+class HomePage extends StatefulWidget {
   @override
-  void dispose() {
-    for (Msg msg in _messages) {
-      msg.animationController.dispose();
-    }
-    super.dispose();
-  }
+  createState() => new HomePageState();
+}
 
-  Future<void> initUserProfile() async {
-    logged_user = await AppSharedPreferences.getUserProfile();
-    setState(() {
-      defaultUserName = logged_user.nickname;
-    });
+class HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext ctx) {
+    return new MaterialApp(
+      title: "Chat Application", // iOS
+      theme:
+          defaultTargetPlatform == TargetPlatform.iOS ? iOSTheme : androidTheme,
+      home: new Chat(),
+    );
   }
 }
 
 class Msg extends StatelessWidget {
-  Msg({this.txt, this.animationController});
   final String txt;
   final AnimationController animationController;
+
+  Msg({this.txt, this.animationController});
 
   @override
   Widget build(BuildContext ctx) {
@@ -181,7 +174,8 @@ class Msg extends StatelessWidget {
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(defaultUserName, style: Theme.of(ctx).textTheme.subhead),
+                  new Text(defaultUserName,
+                      style: Theme.of(ctx).textTheme.subhead),
                   new Container(
                     margin: const EdgeInsets.only(top: 6.0),
                     child: new Text(txt),

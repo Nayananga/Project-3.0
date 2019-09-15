@@ -29,13 +29,12 @@ class User extends Object with _$UserSerializerMixin {
   String nic;
 
   User(
-      {
-        this.google_id,
-        this.email,
-        this.nickname,
-        this.image,
-        this.phoneNo,
-        this.nic});
+      {this.google_id,
+      this.email,
+      this.nickname,
+      this.image,
+      this.phoneNo,
+      this.nic});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }

@@ -17,21 +17,22 @@
 
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:project_3s_mobile/models/User.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSharedPreferences {
 ///////////////////////////////////////////////////////////////////////////////
-  static Future<SharedPreferences> getInstance() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs;
-  }
-
-///////////////////////////////////////////////////////////////////////////////
   static Future<void> clear() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
+  }
+
+///////////////////////////////////////////////////////////////////////////////
+  static Future<SharedPreferences> getInstance() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs;
   }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -57,5 +58,4 @@ class AppSharedPreferences {
     String userProfileJson = json.encode(user);
     prefs.setString(SharedPreferenceKeys.USER, userProfileJson);
   }
-
 }

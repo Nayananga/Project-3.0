@@ -16,6 +16,7 @@
  */
 
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:project_3s_mobile/pages/login_page.dart';
 
@@ -25,16 +26,25 @@ class SplashPage extends StatefulWidget {
 }
 
 class SplashPageState extends State<SplashPage> {
-  final globalKey = new GlobalKey<ScaffoldState>();
-//------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     new Future.delayed(const Duration(seconds: 3), _handleTapEvent);
     return new Scaffold(
-      key: globalKey,
       body: _splashContainer(),
     );
   }
+
+  Future<void> _handleTapEvent() async {
+    if (this.mounted) {
+      setState(() {
+        Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (context) => new SignInDemo()),
+        );
+      });
+    }
+  }
+
 //------------------------------------------------------------------------------
   Widget _splashContainer() {
     return GestureDetector(
@@ -64,16 +74,5 @@ class SplashPageState extends State<SplashPage> {
                 ),
               ],
             )));
-  }
-//------------------------------------------------------------------------------
-  Future<void> _handleTapEvent() async {
-    if (this.mounted) {
-      setState(() {
-          Navigator.pushReplacement(
-            context,
-            new MaterialPageRoute(builder: (context) => new SignInDemo()),
-          );
-      });
-    }
   }
 }
