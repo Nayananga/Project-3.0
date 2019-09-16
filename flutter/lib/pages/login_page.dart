@@ -100,7 +100,7 @@ class LogInPageState extends State<LogInPage> {
   }
 
   void _goToChatScreen() {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       new MaterialPageRoute(builder: (context) => new ChatPage()),
     );
