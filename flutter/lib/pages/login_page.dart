@@ -33,7 +33,7 @@ class LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
-    pr =  ProgressDialog(context, ProgressDialogType.Normal);
+    pr = ProgressDialog(context, ProgressDialogType.Normal);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Google Sign In'),
@@ -45,7 +45,7 @@ class LogInPageState extends State<LogInPage> {
   }
 
   @override
-   initState() {
+  initState() {
     super.initState();
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       setState(() {
@@ -57,8 +57,8 @@ class LogInPageState extends State<LogInPage> {
   }
 
   // to print idToken in console
-   printWrapped(String text) {
-    final pattern =  RegExp('.{1,800}'); // 800 is the size of each chunk
+  printWrapped(String text) {
+    final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
 
@@ -99,19 +99,19 @@ class LogInPageState extends State<LogInPage> {
     }
   }
 
-   _goToChatScreen() {
+  _goToChatScreen() {
     Navigator.push(
       context,
-       MaterialPageRoute(builder: (context) =>  ChatPage()),
+      MaterialPageRoute(builder: (context) => ChatPage()),
     );
   }
 
-   _handleResponce(http.Response response) {
+  _handleResponce(http.Response response) {
     var responseData = jsonDecode(response.body);
     print(responseData['message']['Logged_User_Id']);
     String googleId = responseData['message']['Logged_User_Id'];
     String nickname = responseData['message']['Logged_User_Name'];
-    User user =  User(
+    User user = User(
         googleId: googleId,
         email: '',
         nickname: nickname,

@@ -21,6 +21,5 @@ class EventObject {
   int id;
   dynamic object;
 
-  EventObject(
-      {this.id: EventConstants.NO_INTERNET_CONNECTION, this.object});
+  EventObject({this.id: EventConstants.NO_INTERNET_CONNECTION, this.object});
 }

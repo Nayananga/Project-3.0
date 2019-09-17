@@ -39,5 +39,4 @@ class User extends Object with _$UserSerializerMixin {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
 
-mixin _$UserSerializerMixin {
-}
+mixin _$UserSerializerMixin {}

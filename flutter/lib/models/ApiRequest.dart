@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 Future<http.Response> apiRequest(
     String type, String url, Map headers, var body) async {
   http.Response uriResponse;
-  var client =  http.Client();
+  var client = http.Client();
   if (type == 'post') {
     try {
       uriResponse =
