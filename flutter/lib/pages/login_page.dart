@@ -8,7 +8,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:project_3s_mobile/models/ApiRequest.dart';
 import 'package:project_3s_mobile/models/User.dart';
 import 'package:project_3s_mobile/pages/chat_page.dart';
@@ -28,12 +27,10 @@ class LogInPage extends StatefulWidget {
 }
 
 class LogInPageState extends State<LogInPage> {
-  ProgressDialog pr;
   GoogleSignInAccount _currentUser;
 
   @override
   Widget build(BuildContext context) {
-    pr = ProgressDialog(context, ProgressDialogType.Normal);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Google Sign In'),

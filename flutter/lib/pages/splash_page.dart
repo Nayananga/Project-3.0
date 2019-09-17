@@ -68,7 +68,7 @@ class SplashPageState extends State<SplashPage> {
                 Container(
                   margin: EdgeInsets.only(top: 20.0),
                   child: Text(
-                    "Flutter Client Php Backend",
+                    "Hotel Reviewer",
                     style: TextStyle(color: Colors.white, fontSize: 24.0),
                   ),
                 ),
