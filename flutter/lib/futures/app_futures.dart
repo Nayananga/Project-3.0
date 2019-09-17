@@ -27,8 +27,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 //Future<EventObject> loginUser(String emailId, String password) async {
-//  ApiRequest apiRequest = new ApiRequest();
-//  User user = new User(email: emailId, password: password);
+//  ApiRequest apiRequest =  ApiRequest();
+//  User user =  User(email: emailId, password: password);
 //
 //  apiRequest.operation = APIOperations.LOGIN;
 //  apiRequest.user = user;
@@ -44,17 +44,17 @@
 //        final responseJson = json.decode(response.body);
 //        ApiResponse apiResponse = ApiResponse.fromJson(responseJson);
 //        if (apiResponse.result == APIOperations.SUCCESS) {  //status code should be like result
-//          return new EventObject(
+//          return  EventObject(
 //              id: EventConstants.LOGIN_USER_SUCCESSFUL,
 //              object: apiResponse.user);
 //        } else {
-//          return new EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
+//          return  EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
 //        }
 //      } else {
-//        return new EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
+//        return  EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
 //      }
 //    } else {
-//      return new EventObject();
+//      return  EventObject();
 //    }
 //  } catch (Exception) {
 //    return EventObject();
@@ -64,8 +64,8 @@
 /////////////////////////////////////////////////////////////////////////////////
 //Future<EventObject> registerUser(
 //    String name, String emailId, String password) async {
-//  ApiRequest apiRequest = new ApiRequest();
-//  User user = new User(name: name, email: emailId, password: password);
+//  ApiRequest apiRequest =  ApiRequest();
+//  User user =  User(name: name, email: emailId, password: password);
 //
 //  apiRequest.operation = APIOperations.REGISTER;
 //  apiRequest.user = user;
@@ -81,20 +81,20 @@
 //        final responseJson = json.decode(response.body);
 //        ApiResponse apiResponse = ApiResponse.fromJson(responseJson);
 //        if (apiResponse.result == APIOperations.SUCCESS) {
-//          return new EventObject(
+//          return  EventObject(
 //              id: EventConstants.USER_REGISTRATION_SUCCESSFUL, object: null);
 //        } else if (apiResponse.result == APIOperations.FAILURE) {
-//          return new EventObject(id: EventConstants.USER_ALREADY_REGISTERED);
+//          return  EventObject(id: EventConstants.USER_ALREADY_REGISTERED);
 //        } else {
-//          return new EventObject(
+//          return  EventObject(
 //              id: EventConstants.USER_REGISTRATION_UN_SUCCESSFUL);
 //        }
 //      } else {
-//        return new EventObject(
+//        return  EventObject(
 //            id: EventConstants.USER_REGISTRATION_UN_SUCCESSFUL);
 //      }
 //    } else {
-//      return new EventObject();
+//      return  EventObject();
 //    }
 //  } catch (Exception) {
 //    return EventObject();
@@ -103,10 +103,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 //Future<EventObject> changePassword(
-//    String emailId, String oldPassword, String newPassword) async {
-//  ApiRequest apiRequest = new ApiRequest();
-//  User user = new User(
-//      email: emailId, old_password: oldPassword, new_password: newPassword);
+//    String emailId, String oldPassword, String Password) async {
+//  ApiRequest apiRequest =  ApiRequest();
+//  User user =  User(
+//      email: emailId, old_password: oldPassword, _password: Password);
 //
 //  apiRequest.operation = APIOperations.CHANGE_PASSWORD;
 //  apiRequest.user = user;
@@ -122,20 +122,20 @@
 //        final responseJson = json.decode(response.body);
 //        ApiResponse apiResponse = ApiResponse.fromJson(responseJson);
 //        if (apiResponse.result == APIOperations.SUCCESS) {
-//          return new EventObject(
+//          return  EventObject(
 //              id: EventConstants.CHANGE_PASSWORD_SUCCESSFUL, object: null);
 //        } else if (apiResponse.result == APIOperations.FAILURE) {
-//          return new EventObject(id: EventConstants.INVALID_OLD_PASSWORD);
+//          return  EventObject(id: EventConstants.INVALID_OLD_PASSWORD);
 //        } else {
-//          return new EventObject(
+//          return  EventObject(
 //              id: EventConstants.CHANGE_PASSWORD_UN_SUCCESSFUL);
 //        }
 //      } else {
-//        return new EventObject(
+//        return  EventObject(
 //            id: EventConstants.CHANGE_PASSWORD_UN_SUCCESSFUL);
 //      }
 //    } else {
-//      return new EventObject();
+//      return  EventObject();
 //    }
 //  } catch (Exception) {
 //    return EventObject();

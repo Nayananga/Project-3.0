@@ -22,5 +22,5 @@ class EventObject {
   dynamic object;
 
   EventObject(
-      {this.id: EventConstants.NO_INTERNET_CONNECTION, this.object: null});
+      {this.id: EventConstants.NO_INTERNET_CONNECTION, this.object});
 }

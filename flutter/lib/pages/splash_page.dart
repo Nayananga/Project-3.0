@@ -22,14 +22,14 @@ import 'package:project_3s_mobile/pages/login_page.dart';
 
 class SplashPage extends StatefulWidget {
   @override
-  createState() => new SplashPageState();
+  createState() =>  SplashPageState();
 }
 
 class SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    new Future.delayed(const Duration(seconds: 3), _handleTapEvent);
-    return new Scaffold(
+     Future.delayed(const Duration(seconds: 3), _handleTapEvent);
+    return  Scaffold(
       body: _splashContainer(),
     );
   }
@@ -39,7 +39,7 @@ class SplashPageState extends State<SplashPage> {
       setState(() {
         Navigator.pushReplacement(
           context,
-          new MaterialPageRoute(builder: (context) => new LogInPage()),
+           MaterialPageRoute(builder: (context) =>  LogInPage()),
         );
       });
     }
@@ -52,24 +52,24 @@ class SplashPageState extends State<SplashPage> {
         child: Container(
             height: double.infinity,
             width: double.infinity,
-            decoration: new BoxDecoration(color: Colors.blue[400]),
-            child: new Column(
+            decoration:  BoxDecoration(color: Colors.blue[400]),
+            child:  Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                new Container(
-                    child: new Image(
+                 Container(
+                    child:  Image(
                   height: 200.0,
                   width: 200.0,
-                  image: new AssetImage("assets/images/ic_launcher.png"),
+                  image:  AssetImage("assets/images/ic_launcher.png"),
                   fit: BoxFit.fill,
                 )),
-                new Container(
+                 Container(
                   margin: EdgeInsets.only(top: 20.0),
-                  child: new Text(
+                  child:  Text(
                     "Flutter Client Php Backend",
-                    style: new TextStyle(color: Colors.white, fontSize: 24.0),
+                    style:  TextStyle(color: Colors.white, fontSize: 24.0),
                   ),
                 ),
               ],

@@ -33,27 +33,27 @@ class ProgressDialog extends StatefulWidget {
       this.text});
 
   @override
-  createState() => progressDialogState = new ProgressDialogState(
+  createState() => progressDialogState =  ProgressDialogState(
       backgroundColor: this.backgroundColor,
       color: this.color,
       containerColor: this.containerColor,
       borderRadius: this.borderRadius,
       text: this.text);
 
-  void hideProgress() {
+   hideProgress() {
     progressDialogState.hideProgress();
   }
 
-  void showProgress() {
+   showProgress() {
     progressDialogState.showProgress();
   }
 
-  void showProgressWithText(String title) {
+   showProgressWithText(String title) {
     progressDialogState.showProgressWithText(title);
   }
 
   static Widget getProgressDialog(String title) {
-    return new ProgressDialog(
+    return  ProgressDialog(
       backgroundColor: Colors.black12,
       color: Colors.white,
       containerColor: Colors.blue,
@@ -80,24 +80,24 @@ class ProgressDialogState extends State<ProgressDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return  Container(
         child: !_opacity
             ? null
-            : new Opacity(
+            :  Opacity(
                 opacity: _opacity ? 1.0 : 0.0,
-                child: new Stack(
+                child:  Stack(
                   children: <Widget>[
-                    new Center(
-                      child: new Container(
+                     Center(
+                      child:  Container(
                         width: 100.0,
                         height: 100.0,
-                        decoration: new BoxDecoration(
+                        decoration:  BoxDecoration(
                             color: containerColor,
-                            borderRadius: new BorderRadius.all(
-                                new Radius.circular(borderRadius))),
+                            borderRadius:  BorderRadius.all(
+                                 Radius.circular(borderRadius))),
                       ),
                     ),
-                    new Center(
+                     Center(
                       child: _getCenterContent(),
                     )
                   ],
@@ -105,19 +105,19 @@ class ProgressDialogState extends State<ProgressDialog> {
               ));
   }
 
-  void hideProgress() {
+   hideProgress() {
     setState(() {
       _opacity = false;
     });
   }
 
-  void showProgress() {
+   showProgress() {
     setState(() {
       _opacity = true;
     });
   }
 
-  void showProgressWithText(String title) {
+   showProgressWithText(String title) {
     setState(() {
       _opacity = true;
       text = title;
@@ -129,16 +129,16 @@ class ProgressDialogState extends State<ProgressDialog> {
       return _getCircularProgress();
     }
 
-    return new Center(
-      child: new Column(
+    return  Center(
+      child:  Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _getCircularProgress(),
-          new Container(
+           Container(
             margin: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
-            child: new Text(
+            child:  Text(
               text,
-              style: new TextStyle(color: color),
+              style:  TextStyle(color: color),
             ),
           )
         ],
@@ -147,7 +147,7 @@ class ProgressDialogState extends State<ProgressDialog> {
   }
 
   Widget _getCircularProgress() {
-    return new CircularProgressIndicator(
-        valueColor: new AlwaysStoppedAnimation(color));
+    return  CircularProgressIndicator(
+        valueColor:  AlwaysStoppedAnimation(color));
   }
 }

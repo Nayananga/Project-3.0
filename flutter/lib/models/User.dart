@@ -21,7 +21,7 @@ part 'User.g.dart';
 
 @JsonSerializable()
 class User extends Object with _$UserSerializerMixin {
-  String google_id;
+  String googleId;
   String email;
   String nickname;
   String image;
@@ -29,7 +29,7 @@ class User extends Object with _$UserSerializerMixin {
   String nic;
 
   User(
-      {this.google_id,
+      {this.googleId,
       this.email,
       this.nickname,
       this.image,
@@ -37,4 +37,7 @@ class User extends Object with _$UserSerializerMixin {
       this.nic});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
+
+mixin _$UserSerializerMixin {
 }
