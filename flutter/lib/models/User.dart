@@ -20,7 +20,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'User.g.dart';
 
 @JsonSerializable()
-class User extends Object with _$UserSerializerMixin {
+class User {
   String googleId;
   String email;
   String nickname;
@@ -37,6 +37,5 @@ class User extends Object with _$UserSerializerMixin {
       this.nic});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+   Map<String, dynamic> toJson() => _$UserToJson(this);
 }
-
-mixin _$UserSerializerMixin {}
