@@ -86,7 +86,7 @@ class ProgressDialogState extends State<ProgressDialog> {
             : Opacity(
                 opacity: _opacity ? 1.0 : 0.0,
                 child: Stack(
-                  children: <Widget>[
+                  children: [
                     Center(
                       child: Container(
                         width: 100.0,

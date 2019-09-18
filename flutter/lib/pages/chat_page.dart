@@ -25,7 +25,7 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
         title: Text("Chat Application"),
         elevation: Theme.of(ctx).platform == TargetPlatform.iOS ? 0.0 : 6.0,
       ),
-      body: Column(children: <Widget>[
+      body: Column(children: [
         Flexible(
             child: ListView.builder(
           itemBuilder: (_, int index) => _messages[index],
@@ -69,7 +69,7 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
       child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 9.0),
           child: Row(
-            children: <Widget>[
+            children: [
               Flexible(
                 child: TextField(
                   controller: _textController,
@@ -139,7 +139,7 @@ class Msg extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: [
             Container(
               margin: const EdgeInsets.only(right: 18.0),
               child: CircleAvatar(child: Text(defaultUserName[0])),
@@ -147,7 +147,7 @@ class Msg extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: [
                   Text(defaultUserName, style: Theme.of(ctx).textTheme.subhead),
                   Container(
                     margin: const EdgeInsets.only(top: 6.0),

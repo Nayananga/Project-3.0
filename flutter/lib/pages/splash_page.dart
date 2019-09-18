@@ -57,7 +57,7 @@ class SplashPageState extends State<SplashPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
+              children: [
                 Container(
                     child: Image(
                   height: 200.0,

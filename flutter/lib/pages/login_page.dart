@@ -63,7 +63,7 @@ class LogInPageState extends State<LogInPage> {
     if (_currentUser != null) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
+        children: [
           ListTile(
             leading: GoogleUserCircleAvatar(
               identity: _currentUser,
@@ -85,7 +85,7 @@ class LogInPageState extends State<LogInPage> {
     } else {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
+        children: [
           const Text("You are not currently signed in."),
           RaisedButton(
             child: const Text('SIGN IN'),
