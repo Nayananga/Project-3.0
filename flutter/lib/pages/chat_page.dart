@@ -5,7 +5,6 @@ import 'package:project_3s_mobile/models/User.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
 String defaultUserName = "John Doy";
-
 User loggedUser;
 
 class ChatPage extends StatefulWidget {
@@ -57,7 +56,7 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
   }
 
   Future<void> initUserProfile() async {
-    loggedUser = await AppSharedPreferences.getUserProfile();
+    final loggedUser = await AppSharedPreferences.getUserProfile();
     setState(() {
       defaultUserName = loggedUser.nickname;
     });

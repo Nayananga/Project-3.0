@@ -106,9 +106,9 @@ class LogInPageState extends State<LogInPage> {
   _handleResponce(http.Response response) {
     var responseData = jsonDecode(response.body);
     print(responseData['message']['Logged_User_Id']);
-    String googleId = responseData['message']['Logged_User_Id'];
-    String nickname = responseData['message']['Logged_User_Name'];
-    User user = User(
+    final String googleId = responseData['message']['Logged_User_Id'];
+    final String nickname = responseData['message']['Logged_User_Name'];
+    final User user = User(
         googleId: googleId,
         email: '',
         nickname: nickname,
