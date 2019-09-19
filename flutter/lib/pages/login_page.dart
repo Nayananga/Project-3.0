@@ -141,9 +141,9 @@ class LogInPageState extends State<LogInPage> {
   }
 
   Future<void> _sendCredential(String idToken) async {
-    String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
+    final String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
     var body = jsonEncode('');
-    Map<String, String> headers = {
+    final Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.authorizationHeader: idToken,
     };
