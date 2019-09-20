@@ -104,7 +104,7 @@ class LogInPageState extends State<LogInPage> {
   }
 
   _handleResponce(http.Response response) {
-    var responseData = jsonDecode(response.body);
+    final responseData = jsonDecode(response.body);
     print(responseData['message']['Logged_User_Id']);
     final String googleId = responseData['message']['Logged_User_Id'];
     final String nickname = responseData['message']['Logged_User_Name'];
@@ -141,8 +141,8 @@ class LogInPageState extends State<LogInPage> {
   }
 
   Future<void> _sendCredential(String idToken) async {
-    final String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
-    var body = jsonEncode('');
+    const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
+    final body = jsonEncode('');
     final Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.authorizationHeader: idToken,
