@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/models/ApiRequest.dart';
 import 'package:project_3s_mobile/models/User.dart';
 import 'package:project_3s_mobile/pages/chat_page.dart';
+import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 
@@ -23,10 +24,10 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
 
 class LogInPage extends StatefulWidget {
   @override
-  State createState() => LogInPageState();
+  State createState() => _LogInPageState();
 }
 
-class LogInPageState extends State<LogInPage> {
+class _LogInPageState extends State<LogInPage> {
   GoogleSignInAccount _currentUser;
 
   @override
@@ -73,81 +74,92 @@ class LogInPageState extends State<LogInPage> {
           ),
           RaisedButton(
             child: const Text('Lets Chat'),
-            onPressed: _goToChatScreen,
+            onPressed: _goToChatPage,
           ),
-          const Text("Signed in successfully."),
           RaisedButton(
-            child: const Text('SIGN OUT'),
-            onPressed: _handleSignOut,
-          ),
-        ],
-      );
-    } else {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          const Text("You are not currently signed in."),
-          RaisedButton(
-            child: const Text('SIGN IN'),
-            onPressed: _handleSignIn,
-          ),
-        ],
-      );
-    }
-  }
-
-  _goToChatScreen() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ChatPage()),
-    );
-  }
-
-  _handleResponce(http.Response response) {
-    final responseData = jsonDecode(response.body);
-    print(responseData['message']['Logged_User_Id']);
-    final String googleId = responseData['message']['Logged_User_Id'];
-    final String nickname = responseData['message']['Logged_User_Name'];
-    final User user = User(
-        googleId: googleId,
-        email: '',
-        nickname: nickname,
-        image: '',
-        phoneNo: '',
-        nic: '');
-    AppSharedPreferences.setUserProfile(user);
-  }
-
-  Future<void> _handleSignIn() async {
-    try {
-      await _googleSignIn.signIn();
-    } catch (error) {
-      print(error);
-    }
-  }
-
-  Future<void> _handleSignInCredential() async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final idToken = googleAuth.idToken;
-    printWrapped(idToken);
-    _sendCredential(idToken);
-  }
-
-  Future<void> _handleSignOut() async {
-    _googleSignIn.disconnect();
-    AppSharedPreferences.clear();
-  }
-
-  Future<void> _sendCredential(String idToken) async {
-    const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
-    final body = jsonEncode('');
-    final Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: "application/json",
-      HttpHeaders.authorizationHeader: idToken,
-    };
-    http.Response response = await apiRequest('post', url, headers, body);
-    _handleResponce(response);
+            child: const Text('Survey'),
+            onPressed: _goToQuizPage,
+                      ),
+                      const Text("Signed in successfully."),
+                      RaisedButton(
+                        child: const Text('SIGN OUT'),
+                        onPressed: _handleSignOut,
+                      ),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Text("You are not currently signed in."),
+                      RaisedButton(
+                        child: const Text('SIGN IN'),
+                        onPressed: _handleSignIn,
+                      ),
+                    ],
+                  );
+                }
+              }
+            
+              _goToChatPage() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChatPage()),
+                );
+              }
+            
+              _handleResponce(http.Response response) {
+                final responseData = jsonDecode(response.body);
+                print(responseData['message']['Logged_User_Id']);
+                final String googleId = responseData['message']['Logged_User_Id'];
+                final String nickname = responseData['message']['Logged_User_Name'];
+                final User user = User(
+                    googleId: googleId,
+                    email: '',
+                    nickname: nickname,
+                    image: '',
+                    phoneNo: '',
+                    nic: '');
+                AppSharedPreferences.setUserProfile(user);
+              }
+            
+              Future<void> _handleSignIn() async {
+                try {
+                  await _googleSignIn.signIn();
+                } catch (error) {
+                  print(error);
+                }
+              }
+            
+              Future<void> _handleSignInCredential() async {
+                final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+                final GoogleSignInAuthentication googleAuth =
+                    await googleUser.authentication;
+                final idToken = googleAuth.idToken;
+                printWrapped(idToken);
+                _sendCredential(idToken);
+              }
+            
+              Future<void> _handleSignOut() async {
+                _googleSignIn.disconnect();
+                AppSharedPreferences.clear();
+              }
+            
+              Future<void> _sendCredential(String idToken) async {
+                const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
+                final body = jsonEncode('');
+                final Map<String, String> headers = {
+                  HttpHeaders.contentTypeHeader: "application/json",
+                  HttpHeaders.authorizationHeader: idToken,
+                };
+                http.Response response = await apiRequest('post', url, headers, body);
+                _handleResponce(response);
+              }
+            
+              void _goToQuizPage() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PreQuizPage()),
+                );
   }
 }

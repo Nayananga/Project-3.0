@@ -10,6 +10,11 @@ dependencies:
   cupertino_icons: ^0.1.2
   http: ^0.12.0
   google_sign_in: ^4.0.7
+  provider: any
+  flare_flutter: any
+  url_launcher: any
+  simple_logger: any
+
 
 flutter_icons:
   image_path: "images/ic_launcher.png"
@@ -30,3 +35,5 @@ flutter:
 
   assets:
     - assets/images/ic_launcher.png
+    - assets/animation/
+    - assets/data/
