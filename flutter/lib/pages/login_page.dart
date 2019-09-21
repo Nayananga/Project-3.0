@@ -108,6 +108,13 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
+  void _goToQuizPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PreQuizPage()),
+    );
+  }
+
   _handleResponce(http.Response response) {
     final responseData = jsonDecode(response.body);
     print(responseData['message']['Logged_User_Id']);
@@ -154,12 +161,5 @@ class _LogInPageState extends State<LogInPage> {
     };
     http.Response response = await apiRequest('post', url, headers, body);
     _handleResponce(response);
-  }
-
-  void _goToQuizPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => PreQuizPage()),
-    );
   }
 }

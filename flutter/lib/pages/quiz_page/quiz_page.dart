@@ -20,27 +20,11 @@ class QuizPage extends StatelessWidget {
   }
 }
 
-class _Page extends StatefulWidget {
-  const _Page({Key key}) : super(key: key);
-
-  @override
-  __PageState createState() => __PageState();
-}
-
 class __PageState extends State<_Page> {
-  Model get _model => Provider.of<Model>(context, listen: false);
+  static const double _horizontalMargin = 16;
   final _resultPresenter = ResultPresenter();
 
-  static const double _horizontalMargin = 16;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _model.answered.listen((correct) {
-      _resultPresenter.show(context, model: _model, correct: correct);
-    });
-  }
+  Model get _model => Provider.of<Model>(context, listen: false);
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +34,15 @@ class __PageState extends State<_Page> {
       ),
       body: _buildBody(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _model.answered.listen((correct) {
+      _resultPresenter.show(context, model: _model, correct: correct);
+    });
   }
 
   Widget _buildBody() {
@@ -87,4 +80,11 @@ class __PageState extends State<_Page> {
       ],
     );
   }
+}
+
+class _Page extends StatefulWidget {
+  const _Page({Key key}) : super(key: key);
+
+  @override
+  __PageState createState() => __PageState();
 }
