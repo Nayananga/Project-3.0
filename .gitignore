@@ -70,3 +70,7 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+flutter/ios/Flutter/flutter_export_environment.sh
+flutter/.vscode/launch.json
+flutter/android/.project
+flutter/android/.settings/org.eclipse.buildship.core.prefs
