@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:project_3s_mobile/pages/quiz_page/quiz_page.dart';
+import 'package:provider/provider.dart';
 
 import '../models/model.dart';
 
@@ -13,8 +13,8 @@ class PreQuizPage extends StatelessWidget {
       providers: [
         Provider.value(value: QuizLoader()),
       ],
-      child: MaterialApp(
-        home: QuizPage(),
+      child: Scaffold(
+        body: QuizPage(),
       ),
     );
   }

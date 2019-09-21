@@ -75,7 +75,7 @@ class EventConstants {
   static const int CHANGE_PASSWORD_SUCCESSFUL = 505;
   static const int CHANGE_PASSWORD_UN_SUCCESSFUL = 506;
   static const int INVALID_OLD_PASSWORD = 507;
-  
+
 ///////////////////////////////////////////////////////////////////////////////
 }
 
@@ -100,7 +100,8 @@ class SnackBarText {
   static const String LOGIN_SUCCESSFUL = "Login Successful";
   static const String LOGIN_UN_SUCCESSFUL = "Login Un Successful";
   static const String CHANGE_PASSWORD_SUCCESSFUL = "Change Password Successful";
-  static const String CHANGE_PASSWORD_UN_SUCCESSFUL = "Change Password Un Successful";
+  static const String CHANGE_PASSWORD_UN_SUCCESSFUL =
+      "Change Password Un Successful";
   static const String REGISTER_SUCCESSFUL = "Register Successful";
   static const String REGISTER_UN_SUCCESSFUL = "Register Un Successful";
   static const String USER_ALREADY_REGISTERED = "User Already Registered";

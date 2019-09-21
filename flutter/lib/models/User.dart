@@ -37,5 +37,6 @@ class User {
       this.nic});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }

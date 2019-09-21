@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:project_3s_mobile/models/model.dart';
 import 'package:project_3s_mobile/pages/quiz_page/selections.dart';
+import 'package:provider/provider.dart';
 
 import 'model.dart';
 import 'progress.dart';

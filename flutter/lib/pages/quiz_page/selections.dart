@@ -5,6 +5,7 @@ import 'model.dart';
 
 class Selections extends StatelessWidget {
   const Selections({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<Model>(context);

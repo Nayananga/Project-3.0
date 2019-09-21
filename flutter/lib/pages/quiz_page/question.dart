@@ -5,6 +5,7 @@ import 'model.dart';
 
 class Question extends StatelessWidget {
   const Question({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<Model>(context);

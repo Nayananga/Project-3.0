@@ -20,8 +20,11 @@ class Model extends ChangeNotifier {
   final _answered = StreamController<bool>();
 
   bool get quizListLoaded => _quizListLoaded;
+
   bool get _hasQuiz => _index >= 0 && _index < (_quizList?.length ?? 0);
+
   Quiz get quiz => _hasQuiz ? _quizList[_index] : null;
+
   List<ProgressKind> get progress => _quizList
       .asMap()
       .map<int, ProgressKind>((index, quiz) => MapEntry<int, ProgressKind>(
@@ -36,10 +39,12 @@ class Model extends ChangeNotifier {
       .toList();
 
   ProgressKind get current => progress[_index];
+
   WidgetData get currentAnswer =>
       current == ProgressKind.correct || current == ProgressKind.incorrect
           ? _answers[_index]
           : null;
+
   Stream<bool> get answered => _answered.stream;
 
   void answer(WidgetData widget) {
