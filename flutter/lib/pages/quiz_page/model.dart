@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:project_3s_mobile/model/model.dart';
-import 'package:project_3s_mobile/util/util.dart';
+import 'package:project_3s_mobile/models/model.dart';
+import 'package:project_3s_mobile/utils/util.dart';
 
 class Model extends ChangeNotifier {
   Model({

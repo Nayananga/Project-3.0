@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_3s_mobile/model/model.dart';
+import 'package:project_3s_mobile/models/model.dart';
 
 import 'model.dart';
 
