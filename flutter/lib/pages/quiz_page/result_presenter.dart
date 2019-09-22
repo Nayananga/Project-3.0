@@ -19,7 +19,7 @@ class ResultPresenter {
             title: SizedBox(
               height: 60,
               child: FlareActor(
-                'assets/animation/${correct ? 'success' : 'failure'}.flr',
+                'assets/animation/${'success'}.flr',
                 animation: 's',
               ),
             ),
