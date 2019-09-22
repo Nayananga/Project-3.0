@@ -47,6 +47,10 @@ class Model extends ChangeNotifier {
 
   bool get _hasQuiz => _index >= 0 && _index < (_quizList?.length ?? 0);
 
+  bool get hasQuiz => _hasQuiz;
+
+  bool get isLast => _index >= 0 && _index == (_quizList.length-1 ?? -1);
+
   void answer(Answer answer) {
     _answers.add(answer);
     answer.answer != null

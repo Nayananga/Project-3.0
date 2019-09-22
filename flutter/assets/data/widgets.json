@@ -2,5 +2,21 @@
   {
     "description": "How good was the outside environment of the restaurant?",
     "answers": ["Very Pleasant", "Pleasant", "Moderate", "Bad", "Worse"]
+  },
+  {
+    "description": "How Often Do You Dine with Us?",
+    "answers": ["Very Often", "Often", "Moderate", "Rare", "Very Rare"]
+  },
+  {
+    "description": "Does the Restaurant Have a Sufficient Selection of Healthy Choices?",
+    "answers": ["Very much Agree", "Agree", "Moderate", "Disagree", "Very much Disagree"]
+  },
+  {
+    "description": "What Did You Like Best About Our Food and Services?",
+    "answers": ["Food", "Services", "Non", "Both"]
+  },
+  {
+    "description": "How Quick or Adequate Was the Speed of Service?",
+    "answers": ["Very Quick", "Quick", "Moderate", "Bad", "Worse"]
   }
 ]
