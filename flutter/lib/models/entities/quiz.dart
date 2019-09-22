@@ -9,7 +9,7 @@ class Quiz {
     @required this.answers,
   });
   factory Quiz.fromJson(Map<String, dynamic> json) {
-    var answersFromJson = json['answers'];
+    final answersFromJson = json['answers'];
     List<String> answersList = new List<String>.from(answersFromJson);
     return new Quiz(
         question : json['description'] as String,

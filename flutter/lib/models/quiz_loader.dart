@@ -11,7 +11,6 @@ class QuizLoader {
         .map<Quiz>(
             (dynamic json) => Quiz.fromJson(json as Map<String, dynamic>))
         .toList();
-    return (quizes..shuffle())
-        .sublist(0, 10);
+    return (quizes..shuffle());
   }
 }

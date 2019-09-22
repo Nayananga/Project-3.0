@@ -28,12 +28,11 @@ class Selections extends StatelessWidget {
   }) {
     final model = Provider.of<Model>(context);
     final currentAnswer = model.currentAnswer;
-    final allAnswers = currentQuiz.answers;
     return RaisedButton(
       child: Text(option),
       color: currentAnswer == null
           ? null
-          : allAnswers.contains(option)
+          : currentAnswer.answer == option
               ? Colors.green
               :  null,
       onPressed: () {
