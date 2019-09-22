@@ -24,10 +24,10 @@ class Progress extends StatelessWidget {
 
   String _convertToStringFromProgressKind(ProgressKind kind) {
     switch (kind) {
-      case ProgressKind.correct:
+      case ProgressKind.already:
         return '⭕️️️';
-      case ProgressKind.incorrect:
-        return '❌';
+      // case ProgressKind.incorrect: //skip option
+      //   return '❌';
       case ProgressKind.notYet:
         return '▫️';
       case ProgressKind.current:

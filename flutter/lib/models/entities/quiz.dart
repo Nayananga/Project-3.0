@@ -1,15 +1,19 @@
 import 'package:meta/meta.dart';
 
-import 'entities.dart';
-
 class Quiz {
-  final WidgetData correct;
+  final String question;
 
-  final List<WidgetData> candidates;
+  final List<String> answers;
   Quiz({
-    @required this.correct,
-    @required List<WidgetData> others,
-  }) : candidates = others
-          ..add(correct)
-          ..shuffle();
+    @required this.question,
+    @required this.answers,
+  });
+  factory Quiz.fromJson(Map<String, dynamic> json) {
+    var answersFromJson = json['answers'];
+    List<String> answersList = new List<String>.from(answersFromJson);
+    return new Quiz(
+        question : json['description'] as String,
+        answers : answersList,
+    );
+  }
 }

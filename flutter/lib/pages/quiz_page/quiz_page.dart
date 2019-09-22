@@ -40,8 +40,8 @@ class __PageState extends State<_Page> {
   void initState() {
     super.initState();
 
-    _model.answered.listen((correct) {
-      _resultPresenter.show(context, model: _model, correct: correct);
+    _model.answered.listen((answerStatus) {
+      _resultPresenter.show(context, model: _model, answerStatus: answerStatus);
     });
   }
 

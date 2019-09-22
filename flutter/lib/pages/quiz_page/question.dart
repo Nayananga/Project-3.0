@@ -11,7 +11,7 @@ class Question extends StatelessWidget {
     final model = Provider.of<Model>(context);
     final quiz = model.quiz;
     return Text(
-      quiz.correct.description,
+      quiz.question,
       style: Theme.of(context).textTheme.headline,
     );
   }

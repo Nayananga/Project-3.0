@@ -8,13 +8,11 @@ class ResultPresenter {
   void show(
     BuildContext context, {
     @required Model model,
-    @required bool correct,
+    @required bool answerStatus,
   }) {
     showDialog<void>(
         context: context,
         builder: (context) {
-          final quiz = model.quiz;
-          final correctWidget = quiz.correct;
           return AlertDialog(
             title: SizedBox(
               height: 60,
@@ -28,20 +26,20 @@ class ResultPresenter {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  correctWidget.name,
+                  'You\`re awesome!',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(correctWidget.description),
+                Text('Just few more'),
               ],
             ),
             actions: [
               FlatButton(
-                child: const Text('DOCUMENTATION'),
-                onPressed: () => launch(correctWidget.link),
+                child: const Text('Go Back'),
+                onPressed: () => null,
               ),
               FlatButton(
                 child: const Text('NEXT'),

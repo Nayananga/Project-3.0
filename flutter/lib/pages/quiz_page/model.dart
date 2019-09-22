@@ -11,7 +11,7 @@ class Model extends ChangeNotifier {
 
   bool _quizListLoaded = false;
   int _index = 0;
-  final _answers = <WidgetData>[];
+  final _answers = <Answer>[];
   final _answered = StreamController<bool>();
   Model({
     @required this.quizLoader,
@@ -23,8 +23,8 @@ class Model extends ChangeNotifier {
 
   ProgressKind get current => progress[_index];
 
-  WidgetData get currentAnswer =>
-      current == ProgressKind.correct || current == ProgressKind.incorrect
+  Answer get currentAnswer =>
+      current == ProgressKind.already
           ? _answers[_index]
           : null;
 
@@ -33,9 +33,9 @@ class Model extends ChangeNotifier {
       .map<int, ProgressKind>((index, quiz) => MapEntry<int, ProgressKind>(
             index,
             index >= 0 && index < _answers.length
-                ? (_answers[index] == _quizList[index].correct
-                    ? ProgressKind.correct
-                    : ProgressKind.incorrect)
+                ? (_answers[index] != null 
+                    ? ProgressKind.already
+                    : ProgressKind.notYet) //if there is a skip option
                 : _index == index ? ProgressKind.current : ProgressKind.notYet,
           ))
       .values
@@ -47,11 +47,11 @@ class Model extends ChangeNotifier {
 
   bool get _hasQuiz => _index >= 0 && _index < (_quizList?.length ?? 0);
 
-  void answer(WidgetData widget) {
-    final correct = quiz.correct == widget;
-    logger.info('correct: $correct');
-    _answers.add(widget);
-    _answered.add(correct);
+  void answer(Answer answer) {
+    _answers.add(answer);
+    answer.answer != null
+    ? _answered.add(true)
+    : _answered.add(false);
     notifyListeners();
   }
 
@@ -69,7 +69,7 @@ class Model extends ChangeNotifier {
       return;
     }
     logger.info('changed to next quiz');
-    notifyListeners();
+    notifyListeners(); // call quiz_page initStage()
   }
 
   void _load() async {
@@ -82,8 +82,7 @@ class Model extends ChangeNotifier {
 }
 
 enum ProgressKind {
-  correct,
-  incorrect,
+  already,
   current,
   notYet,
 }
