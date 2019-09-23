@@ -108,7 +108,7 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  void _goToQuizPage() {
+  _goToQuizPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PreQuizPage()),

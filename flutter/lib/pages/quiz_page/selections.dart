@@ -32,11 +32,10 @@ class Selections extends StatelessWidget {
       child: Text(option),
       color: currentAnswer == null
           ? null
-          : currentAnswer.answer == option
-              ? Colors.green
-              :  null,
+          : currentAnswer.answer == option ? Colors.green : null,
       onPressed: () {
-        final Answer currentAnswer = Answer(question: currentQuiz.question, answer: option);
+        final Answer currentAnswer =
+            Answer(question: currentQuiz.question, answer: option);
         model.answer(currentAnswer);
       },
     );

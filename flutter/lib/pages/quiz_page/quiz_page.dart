@@ -37,14 +37,13 @@ class __PageState extends State<_Page> {
   }
 
   @override
-  void initState() {
+  initState() {
     super.initState();
 
     _model.answered.listen((answerStatus) {
       _model.isLast && _model.hasQuiz
-    ? _resultPresenter.show(context, model: _model, isLast: true)
-    : _resultPresenter.show(context, model: _model, isLast: false);
-
+          ? _resultPresenter.show(context, model: _model, isLast: true)
+          : _resultPresenter.show(context, model: _model, isLast: false);
     });
   }
 
