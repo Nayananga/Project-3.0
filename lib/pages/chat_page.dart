@@ -78,18 +78,32 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
                     });
                   },
                   onSubmitted: _submitMsg,
-                  decoration: InputDecoration.collapsed(
-                      hintText: "Enter some text to send a message"),
+                  decoration: InputDecoration(
+                      hintText: "Enter some text to send a message",
+                      suffixIcon: Icon(
+                        Icons.send,size:30.0,
+                        color:Colors.blue,
+                        ),
+                          fillColor: Colors.white,
+                          border: new OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(40.0),
+                            borderSide: new BorderSide(width:1.0),
+                  )),
+                  // decoration: InputDecoration.collapsed(
+                  //     hintText: "Enter some text to send a message"),
                 ),
               ),
+              
               Container(
                   margin: EdgeInsets.symmetric(horizontal: 3.0),
                   child: Theme.of(context).platform == TargetPlatform.iOS
                       ? CupertinoButton(
+                        color: Colors.blueAccent,
                           child: Text("Submit"),
                           onPressed: _isWriting
                               ? () => _submitMsg(_textController.text)
-                              : null)
+                              : null
+                              )
                       : IconButton(
                           icon: Icon(Icons.message),
                           onPressed: _isWriting
