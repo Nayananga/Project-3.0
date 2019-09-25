@@ -4,11 +4,12 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
+import 'package:project_3s_mobile/utils/printWrapper.dart';
 
 class ApiRequest {
   Future<http.Response> apiGetRequest(String url, var body) async {
-    http.Response uriResponse;
-    var client = http.Client();
+    http.Response _uriResponse;
+    var _client = http.Client();
 
     await AppSharedPreferences.getUserLoggedIdToken().then((idToken) async {
       Map<String, String> _headers = {
@@ -16,20 +17,20 @@ class ApiRequest {
         HttpHeaders.authorizationHeader: idToken,
       };
       try {
-        uriResponse = await client.get(url, headers: _headers);
+        _uriResponse = await _client.get(url, headers: _headers);
         printWrapped(idToken);
       } catch (error) {
         print(error);
       } finally {
-        client.close();
+        _client.close();
       }
     });
-    return uriResponse;
+    return _uriResponse;
   }
 
   Future<http.Response> apiPostRequest(String url, var body) async {
-    http.Response uriResponse;
-    var client = http.Client();
+    http.Response _uriResponse;
+    var _client = http.Client();
 
     await AppSharedPreferences.getUserLoggedIdToken().then((idToken) async {
       Map<String, String> _headers = {
@@ -37,21 +38,15 @@ class ApiRequest {
         HttpHeaders.authorizationHeader: idToken,
       };
       try {
-        uriResponse = await client.post(url,
+        _uriResponse = await _client.post(url,
             headers: _headers, body: body, encoding: utf8);
         printWrapped(idToken);
       } catch (error) {
         print(error);
       } finally {
-        client.close();
+        _client.close();
       }
     });
-    return uriResponse;
-  }
-
-  // to print idToken in console
-  printWrapped(String text) {
-    final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
-    pattern.allMatches(text).forEach((match) => print(match.group(0)));
+    return _uriResponse;
   }
 }
