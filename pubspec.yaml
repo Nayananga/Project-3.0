@@ -1,0 +1,39 @@
+name: project_3s_mobile
+description: A new Flutter project.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_launcher_icons: ^0.6.1
+  shared_preferences: ^0.4.3
+  json_annotation: ^2.0.0
+  cupertino_icons: ^0.1.2
+  http: ^0.12.0
+  google_sign_in: ^4.0.7
+  provider: any
+  flare_flutter: any
+  url_launcher: any
+  simple_logger: any
+
+
+flutter_icons:
+  image_path: "images/ic_launcher.png"
+  android: true
+  ios: true
+
+dev_dependencies:
+  build_runner: ^1.1.2
+  json_serializable: ^2.0.0
+
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/ic_launcher.png
+    - assets/animation/
+    - assets/data/
