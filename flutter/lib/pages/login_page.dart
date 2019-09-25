@@ -1,15 +1,10 @@
-// Copyright 2019 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/models/ApiRequest.dart';
-import 'package:project_3s_mobile/models/User.dart';
+import 'package:project_3s_mobile/models/ApiResponse.dart';
 import 'package:project_3s_mobile/pages/chat_page.dart';
 import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
@@ -51,13 +46,11 @@ class _LogInPageState extends State<LogInPage> {
         _handleSignInCredential();
       });
     });
-    _googleSignIn.signInSilently();
-  }
-
-  // to print idToken in console
-  printWrapped(String text) {
-    final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
-    pattern.allMatches(text).forEach((match) => print(match.group(0)));
+    try {
+      _googleSignIn.signInSilently();
+    } catch (error) {
+      print(error);
+    }
   }
 
   Widget _buildBody() {
@@ -115,21 +108,6 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  _handleResponce(http.Response response) {
-    final responseData = jsonDecode(response.body);
-    print(responseData['message']['Logged_User_Id']);
-    final String googleId = responseData['message']['Logged_User_Id'];
-    final String nickname = responseData['message']['Logged_User_Name'];
-    final User user = User(
-        googleId: googleId,
-        email: '',
-        nickname: nickname,
-        image: '',
-        phoneNo: '',
-        nic: '');
-    AppSharedPreferences.setUserProfile(user);
-  }
-
   Future<void> _handleSignIn() async {
     try {
       await _googleSignIn.signIn();
@@ -139,12 +117,15 @@ class _LogInPageState extends State<LogInPage> {
   }
 
   Future<void> _handleSignInCredential() async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final idToken = googleAuth.idToken;
-    printWrapped(idToken);
-    _sendCredential(idToken);
+    try {
+      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      AppSharedPreferences.setUserLoggedIdToken(googleAuth.idToken);
+      _sendCredential();
+    } catch (error) {
+      print(error);
+    }
   }
 
   Future<void> _handleSignOut() async {
@@ -152,14 +133,10 @@ class _LogInPageState extends State<LogInPage> {
     AppSharedPreferences.clear();
   }
 
-  Future<void> _sendCredential(String idToken) async {
+  Future<void> _sendCredential() async {
     const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
     final body = jsonEncode('');
-    final Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: "application/json",
-      HttpHeaders.authorizationHeader: idToken,
-    };
-    http.Response response = await apiRequest('post', url, headers, body);
-    _handleResponce(response);
+    http.Response response = await ApiRequest().apiPostRequest(url, body);
+    ApiResponce().handleLoginResponce(response);
   }
 }
