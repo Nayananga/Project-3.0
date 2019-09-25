@@ -145,6 +145,7 @@ class _LogInPageState extends State<LogInPage> {
             ),
             onPressed: _handleSignOut,
           ),
+
         ],
       );
     } 
