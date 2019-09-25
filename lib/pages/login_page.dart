@@ -34,7 +34,7 @@ class _LogInPageState extends State<LogInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.purple,
           title: const Text('Google Sign In'),
         ),
         body: ConstrainedBox(
@@ -112,7 +112,7 @@ class _LogInPageState extends State<LogInPage> {
           RaisedButton(
             color:Colors.blueAccent,
             shape:StadiumBorder(),
-            child: const Text('SIG OUT',
+            child: const Text('SIGN OUT',
             style: TextStyle( 
               fontSize: 20.0,
               color: Colors.white,),
