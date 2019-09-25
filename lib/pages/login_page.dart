@@ -34,6 +34,7 @@ class _LogInPageState extends State<LogInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blueAccent,
           title: const Text('Google Sign In'),
         ),
         body: ConstrainedBox(
@@ -72,30 +73,79 @@ class _LogInPageState extends State<LogInPage> {
             title: Text(_currentUser.displayName ?? ''),
             subtitle: Text(_currentUser.email ?? ''),
           ),
+
+           const Text("Signed in successfull.",
+          style: TextStyle(
+            fontSize: 20.0
+          ),
+          ),
+
           RaisedButton(
-            child: const Text('Lets Chat'),
+            color:Colors.blueAccent,
+            shape:StadiumBorder(),
+            child: const Text('Lets Chat',
+            style: TextStyle(
+              fontSize:20.0,
+               color:Colors.white ),),
             onPressed: _goToChatPage,
           ),
+
+          // SizedBox(
+          //   height: 5.0
+          //   ),
+
           RaisedButton(
-            child: const Text('Survey'),
+            color:Colors.blueAccent,
+            shape:StadiumBorder(),
+            child: const Text('Survey',
+            style: TextStyle(
+              fontSize:20.0,
+               color:Colors.white ),
+            ),
             onPressed: _goToQuizPage,
           ),
-          const Text("Signed in successfully."),
+
+          SizedBox(
+            height: 5.0
+            ),
+
           RaisedButton(
-            child: const Text('SIGN OUT'),
+            color:Colors.blueAccent,
+            shape:StadiumBorder(),
+            child: const Text('SIG OUT',
+            style: TextStyle( 
+              fontSize: 20.0,
+              color: Colors.white,),
+            ),
             onPressed: _handleSignOut,
           ),
+
         ],
       );
-    } else {
+    } 
+    else {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+       // mainAxisAlignment: MainAxisAlignment.spaceAround,
+       mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("You are not currently signed in."),
-          RaisedButton(
-            child: const Text('SIGN IN'),
-            onPressed: _handleSignIn,
-          ),
+          const Text("You are not currently signed in.",
+          style: TextStyle(
+            fontSize: 20.0
+          ),),
+      SizedBox(
+        height: 30.0,
+      ),
+         RaisedButton(
+              color:Colors.blueAccent,
+              shape:StadiumBorder(),
+              onPressed: _handleSignIn,
+              child: const Text('SIGN IN',
+              style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      )),
+            ),
+          
         ],
       );
     }
@@ -108,7 +158,7 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  _goToQuizPage() {
+  void _goToQuizPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PreQuizPage()),

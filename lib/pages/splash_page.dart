@@ -28,7 +28,7 @@ class SplashPage extends StatefulWidget {
 class SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3), _handleTapEvent);
+    Future.delayed(const Duration(seconds: 20), _handleTapEvent);
     return Scaffold(
       body: _splashContainer(),
     );
@@ -52,24 +52,43 @@ class SplashPageState extends State<SplashPage> {
         child: Container(
             height: double.infinity,
             width: double.infinity,
-            decoration: BoxDecoration(color: Colors.blue[400]),
+            decoration: BoxDecoration(
+              gradient:LinearGradient(
+                      begin:Alignment.topLeft,
+                      end:Alignment.bottomRight,
+                      stops:[0.1,0.3,0.7,0.9],
+                      colors: [
+                        Colors.blue[600],
+                        Colors.blue[500],
+                        Colors.blue[300],
+                        Colors.blue[200],
+                      ])
+                      ),
+                      
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                    child: Image(
-                  height: 200.0,
-                  width: 200.0,
-                  image: AssetImage("assets/images/ic_launcher.png"),
-                  fit: BoxFit.fill,
-                )),
+                   child: Image(
+                  height: 300.0,
+                  width: 300.0,
+
+                  image: AssetImage("assets/images/download.jpeg"),
+                  fit: BoxFit.cover,
+                ),
+                    ),
                 Container(
                   margin: EdgeInsets.only(top: 20.0),
                   child: Text(
                     "Hotel Reviewer",
-                    style: TextStyle(color: Colors.white, fontSize: 24.0),
+                    style: TextStyle(
+                      color: Colors.white, 
+                      fontSize: 28.0,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold
+                      ),
                   ),
                 ),
               ],
