@@ -74,3 +74,9 @@ flutter/ios/Flutter/flutter_export_environment.sh
 flutter/.vscode/launch.json
 flutter/android/.project
 flutter/android/.settings/org.eclipse.buildship.core.prefs
+flutter/android/app/src/main/gen/com/example/project_3s_mobile/Manifest.java
+flutter/android/app/src/main/gen/com/example/project_3s_mobile/R.java
+flutter/android/app/src/main/gen/com/example/project_3s_mobile/BuildConfig.java
+flutter/android/app/.settings/org.eclipse.buildship.core.prefs
+flutter/android/app/.project
+flutter/android/app/.classpath
