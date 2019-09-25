@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/models/ApiRequest.dart';
 import 'package:project_3s_mobile/models/ApiResponse.dart';
 import 'package:project_3s_mobile/models/model.dart';
@@ -79,19 +79,19 @@ class Model extends ChangeNotifier {
     notifyListeners(); // call quiz_page initStage()
   }
 
+  Future<void> sendAnswers() async {
+    const String url = APIConstants.API_BASE_URL + APIRoutes.CREATE_REVIEW;
+    final body = jsonEncode('');
+    http.Response response = await ApiRequest().apiPostRequest(url, body);
+    ApiResponce().handleReviewResponse(response);
+  }
+
   _load() async {
     // TODO(mono): くるくる出したいのでとりあえず
     await Future<void>.delayed(Duration(seconds: 1));
     _quizList = await quizLoader.load();
     _quizListLoaded = true;
     notifyListeners();
-  }
-
-  Future<void> sendAnswers() async {
-    const String url = APIConstants.API_BASE_URL + APIRoutes.CREATE_REVIEW;
-    final body = jsonEncode('');
-    http.Response response = await ApiRequest().apiPostRequest(url, body);
-    ApiResponce().handleReviewResponce(response);
   }
 }
 

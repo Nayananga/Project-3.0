@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 
+import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/models/User.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
 class ApiResponce {
-  handleLoginResponce(http.Response response) {
+  handleLoginResponse(http.Response response) {
     if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
       print(responseData['message']['Logged_User_Id']);
@@ -24,7 +24,7 @@ class ApiResponce {
     }
   }
 
-  handleReviewResponce(http.Response response) {
+  handleReviewResponse(http.Response response) {
     if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
       final String googleId = responseData['message']['Logged_User_Id'];

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
 class ApiRequest {
-  Future<http.Response> apiPostRequest(String url, var body) async {
+  Future<http.Response> apiGetRequest(String url, var body) async {
     http.Response uriResponse;
     var client = http.Client();
 
@@ -16,8 +16,7 @@ class ApiRequest {
         HttpHeaders.authorizationHeader: idToken,
       };
       try {
-        uriResponse = await client.post(url,
-            headers: _headers, body: body, encoding: utf8);
+        uriResponse = await client.get(url, headers: _headers);
         printWrapped(idToken);
       } catch (error) {
         print(error);
@@ -28,7 +27,7 @@ class ApiRequest {
     return uriResponse;
   }
 
-  Future<http.Response> apiGetRequest(String url, var body) async {
+  Future<http.Response> apiPostRequest(String url, var body) async {
     http.Response uriResponse;
     var client = http.Client();
 

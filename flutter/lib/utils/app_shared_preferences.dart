@@ -27,17 +27,7 @@ class AppSharedPreferences {
     }
   }
 
-  static Future<void> setUserLoggedIdToken(String idToken) async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      return prefs.setString(
-          SharedPreferenceKeys.USER_LOGGED_ID_TOKEN, idToken);
-    } catch (error) {
-      print(error);
-    }
-  }
-
-///////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
   static Future<User> getUserProfile() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -46,6 +36,16 @@ class AppSharedPreferences {
     } catch (error) {
       print(error);
       return null;
+    }
+  }
+
+  static Future<void> setUserLoggedIdToken(String idToken) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      return prefs.setString(
+          SharedPreferenceKeys.USER_LOGGED_ID_TOKEN, idToken);
+    } catch (error) {
+      print(error);
     }
   }
 
