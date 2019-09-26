@@ -102,13 +102,6 @@ class _LogInPageState extends State<LogInPage> {
                   fit: BoxFit.cover,
                 ),),
 
-          Row(
-            children: <Widget>[
-
-               SizedBox(
-              width:30.0
-              ),
-
               RaisedButton(
                 shape:StadiumBorder(),
                 color:Colors.purpleAccent,
@@ -119,12 +112,8 @@ class _LogInPageState extends State<LogInPage> {
                 onPressed: _goToChatPage,
               ),
 
-            SizedBox(
-              width:75.0
-              ),
-
               RaisedButton(
-                shape:StadiumBorder(),
+              shape:StadiumBorder(),
             color:Colors.purpleAccent,
             child: const Text('  Surey  ',
             style: TextStyle(
@@ -133,9 +122,7 @@ class _LogInPageState extends State<LogInPage> {
             ),
             onPressed: _goToQuizPage,
           ),
-            ],
-          ),
-
+        
           RaisedButton(
             color:Colors.purpleAccent,
             shape:StadiumBorder(),
