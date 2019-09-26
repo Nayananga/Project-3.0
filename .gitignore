@@ -888,4 +888,3 @@ DerivedData/
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 flutter/ios/Flutter/flutter_export_environment.sh
-flutter/android/app/.classpath
