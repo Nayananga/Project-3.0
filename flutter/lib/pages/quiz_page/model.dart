@@ -9,6 +9,7 @@ import 'package:project_3s_mobile/models/entities/answer.dart';
 import 'package:project_3s_mobile/models/entities/quiz.dart';
 import 'package:project_3s_mobile/models/quiz_loader.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
+import 'package:project_3s_mobile/utils/deviceInfo.dart';
 import 'package:project_3s_mobile/utils/logger.dart';
 
 class Model extends ChangeNotifier {
@@ -73,8 +74,8 @@ class Model extends ChangeNotifier {
   next() {
     _index++;
     if (!_hasQuiz) {
-      logger.info('not more quiz');
       sendAnswers();
+      logger.info('not more quiz');
       return;
     }
     logger.info('changed to next quiz');
@@ -82,13 +83,19 @@ class Model extends ChangeNotifier {
   }
 
   Future<void> sendAnswers() async {
-    List _body = List();
+    List _answerListAsJson = List();
     const String _url = APIConstants.API_BASE_URL + APIRoutes.CREATE_REVIEW;
-    _answers.map((answer) => _body.add(answer.toJson())).toList();
-    print(jsonEncode(_body));
-    http.Response _response =
-        await ApiRequest().apiPostRequest(_url, jsonEncode(_body));
-    ApiResponse().handleCreateReviewResponse(_response);
+    _answers.map((answer) => _answerListAsJson.add(answer.toJson())).toList();
+    await getDeviceInfo().then((info) async {
+      final body = jsonEncode({
+        'question_and_answers': _answerListAsJson,
+        'device_signature': info,
+      });
+      print(jsonEncode(body));
+      http.Response _response =
+          await ApiRequest().apiPostRequest(_url, jsonEncode(body));
+      ApiResponse().handleCreateReviewResponse(_response);
+    });
   }
 
   _load() async {
