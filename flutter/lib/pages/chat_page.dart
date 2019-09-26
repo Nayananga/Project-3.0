@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:project_3s_mobile/models/User.dart';
+import 'package:project_3s_mobile/models/entities/User.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
 String defaultUserName = "John Doy";
