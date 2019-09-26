@@ -115,7 +115,7 @@ class _LogInPageState extends State<LogInPage> {
               RaisedButton(
               shape:StadiumBorder(),
             color:Colors.purpleAccent,
-            child: const Text('  Surey  ',
+            child: const Text('Surey ',
             style: TextStyle(
               fontSize:20.0,
                color:Colors.white ),
@@ -123,6 +123,18 @@ class _LogInPageState extends State<LogInPage> {
             onPressed: _goToQuizPage,
           ),
         
+        //  RaisedButton(
+        //       shape:StadiumBorder(),
+        //     color:Colors.purpleAccent,
+        //     child: const Text('Complaint',
+        //     style: TextStyle(
+        //       fontSize:20.0,
+        //        color:Colors.white ),
+        //     ),
+        //     onPressed: _goToQuizPage,
+        //   ),
+        
+
           RaisedButton(
             color:Colors.purpleAccent,
             shape:StadiumBorder(),
