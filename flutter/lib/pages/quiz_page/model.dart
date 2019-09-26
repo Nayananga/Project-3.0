@@ -7,7 +7,7 @@ import 'package:project_3s_mobile/models/ApiRequest.dart';
 import 'package:project_3s_mobile/models/ApiResponse.dart';
 import 'package:project_3s_mobile/models/model.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
-import 'package:project_3s_mobile/utils/util.dart';
+import 'package:project_3s_mobile/utils/logger.dart';
 
 class Model extends ChangeNotifier {
   final QuizLoader quizLoader;
