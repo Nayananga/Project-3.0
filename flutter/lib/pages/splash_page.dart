@@ -92,3 +92,4 @@ class SplashPageState extends State<SplashPage> {
             )));
   }
 }
+
