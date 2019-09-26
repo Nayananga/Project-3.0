@@ -1,7 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'package:project_3s_mobile/models/ApiRequest.dart';
+import 'package:project_3s_mobile/models/ApiResponse.dart';
 import 'package:project_3s_mobile/models/model.dart';
+import 'package:project_3s_mobile/utils/constants.dart';
 import 'package:project_3s_mobile/utils/util.dart';
 
 class Model extends ChangeNotifier {
@@ -67,10 +71,19 @@ class Model extends ChangeNotifier {
     _index++;
     if (!_hasQuiz) {
       logger.info('not more quiz');
+      sendAnswers();
       return;
     }
     logger.info('changed to next quiz');
     notifyListeners(); // call quiz_page initStage()
+  }
+
+  Future<void> sendAnswers() async {
+    List _body = List();
+    const String _url = APIConstants.API_BASE_URL + APIRoutes.CREATE_REVIEW;
+    _answers.map((answer) => _body.add(answer.toJson())).toList();
+    http.Response _response = await ApiRequest().apiPostRequest(_url, _body);
+    ApiResponce().handleCreateReviewResponse(_response);
   }
 
   _load() async {
