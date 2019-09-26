@@ -92,6 +92,8 @@ class ProgressDialogTitles {
 class SharedPreferenceKeys {
   static const String USER_LOGGED_ID_TOKEN = "USER_LOGGED_ID_TOKEN";
   static const String USER = "USER";
+
+  static String get USER_LOGGED_ID_TOKEN => null;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
