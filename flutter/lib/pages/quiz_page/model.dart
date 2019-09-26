@@ -91,9 +91,9 @@ class Model extends ChangeNotifier {
         'question_and_answers': _answerListAsJson,
         'device_signature': info,
       });
-      print(jsonEncode(body));
+      print(body);
       http.Response _response =
-          await ApiRequest().apiPostRequest(_url, jsonEncode(body));
+          await ApiRequest().apiPostRequest(_url, body);
       ApiResponse().handleCreateReviewResponse(_response);
     });
   }
