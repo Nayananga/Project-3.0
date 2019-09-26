@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:project_3s_mobile/models/entities/quiz.dart';
 
-import 'entities/entities.dart';
 
 class QuizLoader {
   Future<List<Quiz>> load() async {

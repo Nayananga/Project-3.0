@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_3s_mobile/models/model.dart';
+import 'package:project_3s_mobile/models/entities/answer.dart';
+import 'package:project_3s_mobile/models/entities/quiz.dart';
+import 'package:provider/provider.dart';
 
 import 'model.dart';
 

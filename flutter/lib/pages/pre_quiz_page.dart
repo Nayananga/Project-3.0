@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_3s_mobile/models/quiz_loader.dart';
 import 'package:project_3s_mobile/pages/quiz_page/quiz_page.dart';
 import 'package:provider/provider.dart';
 
-import '../models/model.dart';
 
 class PreQuizPage extends StatelessWidget {
   const PreQuizPage({Key key}) : super(key: key);
