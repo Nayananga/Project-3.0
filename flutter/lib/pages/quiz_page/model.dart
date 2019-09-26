@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -82,8 +83,8 @@ class Model extends ChangeNotifier {
     List _body = List();
     const String _url = APIConstants.API_BASE_URL + APIRoutes.CREATE_REVIEW;
     _answers.map((answer) => _body.add(answer.toJson())).toList();
-    print(_body);
-    http.Response _response = await ApiRequest().apiPostRequest(_url, _body);
+    print(jsonEncode(_body));
+    http.Response _response = await ApiRequest().apiPostRequest(_url, jsonEncode(_body));
     ApiResponse().handleCreateReviewResponse(_response);
   }
 

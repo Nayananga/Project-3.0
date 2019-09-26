@@ -121,8 +121,8 @@ class _LogInPageState extends State<LogInPage> {
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
-      AppSharedPreferences.setUserLoggedIdToken(googleAuth.idToken);
-      _sendCredential();
+      AppSharedPreferences.setUserLoggedIdToken(googleAuth.idToken)
+          .whenComplete(() => _sendCredential());
     } catch (error) {
       print(error);
     }

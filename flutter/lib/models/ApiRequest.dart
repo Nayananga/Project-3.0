@@ -28,7 +28,7 @@ class ApiRequest {
     return _uriResponse;
   }
 
-  Future<http.Response> apiPostRequest(String url, var body) async {
+  Future<http.Response> apiPostRequest(String url, dynamic body) async {
     http.Response _uriResponse;
     var _client = http.Client();
 
