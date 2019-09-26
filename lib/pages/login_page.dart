@@ -203,6 +203,13 @@ class _LogInPageState extends State<LogInPage> {
     const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
     final body = jsonEncode('');
     http.Response response = await ApiRequest().apiPostRequest(url, body);
-    ApiResponce().handleLoginResponse(response);
-  }
+            ApiResponce().handleLoginResponse(response);
+                      }
+                    }
+            
+            ApiResponce() {
+}
+        
+        class ApiRequest {
+      apiPostRequest(String url, String body) {}
 }
