@@ -152,7 +152,7 @@ class _LogInPageState extends State<LogInPage> {
     } 
     else {
       return Column(
-       mainAxisAlignment: MainAxisAlignment.spaceAround,
+       mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text("You are not currently signed in.",
           style: TextStyle(
