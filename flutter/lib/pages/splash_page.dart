@@ -30,7 +30,7 @@ class SplashPage extends StatefulWidget {
 class SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3), _handleTapEvent);
+    Future.delayed(const Duration(seconds: 10), _handleTapEvent);
     return Scaffold(
       body: _splashContainer(),
     );
@@ -54,28 +54,29 @@ class SplashPageState extends State<SplashPage> {
         child: Container(
             height: double.infinity,
             width: double.infinity,
-           // decoration: __new Uidecoration(),
-            decoration: BoxDecoration(
-                color: new Color(0xff622F74),
-                gradient: LinearGradient(
-                  colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
-                  begin: Alignment.centerRight,
-                  end: Alignment.centerLeft,
-                )),
 
+            decoration: BoxDecoration(
+              color:new Color (0xff622F74),
+               gradient:LinearGradient(
+                 colors: [new Color (0xff6094e8),new Color(0xffde5cbc)],
+                     begin:Alignment.centerRight,
+                       end:Alignment.centerLeft, 
+              )
+                      ),
+                      
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  child: Image(
-                    height: 300.0,
-                    width: 300.0,
-                    image: AssetImage("assets/images/download.jpeg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                   child: Image(
+                  height: 300.0,
+                  width: 300.0,
+
+                  image: AssetImage("assets/images/download.jpeg"),
+                  fit: BoxFit.cover,
+                ),),
                 Container(
                   margin: EdgeInsets.only(top: 20.0),
                   child: Text(
