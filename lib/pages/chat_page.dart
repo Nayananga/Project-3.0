@@ -21,23 +21,36 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
   Widget build(BuildContext ctx) {
     return Scaffold(
       appBar: AppBar(
+          backgroundColor:  new Color(0xffde5cbc),
+          //new Color(0xffde5cbc),
         title: Text("Chat Application"),
         elevation: Theme.of(ctx).platform == TargetPlatform.iOS ? 0.0 : 6.0,
       ),
-      body: Column(children: [
-        Flexible(
-            child: ListView.builder(
-          itemBuilder: (_, int index) => _messages[index],
-          itemCount: _messages.length,
-          reverse: true,
-          padding: EdgeInsets.all(6.0),
-        )),
-        Divider(height: 1.0),
-        Container(
-          child: _buildComposer(),
-          decoration: BoxDecoration(color: Theme.of(ctx).cardColor),
+      body: Container(
+           decoration: BoxDecoration(
+              color:new Color (0xff622F74),
+               gradient:LinearGradient(
+                 colors: [new Color (0xff6094e8),new Color(0xffde5cbc)],
+                     begin:Alignment.centerRight,
+                       end:Alignment.centerLeft, 
+              )),
+        ///////////
+        child: Column(children: [     
+            Flexible(
+              child: ListView.builder(
+            itemBuilder: (_, int index) => _messages[index],
+            itemCount: _messages.length,
+            reverse: true,
+            padding: EdgeInsets.all(6.0),
+          )),
+          Divider(height: 1.0),
+          Container(
+            child: _buildComposer(),
+            decoration: BoxDecoration(color: Theme.of(ctx).cardColor),
+          ),
+        ]
         ),
-      ]),
+      ),
     );
   }
 
@@ -66,7 +79,7 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
     return IconTheme(
       data: IconThemeData(color: Theme.of(context).accentColor),
       child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 9.0),
+          margin: const EdgeInsets.symmetric(horizontal: 7.0),
           child: Row(
             children: [
               Flexible(
@@ -78,19 +91,9 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
                     });
                   },
                   onSubmitted: _submitMsg,
-                  decoration: InputDecoration(
-                      hintText: "Enter some text to send a message",
-                      suffixIcon: Icon(
-                        Icons.send,size:30.0,
-                        color:Colors.blue,
-                        ),
-                          fillColor: Colors.white,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(40.0),
-                            borderSide: new BorderSide(width:1.0),
-                  )),
-                  // decoration: InputDecoration.collapsed(
-                  //     hintText: "Enter some text to send a message"),
+                  decoration: InputDecoration.collapsed(
+                      hintText: "  Enter some text to send a message",
+                      ),
                 ),
               ),
               
@@ -108,14 +111,15 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
                           icon: Icon(Icons.message),
                           onPressed: _isWriting
                               ? () => _submitMsg(_textController.text)
-                              : null,
-                        )),
+                              : null,)
+                        ),
             ],
           ),
           decoration: Theme.of(context).platform == TargetPlatform.iOS
               ? BoxDecoration(
                   border: Border(top: BorderSide(color: Colors.brown)))
-              : null),
+              : null
+    ),
     );
   }
 

@@ -28,7 +28,7 @@ class SplashPage extends StatefulWidget {
 class SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 20), _handleTapEvent);
+    Future.delayed(const Duration(seconds: 10), _handleTapEvent);
     return Scaffold(
       body: _splashContainer(),
     );
@@ -52,17 +52,14 @@ class SplashPageState extends State<SplashPage> {
         child: Container(
             height: double.infinity,
             width: double.infinity,
+
             decoration: BoxDecoration(
-              gradient:LinearGradient(
-                      begin:Alignment.topLeft,
-                      end:Alignment.bottomRight,
-                      stops:[0.1,0.3,0.7,0.9],
-                      colors: [
-                        Colors.blue[600],
-                        Colors.blue[500],
-                        Colors.blue[300],
-                        Colors.blue[200],
-                      ])
+              color:new Color (0xff622F74),
+               gradient:LinearGradient(
+                 colors: [new Color (0xff6094e8),new Color(0xffde5cbc)],
+                     begin:Alignment.centerRight,
+                       end:Alignment.centerLeft, 
+              )
                       ),
                       
             child: Column(
@@ -77,8 +74,7 @@ class SplashPageState extends State<SplashPage> {
 
                   image: AssetImage("assets/images/download.jpeg"),
                   fit: BoxFit.cover,
-                ),
-                    ),
+                ),),
                 Container(
                   margin: EdgeInsets.only(top: 20.0),
                   child: Text(
