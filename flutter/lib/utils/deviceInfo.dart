@@ -10,5 +10,6 @@ Future<String> getDeviceInfo() async {
   } else if (Platform.isIOS) {
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
     return iosInfo.utsname.machine; // e.g. "iPod7,1"
-  } return "Unkonown Device";
+  }
+  return "Unkonown Device";
 }
