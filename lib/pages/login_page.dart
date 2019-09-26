@@ -34,13 +34,25 @@ class _LogInPageState extends State<LogInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.purple,
+          backgroundColor: new Color(0xffde5cbc),
           title: const Text('Google Sign In'),
         ),
-        body: ConstrainedBox(
-          constraints: const BoxConstraints.expand(),
-          child: _buildBody(),
-        ));
+        body: Container(
+            decoration: BoxDecoration(
+              color:new Color (0xff622F74),
+               gradient:LinearGradient(
+                 colors: [new Color (0xff6094e8),new Color(0xffde5cbc)],
+                     begin:Alignment.centerRight,
+                       end:Alignment.centerLeft, 
+              )
+              ),
+
+          child: ConstrainedBox(
+            constraints: const BoxConstraints.expand(),
+            child: _buildBody(),
+     ),
+        ) 
+     );
   }
 
   @override
@@ -73,59 +85,73 @@ class _LogInPageState extends State<LogInPage> {
             title: Text(_currentUser.displayName ?? ''),
             subtitle: Text(_currentUser.email ?? ''),
           ),
-
            const Text("Signed in successfull.",
+           textAlign: TextAlign.left,
           style: TextStyle(
+           color:Colors.white,
             fontSize: 20.0
           ),
           ),
 
-          RaisedButton(
-            color:Colors.blueAccent,
-            shape:StadiumBorder(),
-            child: const Text('Lets Chat',
-            style: TextStyle(
-              fontSize:20.0,
-               color:Colors.white ),),
-            onPressed: _goToChatPage,
-          ),
+          Container(
+                   child: Image(
+                  height: 200.0,
+                  width: 300.0,
 
-          // SizedBox(
-          //   height: 5.0
-          //   ),
+                  image: AssetImage("assets/images/download.jpeg"),
+                  fit: BoxFit.cover,
+                ),),
 
-          RaisedButton(
-            color:Colors.blueAccent,
-            shape:StadiumBorder(),
-            child: const Text('Survey',
+          Row(
+            children: <Widget>[
+
+               SizedBox(
+              width:30.0
+              ),
+
+              RaisedButton(
+                shape:StadiumBorder(),
+                color:Colors.purpleAccent,
+                child: const Text('Lets Chat',
+                style: TextStyle(
+                  fontSize:20.0,
+                   color:Colors.white ),),
+                onPressed: _goToChatPage,
+              ),
+
+            SizedBox(
+              width:75.0
+              ),
+
+              RaisedButton(
+                shape:StadiumBorder(),
+            color:Colors.purpleAccent,
+            child: const Text('  Surey  ',
             style: TextStyle(
               fontSize:20.0,
                color:Colors.white ),
             ),
             onPressed: _goToQuizPage,
           ),
-
-          SizedBox(
-            height: 5.0
-            ),
+            ],
+          ),
 
           RaisedButton(
-            color:Colors.blueAccent,
+            color:Colors.purpleAccent,
             shape:StadiumBorder(),
-            child: const Text('SIGN OUT',
+            child: const Text(' SIGN OUT ',
             style: TextStyle( 
               fontSize: 20.0,
               color: Colors.white,),
             ),
             onPressed: _handleSignOut,
           ),
-
         ],
       );
     } 
     else {
       return Column(
-       // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text("You are not currently signed in.",
@@ -145,7 +171,6 @@ class _LogInPageState extends State<LogInPage> {
                         color: Colors.white,
                       )),
             ),
-          
         ],
       );
     }
