@@ -194,6 +194,7 @@ class _LogInPageState extends State<LogInPage> {
     }
   }
 
+
   Future<void> _handleSignOut() async {
     _googleSignIn.disconnect();
     AppSharedPreferences.clear();
