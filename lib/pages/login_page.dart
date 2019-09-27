@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 // import 'package:project_3s_mobile/models/ApiRequest.dart'; 
 // import 'package:project_3s_mobile/models/ApiResponse.dart';
 import 'package:project_3s_mobile/pages/chat_page.dart';
+import 'package:project_3s_mobile/pages/complaint_page.dart';
 import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
@@ -85,52 +86,67 @@ class _LogInPageState extends State<LogInPage> {
           ),
            const Text("Signed in successfull.",
            textAlign: TextAlign.left,
-          style: TextStyle(
+           style: TextStyle(
            color:Colors.white,
             fontSize: 20.0
           ),
           ),
 
-          Container(
-                   child: Image(
-                  height: 200.0,
-                  width: 300.0,
 
-                  image: AssetImage("assets/images/download.jpeg"),
-                  fit: BoxFit.cover,
-                ),),
-
-              RaisedButton(
+      ButtonTheme(
+          minWidth: 150.0,
+          height: 50.0,
+             child: RaisedButton(
                 shape:StadiumBorder(),
                 color:Colors.purpleAccent,
                 child: const Text('Lets Chat',
                 style: TextStyle(
                   fontSize:20.0,
                    color:Colors.white ),),
-                onPressed: _goToChatPage,
-              ),
+                  onPressed: _goToChatPage,
+              ),),
 
-              RaisedButton(
+    ButtonTheme(
+          minWidth: 150.0,
+          height: 50.0,
+             child: RaisedButton(
               shape:StadiumBorder(),
             color:Colors.purpleAccent,
-            child: const Text('Surey ',
+            child: const Text(' Surey ',
             style: TextStyle(
               fontSize:20.0,
                color:Colors.white ),
             ),
             onPressed: _goToQuizPage,
-          ),
+          )),
+
+    ButtonTheme(
+          minWidth: 150.0,
+          height: 50.0,
+          child:RaisedButton(
+              shape:StadiumBorder(),
+            color:Colors.purpleAccent,
+            child: const Text('Complaint',
+            style: TextStyle(
+              fontSize:20.0,
+               color:Colors.white ),
+            ),
+            onPressed: _goToComplaintPage,
+          ),),
         
-          RaisedButton(
+        ButtonTheme(
+          minWidth: 150.0,
+          height: 50.0,
+          child: RaisedButton(
             color:Colors.purpleAccent,
             shape:StadiumBorder(),
-            child: const Text(' SIGN OUT ',
+            child: const Text('SIGN OUT',
             style: TextStyle( 
               fontSize: 20.0,
               color: Colors.white,),
             ),
             onPressed: _handleSignOut,
-          ),
+          ))
         ],
       );
     } 
@@ -142,19 +158,22 @@ class _LogInPageState extends State<LogInPage> {
           style: TextStyle(
             fontSize: 20.0
           ),),
-      SizedBox(
-        height: 30.0,
-      ),
-         RaisedButton(
-              color:Colors.blueAccent,
+     SizedBox(
+    height: 30.0,
+  ),
+      ButtonTheme(
+        minWidth: 150.0,
+        height: 50.0,
+         child:RaisedButton(
+              color:Colors.purpleAccent,
               shape:StadiumBorder(),
               onPressed: _handleSignIn,
               child: const Text('SIGN IN',
               style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.white,
-                      )),
-            ),
+                  fontSize: 20.0,
+                  color: Colors.white,
+                )),
+            ))
         ],
       );
     }
@@ -174,6 +193,12 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
+_goToComplaintPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ComplaintPage()),
+    );
+  }
   Future<void> _handleSignIn() async {
     try {
       await _googleSignIn.signIn();
@@ -205,11 +230,10 @@ class _LogInPageState extends State<LogInPage> {
     final body = jsonEncode('');
     http.Response response = await ApiRequest().apiPostRequest(url, body);
             ApiResponce().handleLoginResponse(response);
-                      }
-                    }
+    }
+  }
             
-            ApiResponce() {
-}
+   ApiResponce() {}
         
         class ApiRequest {
       apiPostRequest(String url, String body) {}
