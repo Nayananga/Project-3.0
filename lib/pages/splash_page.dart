@@ -28,7 +28,7 @@ class SplashPage extends StatefulWidget {
 class SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 10), _handleTapEvent);
+    Future.delayed(const Duration(seconds: 5), _handleTapEvent);
     return Scaffold(
       body: _splashContainer(),
     );
