@@ -9,8 +9,8 @@ import 'package:project_3s_mobile/models/entities/answer.dart';
 import 'package:project_3s_mobile/models/entities/quiz.dart';
 import 'package:project_3s_mobile/models/quiz_loader.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
-import 'package:project_3s_mobile/utils/device_info.dart';
-import 'package:project_3s_mobile/utils/geo_location.dart';
+import 'package:project_3s_mobile/utils/deviceInfo.dart';
+import 'package:project_3s_mobile/utils/geoLocation.dart';
 import 'package:project_3s_mobile/utils/logger.dart';
 
 class Model extends ChangeNotifier {
