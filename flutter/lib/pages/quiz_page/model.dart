@@ -1,8 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:project_3s_mobile/models/model.dart';
-import 'package:project_3s_mobile/utils/util.dart';
+import 'package:http/http.dart' as http;
+import 'package:project_3s_mobile/models/ApiRequest.dart';
+import 'package:project_3s_mobile/models/ApiResponse.dart';
+import 'package:project_3s_mobile/models/entities/answer.dart';
+import 'package:project_3s_mobile/models/entities/quiz.dart';
+import 'package:project_3s_mobile/models/quiz_loader.dart';
+import 'package:project_3s_mobile/utils/constants.dart';
+import 'package:project_3s_mobile/utils/deviceInfo.dart';
+import 'package:project_3s_mobile/utils/logger.dart';
 
 class Model extends ChangeNotifier {
   final QuizLoader quizLoader;
@@ -11,8 +19,9 @@ class Model extends ChangeNotifier {
 
   bool _quizListLoaded = false;
   int _index = 0;
-  final _answers = <WidgetData>[];
+  final _answers = <Answer>[];
   final _answered = StreamController<bool>();
+
   Model({
     @required this.quizLoader,
   }) {
@@ -23,19 +32,21 @@ class Model extends ChangeNotifier {
 
   ProgressKind get current => progress[_index];
 
-  WidgetData get currentAnswer =>
-      current == ProgressKind.correct || current == ProgressKind.incorrect
-          ? _answers[_index]
-          : null;
+  Answer get currentAnswer =>
+      current == ProgressKind.already ? _answers[_index] : null;
+
+  bool get hasQuiz => _hasQuiz;
+
+  bool get isLast => _index >= 0 && _index == (_quizList.length - 1 ?? -1);
 
   List<ProgressKind> get progress => _quizList
       .asMap()
       .map<int, ProgressKind>((index, quiz) => MapEntry<int, ProgressKind>(
             index,
             index >= 0 && index < _answers.length
-                ? (_answers[index] == _quizList[index].correct
-                    ? ProgressKind.correct
-                    : ProgressKind.incorrect)
+                ? (_answers[index] != null
+                    ? ProgressKind.already
+                    : ProgressKind.notYet) //if there is a skip option
                 : _index == index ? ProgressKind.current : ProgressKind.notYet,
           ))
       .values
@@ -47,32 +58,47 @@ class Model extends ChangeNotifier {
 
   bool get _hasQuiz => _index >= 0 && _index < (_quizList?.length ?? 0);
 
-  void answer(WidgetData widget) {
-    final correct = quiz.correct == widget;
-    logger.info('correct: $correct');
-    _answers.add(widget);
-    _answered.add(correct);
+  answer(Answer answer) {
+    _answers.add(answer);
+    answer.answer != null ? _answered.add(true) : _answered.add(false);
     notifyListeners();
   }
 
   @override
-  void dispose() {
+  dispose() {
     _answered.close();
 
     super.dispose();
   }
 
-  void next() {
+  next() {
     _index++;
     if (!_hasQuiz) {
+      sendAnswers();
       logger.info('not more quiz');
       return;
     }
     logger.info('changed to next quiz');
-    notifyListeners();
+    notifyListeners(); // call quiz_page initStage()
   }
 
-  void _load() async {
+  Future<void> sendAnswers() async {
+    List _answerListAsJson = List();
+    const String _url = APIConstants.API_BASE_URL + APIRoutes.CREATE_REVIEW;
+    _answers.map((answer) => _answerListAsJson.add(answer.toJson())).toList();
+    await getDeviceInfo().then((info) async {
+      final body = jsonEncode({
+        'question_and_answers': _answerListAsJson,
+        'device_signature': info,
+      });
+      print(body);
+      http.Response _response =
+          await ApiRequest().apiPostRequest(_url, body);
+      ApiResponse().handleCreateReviewResponse(_response);
+    });
+  }
+
+  _load() async {
     // TODO(mono): くるくる出したいのでとりあえず
     await Future<void>.delayed(Duration(seconds: 1));
     _quizList = await quizLoader.load();
@@ -82,8 +108,7 @@ class Model extends ChangeNotifier {
 }
 
 enum ProgressKind {
-  correct,
-  incorrect,
+  already,
   current,
   notYet,
 }

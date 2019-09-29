@@ -1,32 +1,52 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
+import 'package:project_3s_mobile/utils/printWrapper.dart';
 
-Future<http.Response> apiRequest(
-    String type, String url, Map headers, var body) async {
-  http.Response uriResponse;
-  var client = http.Client();
-  if (type == 'post') {
-    try {
-      uriResponse =
-          await client.post(url, headers: headers, body: body, encoding: utf8);
-      return uriResponse;
-    } catch (error) {
-      print(error);
-    } finally {
-      client.close();
-    }
+class ApiRequest {
+  Future<http.Response> apiGetRequest(String url, var body) async {
+    http.Response _uriResponse;
+    var _client = http.Client();
+
+    await AppSharedPreferences.getUserLoggedIdToken().then((idToken) async {
+      Map<String, String> _headers = {
+        HttpHeaders.contentTypeHeader: "application/json",
+        HttpHeaders.authorizationHeader: idToken,
+      };
+      try {
+        _uriResponse = await _client.get(url, headers: _headers);
+        printWrapped(idToken);
+      } catch (error) {
+        print(error);
+      } finally {
+        _client.close();
+      }
+    });
+    return _uriResponse;
   }
-  if (type == 'get') {
-    try {
-      uriResponse = await client.get(url, headers: headers);
-      return uriResponse;
-    } catch (error) {
-      print(error);
-    } finally {
-      client.close();
-    }
+
+  Future<http.Response> apiPostRequest(String url, dynamic body) async {
+    http.Response _uriResponse;
+    var _client = http.Client();
+
+    await AppSharedPreferences.getUserLoggedIdToken().then((idToken) async {
+      Map<String, String> _headers = {
+        HttpHeaders.contentTypeHeader: "application/json",
+        HttpHeaders.authorizationHeader: idToken,
+      };
+      try {
+        _uriResponse = await _client.post(url,
+            headers: _headers, body: body, encoding: utf8);
+        printWrapped(idToken);
+      } catch (error) {
+        print(error);
+      } finally {
+        _client.close();
+      }
+    });
+    return _uriResponse;
   }
-  return uriResponse;
 }

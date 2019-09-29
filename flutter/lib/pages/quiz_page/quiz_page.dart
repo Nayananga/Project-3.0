@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_3s_mobile/models/model.dart';
+import 'package:project_3s_mobile/models/quiz_loader.dart';
 import 'package:project_3s_mobile/pages/quiz_page/selections.dart';
 import 'package:provider/provider.dart';
 
@@ -37,11 +37,13 @@ class __PageState extends State<_Page> {
   }
 
   @override
-  void initState() {
+  initState() {
     super.initState();
 
-    _model.answered.listen((correct) {
-      _resultPresenter.show(context, model: _model, correct: correct);
+    _model.answered.listen((answerStatus) {
+      _model.isLast && _model.hasQuiz
+          ? _resultPresenter.show(context, model: _model, isLast: true)
+          : _resultPresenter.show(context, model: _model, isLast: false);
     });
   }
 

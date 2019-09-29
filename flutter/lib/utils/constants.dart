@@ -18,7 +18,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 class APIConstants {
   static const String OCTET_STREAM_ENCODING = "application/octet-stream";
-  static const String API_BASE_URL = "https://f16f6c4a.ngrok.io";
+  static const String API_BASE_URL = "https://25f61914.ngrok.io";
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ class ProgressDialogTitles {
 ///////////////////////////////////////////////////////////////////////////////
 
 class SharedPreferenceKeys {
-  static const String IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
+  static const String USER_LOGGED_ID_TOKEN = "USER_LOGGED_ID_TOKEN";
   static const String USER = "USER";
 }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_3s_mobile/models/model.dart';
+import 'package:provider/provider.dart';
 
 import 'model.dart';
 
@@ -24,10 +24,10 @@ class Progress extends StatelessWidget {
 
   String _convertToStringFromProgressKind(ProgressKind kind) {
     switch (kind) {
-      case ProgressKind.correct:
+      case ProgressKind.already:
         return '⭕️️️';
-      case ProgressKind.incorrect:
-        return '❌';
+      // case ProgressKind.incorrect: //skip option
+      //   return '❌';
       case ProgressKind.notYet:
         return '▫️';
       case ProgressKind.current:
