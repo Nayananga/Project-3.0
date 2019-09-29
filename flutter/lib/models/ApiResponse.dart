@@ -8,7 +8,7 @@ class ApiResponse {
   handleCreateReviewResponse(http.Response response) {
     if (response.statusCode == 200) {
       final _responseData = jsonDecode(response.body);
-      print(_responseData['message']['Create_Review_Status']);
+      print(_responseData['message']['id']);
     } else {
       throw Exception(response.statusCode);
     }
@@ -17,9 +17,9 @@ class ApiResponse {
   handleLoginResponse(http.Response response) {
     if (response.statusCode == 200) {
       final _responseData = jsonDecode(response.body);
-      print(_responseData['message']['Logged_User_Id']);
-      final String _googleId = _responseData['message']['Logged_User_Id'];
-      final String _nickname = _responseData['message']['Logged_User_Name'];
+      print(_responseData);
+      final String _googleId = _responseData['message']['google_id'];
+      final String _nickname = _responseData['message']['nickname'];
       final User _user = User(
           googleId: _googleId,
           email: '',
