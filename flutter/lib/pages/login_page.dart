@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:project_3s_mobile/models/api_request.dart';
-import 'package:project_3s_mobile/models/api_response.dart';
-import 'package:project_3s_mobile/pages/chat_page/chat_page.dart';
-import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
+import 'package:project_3s_mobile/models/ApiRequest.dart';
+import 'package:project_3s_mobile/models/ApiResponse.dart';
+import 'package:project_3s_mobile/pages/chat_page.dart';
+import 'package:project_3s_mobile/pages/complaint_page.dart';
 import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
 import 'package:project_3s_mobile/pages/profile_page.dart';
 import 'package:project_3s_mobile/pages/setting_page.dart';
@@ -33,24 +33,23 @@ class _LogInPageState extends State<LogInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: new Color(0xffde5cbc),
-        title: const Text('Google Sign In'),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-            color: new Color(0xff622F74),
-            gradient: LinearGradient(
-              colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
-              begin: Alignment.centerRight,
-              end: Alignment.centerLeft,
-            )),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints.expand(),
-          child: _buildBody(),
+        appBar: AppBar(
+          backgroundColor: new Color(0xffde5cbc),
+          title: const Text('Google Sign In'),
         ),
-      ),
-    );
+        body: Container(
+          decoration: BoxDecoration(
+              color: new Color(0xff622F74),
+              gradient: LinearGradient(
+                colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft,
+              )),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints.expand(),
+            child: _buildBody(),
+          ),
+        ));
   }
 
   @override
@@ -97,18 +96,17 @@ class _LogInPageState extends State<LogInPage> {
             ),
           ),
           ButtonTheme(
-            minWidth: 150.0,
-            height: 50.0,
-            child: RaisedButton(
-              shape: StadiumBorder(),
-              color: Colors.purpleAccent,
-              child: const Text(
-                ' Survey ',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
-              onPressed: _goToQuizPage,
-            ),
-          ),
+              minWidth: 150.0,
+              height: 50.0,
+              child: RaisedButton(
+                shape: StadiumBorder(),
+                color: Colors.purpleAccent,
+                child: const Text(
+                  ' Survey ',
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
+                onPressed: _goToQuizPage,
+              )),
           ButtonTheme(
             minWidth: 150.0,
             height: 50.0,
@@ -157,14 +155,12 @@ class _LogInPageState extends State<LogInPage> {
             child: RaisedButton(
               color: Colors.purpleAccent,
               shape: StadiumBorder(),
-              onPressed: _handleSignInCredential,
-              child: const Text(
-                'SIGN IN',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.white,
-                ),
-              ),
+              onPressed: _handleSignIn,
+              child: const Text('SIGN IN',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                  ),),
             ),
           )
         ],
@@ -186,10 +182,10 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  _goToQuizPage() {
+  _goToComplaintPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PreQuizPage()),
+      MaterialPageRoute(builder: (context) => ComplaintPage()),
     );
   }
    _goToHomePage() {
@@ -215,6 +211,14 @@ class _LogInPageState extends State<LogInPage> {
       context,
       MaterialPageRoute(builder: (context) => ReviewPage()),
     );
+  }
+
+  Future<void> _handleSignIn() async {
+    try {
+      await _googleSignIn.signIn();
+    } catch (error) {
+      print(error);
+    }
   }
 
   Future<void> _handleSignInCredential() async {
