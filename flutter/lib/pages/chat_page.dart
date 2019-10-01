@@ -27,21 +27,22 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
       ),
       body: Container(
         decoration: BoxDecoration(
-            color: new Color(0xff622F74),
-            gradient: LinearGradient(
-              colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
-              begin: Alignment.centerRight,
-              end: Alignment.centerLeft,
-            )),
-        ///////////
+          color: new Color(0xff622F74),
+          gradient: LinearGradient(
+            colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+            begin: Alignment.centerRight,
+            end: Alignment.centerLeft,
+          ),
+        ),
         child: Column(children: [
           Flexible(
-              child: ListView.builder(
-            itemBuilder: (_, int index) => _messages[index],
-            itemCount: _messages.length,
-            reverse: true,
-            padding: EdgeInsets.all(6.0),
-          )),
+            child: ListView.builder(
+              itemBuilder: (_, int index) => _messages[index],
+              itemCount: _messages.length,
+              reverse: true,
+              padding: EdgeInsets.all(6.0),
+            ),
+          ),
           Divider(height: 1.0),
           Container(
             child: _buildComposer(),

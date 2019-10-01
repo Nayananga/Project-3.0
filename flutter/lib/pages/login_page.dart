@@ -29,23 +29,24 @@ class _LogInPageState extends State<LogInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: new Color(0xffde5cbc),
-          title: const Text('Google Sign In'),
+      appBar: AppBar(
+        backgroundColor: new Color(0xffde5cbc),
+        title: const Text('Google Sign In'),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+            color: new Color(0xff622F74),
+            gradient: LinearGradient(
+              colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+              begin: Alignment.centerRight,
+              end: Alignment.centerLeft,
+            )),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints.expand(),
+          child: _buildBody(),
         ),
-        body: Container(
-          decoration: BoxDecoration(
-              color: new Color(0xff622F74),
-              gradient: LinearGradient(
-                colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
-                begin: Alignment.centerRight,
-                end: Alignment.centerLeft,
-              )),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints.expand(),
-            child: _buildBody(),
-          ),
-        ));
+      ),
+    );
   }
 
   @override
@@ -95,17 +96,18 @@ class _LogInPageState extends State<LogInPage> {
             ),
           ),
           ButtonTheme(
-              minWidth: 150.0,
-              height: 50.0,
-              child: RaisedButton(
-                shape: StadiumBorder(),
-                color: Colors.purpleAccent,
-                child: const Text(
-                  ' Survey ',
-                  style: TextStyle(fontSize: 20.0, color: Colors.white),
-                ),
-                onPressed: _goToQuizPage,
-              )),
+            minWidth: 150.0,
+            height: 50.0,
+            child: RaisedButton(
+              shape: StadiumBorder(),
+              color: Colors.purpleAccent,
+              child: const Text(
+                ' Survey ',
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
+              ),
+              onPressed: _goToQuizPage,
+            ),
+          ),
           ButtonTheme(
             minWidth: 150.0,
             height: 50.0,
@@ -155,11 +157,13 @@ class _LogInPageState extends State<LogInPage> {
               color: Colors.purpleAccent,
               shape: StadiumBorder(),
               onPressed: _handleSignIn,
-              child: const Text('SIGN IN',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),),
+              child: const Text(
+                'SIGN IN',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
             ),
           )
         ],
@@ -174,17 +178,17 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  _goToQuizPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => PreQuizPage()),
-    );
-  }
-
   _goToComplaintPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ComplaintPage()),
+    );
+  }
+
+  _goToQuizPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PreQuizPage()),
     );
   }
 
