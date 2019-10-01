@@ -55,11 +55,10 @@ class _LogInPageState extends State<LogInPage> {
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       setState(() {
         _currentUser = account;
-        _handleSignInCredential();
       });
     });
     try {
-      _googleSignIn.signInSilently();
+      _handleSignInCredential();
     } catch (error) {
       print(error);
     }
@@ -156,7 +155,7 @@ class _LogInPageState extends State<LogInPage> {
             child: RaisedButton(
               color: Colors.purpleAccent,
               shape: StadiumBorder(),
-              onPressed: _handleSignIn,
+              onPressed: _handleSignInCredential,
               child: const Text(
                 'SIGN IN',
                 style: TextStyle(
@@ -192,21 +191,18 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  Future<void> _handleSignIn() async {
-    try {
-      await _googleSignIn.signIn();
-    } catch (error) {
-      print(error);
-    }
-  }
-
   Future<void> _handleSignInCredential() async {
     try {
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
       AppSharedPreferences.setUserLoggedIdToken(googleAuth.idToken)
-          .whenComplete(() => _sendCredential());
+          .whenComplete(() async {
+        const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
+        final body = jsonEncode('');
+        http.Response response = await ApiRequest().apiPostRequest(url, body);
+        ApiResponse().handleLoginResponse(response);
+      });
     } catch (error) {
       print(error);
     }
@@ -215,12 +211,5 @@ class _LogInPageState extends State<LogInPage> {
   Future<void> _handleSignOut() async {
     _googleSignIn.disconnect();
     AppSharedPreferences.clear();
-  }
-
-  Future<void> _sendCredential() async {
-    const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
-    final body = jsonEncode('');
-    http.Response response = await ApiRequest().apiPostRequest(url, body);
-    ApiResponse().handleLoginResponse(response);
   }
 }
