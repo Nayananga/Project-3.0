@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 ### Flutter Generated
 
-=======
-<<<<<<< HEAD
->>>>>>> edited
 # Miscellaneous
 *.class
 *.lock
@@ -892,32 +888,3 @@ DerivedData/
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 flutter/ios/Flutter/flutter_export_environment.sh
-<<<<<<< HEAD
-=======
-flutter/.vscode/launch.json
-flutter/android/.project
-flutter/android/.settings/org.eclipse.buildship.core.prefs
-flutter/android/app/src/main/gen/com/example/project_3s_mobile/Manifest.java
-flutter/android/app/src/main/gen/com/example/project_3s_mobile/R.java
-flutter/android/app/src/main/gen/com/example/project_3s_mobile/BuildConfig.java
-flutter/android/app/.settings/org.eclipse.buildship.core.prefs
-flutter/android/app/.project
-flutter/android/app/.classpath
-=======
-.DS_Store
-.dart_tool/
-
-.packages
-.pub/
-
-build/
-
-.flutter-plugins
-/pubspec.lock
-/.flutter-plugins
-/.packages
-/.idea/libraries/Dart_Packages.xml
-/.idea/libraries/Dart_SDK.xml
-/.idea/libraries/Flutter_Plugins.xml
->>>>>>> edited
->>>>>>> edited

@@ -1,5 +1,3 @@
-# Project-3.0
-=======
 # project_3s
 
 A Flutter application for group project level 3S
