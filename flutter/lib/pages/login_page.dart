@@ -53,15 +53,13 @@ class _LogInPageState extends State<LogInPage> {
   initState() {
     super.initState();
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-      setState(() {
-        _currentUser = account;
-      });
+      if (mounted) {
+        setState(() {
+          _currentUser = account;
+        });
+      }
     });
-    try {
-      _handleSignInCredential();
-    } catch (error) {
-      print(error);
-    }
+    _handleSignInCredential();
   }
 
   Widget _buildBody() {
@@ -192,20 +190,20 @@ class _LogInPageState extends State<LogInPage> {
   }
 
   Future<void> _handleSignInCredential() async {
+    GoogleSignInAuthentication _googleAuth;
     try {
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      AppSharedPreferences.setUserLoggedIdToken(googleAuth.idToken)
-          .whenComplete(() async {
-        const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
-        final body = jsonEncode('');
-        http.Response response = await ApiRequest().apiPostRequest(url, body);
-        ApiResponse().handleLoginResponse(response);
-      });
+      _googleAuth = await googleUser.authentication;
     } catch (error) {
       print(error);
     }
+    AppSharedPreferences.setUserLoggedIdToken(_googleAuth.idToken)
+        .whenComplete(() async {
+      const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
+      final body = jsonEncode('');
+      http.Response response = await ApiRequest().apiPostRequest(url, body);
+      ApiResponse().handleLoginResponse(response);
+    });
   }
 
   Future<void> _handleSignOut() async {
