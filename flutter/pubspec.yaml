@@ -16,6 +16,7 @@ dependencies:
   simple_logger: any
   device_info: ^0.4.0+2
   location: ^2.3.5
+  image_picker: ^0.6.1+4
 
 flutter_icons:
   image_path: "images/ic_launcher.png"
