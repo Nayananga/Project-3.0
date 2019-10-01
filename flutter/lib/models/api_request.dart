@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
-import 'package:project_3s_mobile/utils/printWrapper.dart';
+import 'package:project_3s_mobile/utils/print_wrapper.dart';
 
 class ApiRequest {
   Future<http.Response> apiGetRequest(String url, var body) async {
