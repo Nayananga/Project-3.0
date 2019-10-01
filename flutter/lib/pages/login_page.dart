@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/models/ApiRequest.dart';
 import 'package:project_3s_mobile/models/ApiResponse.dart';
 import 'package:project_3s_mobile/pages/chat_page.dart';
+import 'package:project_3s_mobile/pages/complaint_page.dart';
 import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
@@ -29,11 +30,21 @@ class _LogInPageState extends State<LogInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: new Color(0xffde5cbc),
           title: const Text('Google Sign In'),
         ),
-        body: ConstrainedBox(
-          constraints: const BoxConstraints.expand(),
-          child: _buildBody(),
+        body: Container(
+          decoration: BoxDecoration(
+              color: new Color(0xff622F74),
+              gradient: LinearGradient(
+                colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft,
+              )),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints.expand(),
+            child: _buildBody(),
+          ),
         ));
   }
 
@@ -65,30 +76,92 @@ class _LogInPageState extends State<LogInPage> {
             title: Text(_currentUser.displayName ?? ''),
             subtitle: Text(_currentUser.email ?? ''),
           ),
-          RaisedButton(
-            child: const Text('Lets Chat'),
-            onPressed: _goToChatPage,
+          const Text(
+            "Signed in successfull.",
+            textAlign: TextAlign.left,
+            style: TextStyle(color: Colors.white, fontSize: 20.0),
           ),
-          RaisedButton(
-            child: const Text('Survey'),
-            onPressed: _goToQuizPage,
+          ButtonTheme(
+            minWidth: 150.0,
+            height: 50.0,
+            child: RaisedButton(
+              shape: StadiumBorder(),
+              color: Colors.purpleAccent,
+              child: const Text(
+                'Lets Chat',
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
+              ),
+              onPressed: _goToChatPage,
+            ),
           ),
-          const Text("Signed in successfully."),
-          RaisedButton(
-            child: const Text('SIGN OUT'),
-            onPressed: _handleSignOut,
+          ButtonTheme(
+              minWidth: 150.0,
+              height: 50.0,
+              child: RaisedButton(
+                shape: StadiumBorder(),
+                color: Colors.purpleAccent,
+                child: const Text(
+                  ' Survey ',
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
+                onPressed: _goToQuizPage,
+              )),
+          ButtonTheme(
+            minWidth: 150.0,
+            height: 50.0,
+            child: RaisedButton(
+              shape: StadiumBorder(),
+              color: Colors.purpleAccent,
+              child: const Text(
+                'Complaint',
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
+              ),
+              onPressed: _goToComplaintPage,
+            ),
           ),
+          ButtonTheme(
+            minWidth: 150.0,
+            height: 50.0,
+            child: RaisedButton(
+              color: Colors.purpleAccent,
+              shape: StadiumBorder(),
+              child: const Text(
+                'SIGN OUT',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: _handleSignOut,
+            ),
+          )
         ],
       );
     } else {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("You are not currently signed in."),
-          RaisedButton(
-            child: const Text('SIGN IN'),
-            onPressed: _handleSignIn,
+          const Text(
+            "You are not currently signed in.",
+            style: TextStyle(fontSize: 20.0),
           ),
+          SizedBox(
+            height: 30.0,
+          ),
+          ButtonTheme(
+            minWidth: 150.0,
+            height: 50.0,
+            child: RaisedButton(
+              color: Colors.purpleAccent,
+              shape: StadiumBorder(),
+              onPressed: _handleSignIn,
+              child: const Text('SIGN IN',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                  ),),
+            ),
+          )
         ],
       );
     }
@@ -105,6 +178,13 @@ class _LogInPageState extends State<LogInPage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PreQuizPage()),
+    );
+  }
+
+  _goToComplaintPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ComplaintPage()),
     );
   }
 
