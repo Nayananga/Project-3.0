@@ -10,6 +10,7 @@ import 'package:project_3s_mobile/models/entities/quiz.dart';
 import 'package:project_3s_mobile/models/quiz_loader.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 import 'package:project_3s_mobile/utils/deviceInfo.dart';
+import 'package:project_3s_mobile/utils/geoLocation.dart';
 import 'package:project_3s_mobile/utils/logger.dart';
 
 class Model extends ChangeNotifier {
@@ -87,14 +88,16 @@ class Model extends ChangeNotifier {
     const String _url = APIConstants.API_BASE_URL + APIRoutes.CREATE_REVIEW;
     _answers.map((answer) => _answerListAsJson.add(answer.toJson())).toList();
     await getDeviceInfo().then((info) async {
-      final body = jsonEncode({
-        'question_and_answers': _answerListAsJson,
-        'device_signature': info,
+      await GeoLocation().locationToJson().then((jsonLocation) async {
+        final body = jsonEncode({
+          'question_and_answers': _answerListAsJson,
+          'device_signature': info,
+          'geo_location': jsonLocation,
+        });
+        print(body);
+        http.Response _response = await ApiRequest().apiPostRequest(_url, body);
+        ApiResponse().handleCreateReviewResponse(_response);
       });
-      print(body);
-      http.Response _response =
-          await ApiRequest().apiPostRequest(_url, body);
-      ApiResponse().handleCreateReviewResponse(_response);
     });
   }
 
