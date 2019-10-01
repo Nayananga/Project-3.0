@@ -8,6 +8,10 @@ import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/pages/chat_page/chat_page.dart';
 import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
 import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
+import 'package:project_3s_mobile/pages/profile_page.dart';
+import 'package:project_3s_mobile/pages/setting_page.dart';
+import 'package:project_3s_mobile/pages/review_page.dart';
+import 'package:project_3s_mobile/pages/home_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 
@@ -186,6 +190,30 @@ class _LogInPageState extends State<LogInPage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PreQuizPage()),
+    );
+  }
+   _goToHomePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyHomePage()),
+    );
+  }
+   _goToProfilePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProfilePage()),
+    );
+  }
+   _goToSettingPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SettingPage()),
+    );
+  }
+   _goToReviewPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ReviewPage()),
     );
   }
 
