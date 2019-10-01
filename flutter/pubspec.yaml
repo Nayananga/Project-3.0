@@ -12,7 +12,7 @@ dependencies:
   google_sign_in: ^4.0.7
   provider: any
   flare_flutter: any
-  url_launcher: any
+  url_launcher: ^5.1.4
   simple_logger: any
   device_info: ^0.4.0+2
   location: ^2.3.5
