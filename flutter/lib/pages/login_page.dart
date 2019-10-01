@@ -35,8 +35,74 @@ class _LogInPageState extends State<LogInPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: new Color(0xffde5cbc),
-          title: const Text('Google Sign In'),
-        ),
+          title: const Text('Home')),
+
+            drawer:Drawer(
+           child:Column(
+             children: <Widget>[
+               Container(
+                 padding:EdgeInsets.only(top:40.0,left:15.0),
+                 width:double.infinity,
+               color: new Color(0xffde5cbc),
+
+                 height:250.0,
+
+                 child:new Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: <Widget>[
+                     Icon(
+                       Icons.account_circle,
+                       size:80.0,
+                       color:Colors.white,
+                       ),
+                      
+                      SizedBox(
+                        height:30.0,
+                        ),
+
+                      Text(
+                        "Suthan",
+                        style:new TextStyle( color:Colors.white,
+                        fontSize :30.0),
+                      ),
+
+                     Text(
+                        "suthanram@gmail.com",
+                        style:new TextStyle( color:Colors.white,
+                        fontSize :15.0),
+                      )
+
+                   ],
+                   )),
+
+               ListTile(
+                  onTap: _goToProfilePage,
+                  leading: Icon(Icons.details),
+                  title:Text("Profile"),
+                ),
+                 ListTile(
+                  onTap: _goToHomePage,
+                  leading: Icon(Icons.home),
+                  title:Text("Home"),
+                ),
+               ListTile(
+                  onTap: _goToSettingPage,
+                  leading: Icon(Icons.settings),
+                  title:Text("Setting"),
+                ),
+               ListTile(
+                  onTap: _goToReviewPage,
+                  leading: Icon(Icons.playlist_add_check),
+                  title:Text("Review"),
+                ),
+               
+
+             ],
+             ),
+         ),
+       
+
+        
         body: Container(
           decoration: BoxDecoration(
               color: new Color(0xff622F74),
@@ -49,7 +115,8 @@ class _LogInPageState extends State<LogInPage> {
             constraints: const BoxConstraints.expand(),
             child: _buildBody(),
           ),
-        ));
+        )
+        );
   }
 
   @override
