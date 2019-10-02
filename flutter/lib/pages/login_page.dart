@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:project_3s_mobile/models/ApiRequest.dart';
-import 'package:project_3s_mobile/models/ApiResponse.dart';
-import 'package:project_3s_mobile/pages/chat_page.dart';
-import 'package:project_3s_mobile/pages/complaint_page.dart';
+import 'package:project_3s_mobile/models/api_request.dart';
+import 'package:project_3s_mobile/models/api_response.dart';
+import 'package:project_3s_mobile/pages/chat_page/chat_page.dart';
+import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
 import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
 import 'package:project_3s_mobile/pages/profile_page.dart';
 import 'package:project_3s_mobile/pages/setting_page.dart';
@@ -249,10 +249,10 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  _goToComplaintPage() {
+  _goToQuizPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ComplaintPage()),
+      MaterialPageRoute(builder: (context) => PreQuizPage()),
     );
   }
    _goToHomePage() {
