@@ -28,8 +28,6 @@ class Complaint extends State<ComplaintPage> with TickerProviderStateMixin {
                )),
 
                child: SafeArea(
-                top:false,
-                bottom: false,
                 child: Container(
                 child:SingleChildScrollView(
                   padding:EdgeInsets.all(15.0),
@@ -167,7 +165,6 @@ class Complaint extends State<ComplaintPage> with TickerProviderStateMixin {
                               ),
                             ),
                           ),   
-
 
                    ]
                  )
