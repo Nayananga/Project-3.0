@@ -19,6 +19,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:project_3s_mobile/pages/login_page.dart';
+//import 'package:project_3s_mobile/pages/ui_design.dart';
+
 
 class SplashPage extends StatefulWidget {
   @override
@@ -52,6 +54,7 @@ class SplashPageState extends State<SplashPage> {
         child: Container(
             height: double.infinity,
             width: double.infinity,
+           // decoration: __new Uidecoration(),
             decoration: BoxDecoration(
                 color: new Color(0xff622F74),
                 gradient: LinearGradient(
@@ -59,6 +62,7 @@ class SplashPageState extends State<SplashPage> {
                   begin: Alignment.centerRight,
                   end: Alignment.centerLeft,
                 )),
+
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

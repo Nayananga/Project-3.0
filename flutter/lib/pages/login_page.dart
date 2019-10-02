@@ -43,7 +43,7 @@ class _LogInPageState extends State<LogInPage> {
                Container(
                  padding:EdgeInsets.only(top:40.0,left:15.0),
                  width:double.infinity,
-               color: new Color(0xffde5cbc),
+                  color: new Color(0xffde5cbc),
 
                  height:250.0,
 
@@ -95,14 +95,10 @@ class _LogInPageState extends State<LogInPage> {
                   leading: Icon(Icons.playlist_add_check),
                   title:Text("Review"),
                 ),
-               
-
              ],
              ),
          ),
        
-
-        
         body: Container(
           decoration: BoxDecoration(
               color: new Color(0xff622F74),

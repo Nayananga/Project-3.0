@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'CircleProgress.dart';
-import 'package:project_3s_mobile/pages/complaint_page.dart';
+import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
 import 'package:project_3s_mobile/pages/review_page.dart';
 
 
