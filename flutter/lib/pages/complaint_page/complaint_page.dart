@@ -125,7 +125,11 @@ class Complaint extends State<ComplaintPage> {
                           child: RaisedButton(
                             color: Colors.purpleAccent,
                             shape: StadiumBorder(),
-                            onPressed: _handleDone,
+                            onPressed: () {
+                              _handleDone();
+                              Navigator.of(context).popUntil(
+                                      (route) => route.isFirst); // need to submit
+                            },
                             child: Text(
                               "Done",
                               style: TextStyle(
@@ -159,7 +163,6 @@ class Complaint extends State<ComplaintPage> {
       if (_base64Image != null) {
         _fileName = _tmpFile.path.split('/').last;
       }
-      _textController.clear();
       await GeoLocation().locationToJson().then((jsonLocation) async {
         final body = jsonEncode({
           'geo_location': jsonLocation,
