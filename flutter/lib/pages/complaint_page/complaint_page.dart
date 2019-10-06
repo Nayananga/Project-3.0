@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:project_3s_mobile/customviews/progress_dialog.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:project_3s_mobile/models/api_request.dart';
 import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
@@ -18,10 +18,15 @@ class Complaint extends State<ComplaintPage> {
   File _tmpFile;
   bool _isFileLoaded = false;
   final TextEditingController _textController = TextEditingController();
-  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
 
   @override
   Widget build(BuildContext ctx) {
+    ProgressDialog pr =
+        new ProgressDialog(context, type: ProgressDialogType.Normal);
+    pr.style(
+      message: 'Uploading complaint..',
+      backgroundColor: Colors.white30,
+    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: new Color(0xffde5cbc),
@@ -127,12 +132,12 @@ class Complaint extends State<ComplaintPage> {
                           child: RaisedButton(
                             color: Colors.purpleAccent,
                             shape: StadiumBorder(),
-                            onPressed: () async{
-                              ProgressDialog.showLoadingDialog(context, _keyLoader);
+                            onPressed: () async {
+                              pr.show();
                               await _handleDone();
-                              Navigator.of(_keyLoader.currentContext, rootNavigator: true).pop();
-                              Navigator.of(context).popUntil(
-                                      (route) => route.isFirst);
+                              pr.hide();
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
                             },
                             child: Text(
                               "Done",
