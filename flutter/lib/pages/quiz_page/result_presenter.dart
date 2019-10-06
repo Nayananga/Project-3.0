@@ -1,9 +1,12 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:project_3s_mobile/customviews/progress_dialog.dart';
 
 import 'model.dart';
 
 class ResultPresenter {
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
+
   show(
     BuildContext context, {
     @required Model model,
@@ -44,8 +47,10 @@ class ResultPresenter {
                 ),
                 FlatButton(
                   child: const Text('Submit'),
-                  onPressed: () {
-                    model.next();
+                  onPressed: () async{
+                    ProgressDialog.showLoadingDialog(context, _keyLoader);
+                    await model.next();
+                    Navigator.of(_keyLoader.currentContext, rootNavigator: true).pop();
                     Navigator.of(context)
                         .popUntil((route) => route.isFirst); // need to submit
                   },

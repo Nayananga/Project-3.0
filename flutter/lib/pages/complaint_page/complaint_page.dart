@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:project_3s_mobile/customviews/progress_dialog.dart';
 import 'package:project_3s_mobile/models/api_request.dart';
 import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
@@ -17,6 +18,7 @@ class Complaint extends State<ComplaintPage> {
   File _tmpFile;
   bool _isFileLoaded = false;
   final TextEditingController _textController = TextEditingController();
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
 
   @override
   Widget build(BuildContext ctx) {
@@ -125,10 +127,12 @@ class Complaint extends State<ComplaintPage> {
                           child: RaisedButton(
                             color: Colors.purpleAccent,
                             shape: StadiumBorder(),
-                            onPressed: () {
-                              _handleDone();
+                            onPressed: () async{
+                              ProgressDialog.showLoadingDialog(context, _keyLoader);
+                              await _handleDone();
+                              Navigator.of(_keyLoader.currentContext, rootNavigator: true).pop();
                               Navigator.of(context).popUntil(
-                                      (route) => route.isFirst); // need to submit
+                                      (route) => route.isFirst);
                             },
                             child: Text(
                               "Done",
@@ -149,12 +153,12 @@ class Complaint extends State<ComplaintPage> {
 
   _chooseImage() {
     setState(() {
-      _file = ImagePicker.pickImage(source: ImageSource.gallery);
       _isFileLoaded = true;
+      _file = ImagePicker.pickImage(source: ImageSource.camera);
     });
   }
 
-  Future<void> _handleDone() async {
+  _handleDone() async {
     if (_textController.text != null) {
       const String _url =
           APIConstants.API_BASE_URL + APIRoutes.CREATE_COMPLAINTS;

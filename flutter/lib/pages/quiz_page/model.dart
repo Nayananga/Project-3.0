@@ -72,10 +72,10 @@ class Model extends ChangeNotifier {
     super.dispose();
   }
 
-  next() {
+  next() async{
     _index++;
     if (!_hasQuiz) {
-      sendAnswers();
+      await _sendAnswers();
       logger.info('not more quiz');
       return;
     }
@@ -83,7 +83,7 @@ class Model extends ChangeNotifier {
     notifyListeners(); // call quiz_page initStage()
   }
 
-  Future<void> sendAnswers() async {
+  _sendAnswers() async {
     List _answerListAsJson = List();
     const String _url = APIConstants.API_BASE_URL + APIRoutes.CREATE_REVIEW;
     _answers.map((answer) => _answerListAsJson.add(answer.toJson())).toList();

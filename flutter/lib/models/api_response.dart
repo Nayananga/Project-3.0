@@ -10,7 +10,7 @@ class ApiResponse {
       final _responseData = jsonDecode(response.body);
       print(_responseData['message']['id']);
     } else {
-      throw Exception(response.statusCode);
+      print(response.statusCode);
     }
   }
 
@@ -29,7 +29,7 @@ class ApiResponse {
           nic: '');
       AppSharedPreferences.setUserProfile(_user);
     } else {
-      throw new Exception(response.statusCode);
+      print(response.statusCode);
     }
   }
 }
