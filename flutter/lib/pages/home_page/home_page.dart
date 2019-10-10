@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
 import 'package:project_3s_mobile/pages/home_page/review_page.dart';
-import 'package:project_3s_mobile/utils/circle_progress.dart';
+import 'package:project_3s_mobile/pages/home_page/circle_progress.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -12,16 +12,6 @@ class _CircleProgressState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   AnimationController progressController;
   Animation<double> animation;
-
-  void initState() {
-    super.initState();
-    progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000));
-    animation = Tween<double>(begin: 0, end: 80).animate(progressController)
-      ..addListener(() {
-        setState(() {});
-      });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,6 +183,16 @@ class _CircleProgressState extends State<MyHomePage>
                 ),
               ),
             )));
+  }
+
+  void initState() {
+    super.initState();
+    progressController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1000));
+    animation = Tween<double>(begin: 0, end: 80).animate(progressController)
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   _goToComplaintPage() {

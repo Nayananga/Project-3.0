@@ -25,12 +25,13 @@ class _MyHomePageState extends State<ProfilePage> {
         bottom: false,
         child: Container(
           decoration: BoxDecoration(
-              color: new Color(0xff622F74),
-              gradient: LinearGradient(
-                colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
-                begin: Alignment.centerRight,
-                end: Alignment.centerLeft,
-              )),
+            color: new Color(0xff622F74),
+            gradient: LinearGradient(
+              colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+              begin: Alignment.centerRight,
+              end: Alignment.centerLeft,
+            ),
+          ),
           child: Form(
             child: SingleChildScrollView(
               padding: EdgeInsets.all(15.0),
@@ -62,7 +63,7 @@ class _MyHomePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  ////////
+
                   const SizedBox(height: 20.0),
 
                   TextFormField(
@@ -106,7 +107,6 @@ class _MyHomePageState extends State<ProfilePage> {
                     maxLines: 1,
                   ),
 
-                  ///////
                   const SizedBox(height: 20.0),
                   TextFormField(
                     keyboardType: TextInputType.text,
@@ -149,7 +149,6 @@ class _MyHomePageState extends State<ProfilePage> {
                     maxLines: 1,
                   ),
 
-                  ////////
                   const SizedBox(height: 20.0),
                   TextFormField(
                     keyboardType: TextInputType.number,
@@ -197,7 +196,6 @@ class _MyHomePageState extends State<ProfilePage> {
                     maxLines: 1,
                   ),
 
-                  ///////////
                   const SizedBox(height: 20.0),
                   TextFormField(
                     keyboardType: TextInputType.text,
@@ -239,7 +237,7 @@ class _MyHomePageState extends State<ProfilePage> {
                     ),
                     maxLines: 1,
                   ),
-                  ////////////
+
                   const SizedBox(height: 20.0),
                   TextFormField(
                     keyboardType: TextInputType.number,

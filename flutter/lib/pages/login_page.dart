@@ -10,7 +10,7 @@ import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
 import 'package:project_3s_mobile/pages/home_page/home_page.dart';
 import 'package:project_3s_mobile/pages/home_page/profile_page.dart';
 import 'package:project_3s_mobile/pages/home_page/review_page.dart';
-import 'package:project_3s_mobile/pages/home_page/setting_page.dart';
+import 'package:project_3s_mobile/pages/home_page/settings_page.dart';
 import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
@@ -236,13 +236,6 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  _goToQuizPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => PreQuizPage()),
-    );
-  }
-
   _goToHomePage() {
     Navigator.push(
       context,
@@ -257,10 +250,10 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  _goToSettingPage() {
+  _goToQuizPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SettingPage()),
+      MaterialPageRoute(builder: (context) => PreQuizPage()),
     );
   }
 
@@ -268,6 +261,13 @@ class _LogInPageState extends State<LogInPage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ReviewPage()),
+    );
+  }
+
+  _goToSettingPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SettingPage()),
     );
   }
 

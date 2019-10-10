@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
 
 class CircleProgress extends CustomPainter {
   double currentProgress;
+
   CircleProgress(this.currentProgress);
 
   @override
