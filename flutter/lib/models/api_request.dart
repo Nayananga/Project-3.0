@@ -7,13 +7,12 @@ import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/print_wrapper.dart';
 
 class ApiRequest {
-  Future<http.Response> apiGetRequest(String url, var body) async {
+  Future<http.Response> apiGetRequest(String url) async {
     http.Response _uriResponse;
     var _client = http.Client();
 
     await AppSharedPreferences.getUserLoggedIdToken().then((idToken) async {
       Map<String, String> _headers = {
-        HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: idToken,
       };
       try {

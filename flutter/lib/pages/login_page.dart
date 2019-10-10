@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -299,8 +297,7 @@ class _LogInPageState extends State<LogInPage> {
     AppSharedPreferences.setUserLoggedIdToken(_googleAuth.idToken)
         .whenComplete(() async {
       const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
-      final body = jsonEncode('');
-      http.Response response = await ApiRequest().apiPostRequest(url, body);
+      http.Response response = await ApiRequest().apiGetRequest(url);
       ApiResponse().handleLoginResponse(response);
     });
   }
