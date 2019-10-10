@@ -7,6 +7,10 @@ import 'package:project_3s_mobile/models/api_request.dart';
 import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/pages/chat_page/chat_page.dart';
 import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
+import 'package:project_3s_mobile/pages/home_page/home_page.dart';
+import 'package:project_3s_mobile/pages/home_page/profile_page.dart';
+import 'package:project_3s_mobile/pages/home_page/review_page.dart';
+import 'package:project_3s_mobile/pages/home_page/setting_page.dart';
 import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
@@ -30,8 +34,58 @@ class _LogInPageState extends State<LogInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: new Color(0xffde5cbc),
-        title: const Text('Google Sign In'),
+          backgroundColor: new Color(0xffde5cbc), title: const Text('Home')),
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            Container(
+                padding: EdgeInsets.only(top: 40.0, left: 15.0),
+                width: double.infinity,
+                color: new Color(0xffde5cbc),
+                height: 250.0,
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Icon(
+                      Icons.account_circle,
+                      size: 80.0,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Text(
+                      "Suthan",
+                      style: new TextStyle(color: Colors.white, fontSize: 30.0),
+                    ),
+                    Text(
+                      "suthanram@gmail.com",
+                      style: new TextStyle(color: Colors.white, fontSize: 15.0),
+                    )
+                  ],
+                )),
+            ListTile(
+              onTap: _goToProfilePage,
+              leading: Icon(Icons.details),
+              title: Text("Profile"),
+            ),
+            ListTile(
+              onTap: _goToHomePage,
+              leading: Icon(Icons.home),
+              title: Text("Home"),
+            ),
+            ListTile(
+              onTap: _goToSettingPage,
+              leading: Icon(Icons.settings),
+              title: Text("Setting"),
+            ),
+            ListTile(
+              onTap: _goToReviewPage,
+              leading: Icon(Icons.playlist_add_check),
+              title: Text("Review"),
+            ),
+          ],
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -186,6 +240,34 @@ class _LogInPageState extends State<LogInPage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PreQuizPage()),
+    );
+  }
+
+  _goToHomePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyHomePage()),
+    );
+  }
+
+  _goToProfilePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProfilePage()),
+    );
+  }
+
+  _goToSettingPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SettingPage()),
+    );
+  }
+
+  _goToReviewPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ReviewPage()),
     );
   }
 
