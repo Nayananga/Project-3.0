@@ -32,75 +32,46 @@ class _LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          backgroundColor: new Color(0xffde5cbc), title: const Text('Home')),
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            Container(
-                padding: EdgeInsets.only(top: 40.0, left: 15.0),
-                width: double.infinity,
-                color: new Color(0xffde5cbc),
-                height: 250.0,
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(
-                      Icons.account_circle,
-                      size: 80.0,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    Text(
-                      "Suthan",
-                      style: new TextStyle(color: Colors.white, fontSize: 30.0),
-                    ),
-                    Text(
-                      "suthanram@gmail.com",
-                      style: new TextStyle(color: Colors.white, fontSize: 15.0),
-                    )
-                  ],
-                )),
-            ListTile(
-              onTap: _goToProfilePage,
-              leading: Icon(Icons.details),
-              title: Text("Profile"),
-            ),
-            ListTile(
-              onTap: _goToHomePage,
-              leading: Icon(Icons.home),
-              title: Text("Home"),
-            ),
-            ListTile(
-              onTap: _goToSettingPage,
-              leading: Icon(Icons.settings),
-              title: Text("Setting"),
-            ),
-            ListTile(
-              onTap: _goToReviewPage,
-              leading: Icon(Icons.playlist_add_check),
-              title: Text("Review"),
-            ),
-          ],
+    if (_currentUser != null) {
+      return Scaffold(
+        appBar: AppBar(
+            backgroundColor: new Color(0xffde5cbc), title: const Text('Home')),
+        body: Container(
+          decoration: BoxDecoration(
+              color: new Color(0xff622F74),
+              gradient: LinearGradient(
+                colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft,
+              )),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints.expand(),
+            child: _buildBodyAfterLogin(),
+          ),
         ),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-            color: new Color(0xff622F74),
-            gradient: LinearGradient(
-              colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
-              begin: Alignment.centerRight,
-              end: Alignment.centerLeft,
-            )),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints.expand(),
-          child: _buildBody(),
+        drawer: Drawer(
+          child: _buildDrawer(),
         ),
-      ),
-    );
+      );
+    } else {
+      return Scaffold(
+        appBar: AppBar(
+            backgroundColor: new Color(0xffde5cbc), title: const Text('Login')),
+        body: Container(
+          decoration: BoxDecoration(
+              color: new Color(0xff622F74),
+              gradient: LinearGradient(
+                colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft,
+              )),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints.expand(),
+            child: _buildBodyBeforeLogin(),
+          ),
+        ),
+      );
+    }
   }
 
   @override
@@ -116,81 +87,76 @@ class _LogInPageState extends State<LogInPage> {
     _handleSignInCredential();
   }
 
-  Widget _buildBody() {
-    if (_currentUser != null) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ListTile(
-            leading: GoogleUserCircleAvatar(
-              identity: _currentUser,
+  Widget _buildBodyAfterLogin() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        const Text(
+          "Signed in successfull.",
+          textAlign: TextAlign.left,
+          style: TextStyle(color: Colors.white, fontSize: 20.0),
+        ),
+        ButtonTheme(
+          minWidth: 150.0,
+          height: 50.0,
+          child: RaisedButton(
+            shape: StadiumBorder(),
+            color: Colors.purpleAccent,
+            child: const Text(
+              'Lets Chat',
+              style: TextStyle(fontSize: 20.0, color: Colors.white),
             ),
-            title: Text(_currentUser.displayName ?? ''),
-            subtitle: Text(_currentUser.email ?? ''),
+            onPressed: _goToChatPage,
           ),
-          const Text(
-            "Signed in successfull.",
-            textAlign: TextAlign.left,
-            style: TextStyle(color: Colors.white, fontSize: 20.0),
+        ),
+        ButtonTheme(
+          minWidth: 150.0,
+          height: 50.0,
+          child: RaisedButton(
+            shape: StadiumBorder(),
+            color: Colors.purpleAccent,
+            child: const Text(
+              ' Survey ',
+              style: TextStyle(fontSize: 20.0, color: Colors.white),
+            ),
+            onPressed: _goToQuizPage,
           ),
-          ButtonTheme(
-            minWidth: 150.0,
-            height: 50.0,
-            child: RaisedButton(
-              shape: StadiumBorder(),
-              color: Colors.purpleAccent,
-              child: const Text(
-                'Lets Chat',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
+        ),
+        ButtonTheme(
+          minWidth: 150.0,
+          height: 50.0,
+          child: RaisedButton(
+            shape: StadiumBorder(),
+            color: Colors.purpleAccent,
+            child: const Text(
+              'Complaint',
+              style: TextStyle(fontSize: 20.0, color: Colors.white),
+            ),
+            onPressed: _goToComplaintPage,
+          ),
+        ),
+        ButtonTheme(
+          minWidth: 150.0,
+          height: 50.0,
+          child: RaisedButton(
+            color: Colors.purpleAccent,
+            shape: StadiumBorder(),
+            child: const Text(
+              'SIGN OUT',
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.white,
               ),
-              onPressed: _goToChatPage,
             ),
+            onPressed: _handleSignOut,
           ),
-          ButtonTheme(
-            minWidth: 150.0,
-            height: 50.0,
-            child: RaisedButton(
-              shape: StadiumBorder(),
-              color: Colors.purpleAccent,
-              child: const Text(
-                ' Survey ',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
-              onPressed: _goToQuizPage,
-            ),
-          ),
-          ButtonTheme(
-            minWidth: 150.0,
-            height: 50.0,
-            child: RaisedButton(
-              shape: StadiumBorder(),
-              color: Colors.purpleAccent,
-              child: const Text(
-                'Complaint',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
-              onPressed: _goToComplaintPage,
-            ),
-          ),
-          ButtonTheme(
-            minWidth: 150.0,
-            height: 50.0,
-            child: RaisedButton(
-              color: Colors.purpleAccent,
-              shape: StadiumBorder(),
-              child: const Text(
-                'SIGN OUT',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.white,
-                ),
-              ),
-              onPressed: _handleSignOut,
-            ),
-          )
-        ],
-      );
-    } else {
+        )
+      ],
+    );
+  }
+
+  Widget _buildBodyBeforeLogin() {
+    {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -220,6 +186,57 @@ class _LogInPageState extends State<LogInPage> {
         ],
       );
     }
+  }
+
+  Widget _buildDrawer() {
+    return Column(
+      children: <Widget>[
+        Container(
+            padding: EdgeInsets.only(top: 40.0, left: 15.0),
+            width: double.infinity,
+            color: new Color(0xffde5cbc),
+            height: 200.0,
+            child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ListTile(
+                  leading: GoogleUserCircleAvatar(
+                    backgroundColor: Colors.white,
+                    identity: _currentUser,
+                  ),
+                  title: Text(
+                    _currentUser.displayName ?? '',
+                    style: new TextStyle(color: Colors.white, fontSize: 30.0),
+                  ),
+                  subtitle: Text(
+                    _currentUser.email ?? '',
+                    style: new TextStyle(color: Colors.white, fontSize: 15.0),
+                  ),
+                ),
+              ],
+            )),
+        ListTile(
+          onTap: _goToProfilePage,
+          leading: Icon(Icons.details),
+          title: Text("Profile"),
+        ),
+        ListTile(
+          onTap: _goToReviewPage,
+          leading: Icon(Icons.playlist_add_check),
+          title: Text("Review"),
+        ),
+        ListTile(
+          onTap: _goToHomePage,
+          leading: Icon(Icons.home),
+          title: Text("Home"),
+        ),
+        ListTile(
+          onTap: _goToSettingPage,
+          leading: Icon(Icons.settings),
+          title: Text("Settings"),
+        ),
+      ],
+    );
   }
 
   _goToChatPage() {
