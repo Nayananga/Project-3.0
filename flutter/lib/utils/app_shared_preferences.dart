@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSharedPreferences {
 ///////////////////////////////////////////////////////////////////////////////
-  static Future<void> clear() async {
+  static clear() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.clear();
@@ -39,7 +39,7 @@ class AppSharedPreferences {
     }
   }
 
-  static Future<void> setUserLoggedIdToken(String idToken) async {
+  static setUserLoggedIdToken(String idToken) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       return prefs.setString(
@@ -49,7 +49,7 @@ class AppSharedPreferences {
     }
   }
 
-  static Future<void> setUserProfile(User user) async {
+  static setUserProfile(User user) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final String userProfileJson = json.encode(user);

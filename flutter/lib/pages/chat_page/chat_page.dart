@@ -68,7 +68,7 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
     super.initState();
   }
 
-  Future<void> initUserProfile() async {
+  initUserProfile() async {
     final loggedUser = await AppSharedPreferences.getUserProfile();
     setState(() {
       defaultUserName = loggedUser.nickname;

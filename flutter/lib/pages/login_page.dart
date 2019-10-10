@@ -271,7 +271,7 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  Future<void> _handleSignInCredential() async {
+  _handleSignInCredential() async {
     GoogleSignInAuthentication _googleAuth;
     try {
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -288,7 +288,7 @@ class _LogInPageState extends State<LogInPage> {
     });
   }
 
-  Future<void> _handleSignOut() async {
+  _handleSignOut() async {
     _googleSignIn.disconnect();
     AppSharedPreferences.clear();
   }
