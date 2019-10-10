@@ -7,11 +7,11 @@ import 'package:project_3s_mobile/models/api_request.dart';
 import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/pages/chat_page/chat_page.dart';
 import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
+import 'package:project_3s_mobile/pages/home_page/home_page.dart';
+import 'package:project_3s_mobile/pages/home_page/profile_page.dart';
+import 'package:project_3s_mobile/pages/home_page/review_page.dart';
+import 'package:project_3s_mobile/pages/home_page/setting_page.dart';
 import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
-import 'package:project_3s_mobile/pages/profile_page.dart';
-import 'package:project_3s_mobile/pages/setting_page.dart';
-import 'package:project_3s_mobile/pages/review_page.dart';
-import 'package:project_3s_mobile/pages/home_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 
