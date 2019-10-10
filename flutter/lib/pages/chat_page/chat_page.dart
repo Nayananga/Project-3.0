@@ -22,8 +22,7 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
   Widget build(BuildContext ctx) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor:  new Color(0xffde5cbc),
-          //new Color(0xffde5cbc),
+        backgroundColor: new Color(0xffde5cbc),
         title: Text("Chat Application"),
         elevation: Theme.of(ctx).platform == TargetPlatform.iOS ? 0.0 : 6.0,
       ),
@@ -110,15 +109,14 @@ class ChatWindow extends State<ChatPage> with TickerProviderStateMixin {
                           icon: Icon(Icons.message),
                           onPressed: _isWriting
                               ? () => _submitMsg(_textController.text)
-                              : null,)
-                        ),
+                              : null,
+                        )),
             ],
           ),
           decoration: Theme.of(context).platform == TargetPlatform.iOS
               ? BoxDecoration(
                   border: Border(top: BorderSide(color: Colors.brown)))
-              : null
-    ),
+              : null),
     );
   }
 

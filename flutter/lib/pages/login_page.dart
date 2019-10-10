@@ -33,86 +33,74 @@ class _LogInPageState extends State<LogInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: new Color(0xffde5cbc),
-          title: const Text('Home')),
-
-            drawer:Drawer(
-           child:Column(
-             children: <Widget>[
-               Container(
-                 padding:EdgeInsets.only(top:40.0,left:15.0),
-                 width:double.infinity,
-                  color: new Color(0xffde5cbc),
-
-                 height:250.0,
-
-                 child:new Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: <Widget>[
-                     Icon(
-                       Icons.account_circle,
-                       size:80.0,
-                       color:Colors.white,
-                       ),
-                      
-                      SizedBox(
-                        height:30.0,
-                        ),
-
-                      Text(
-                        "Suthan",
-                        style:new TextStyle( color:Colors.white,
-                        fontSize :30.0),
-                      ),
-
-                     Text(
-                        "suthanram@gmail.com",
-                        style:new TextStyle( color:Colors.white,
-                        fontSize :15.0),
-                      )
-
-                   ],
-                   )),
-
-               ListTile(
-                  onTap: _goToProfilePage,
-                  leading: Icon(Icons.details),
-                  title:Text("Profile"),
-                ),
-                 ListTile(
-                  onTap: _goToHomePage,
-                  leading: Icon(Icons.home),
-                  title:Text("Home"),
-                ),
-               ListTile(
-                  onTap: _goToSettingPage,
-                  leading: Icon(Icons.settings),
-                  title:Text("Setting"),
-                ),
-               ListTile(
-                  onTap: _goToReviewPage,
-                  leading: Icon(Icons.playlist_add_check),
-                  title:Text("Review"),
-                ),
-             ],
-             ),
-         ),
-       
-        body: Container(
-          decoration: BoxDecoration(
-              color: new Color(0xff622F74),
-              gradient: LinearGradient(
-                colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
-                begin: Alignment.centerRight,
-                end: Alignment.centerLeft,
-              )),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints.expand(),
-            child: _buildBody(),
-          ),
-        )
-        );
+      appBar: AppBar(
+          backgroundColor: new Color(0xffde5cbc), title: const Text('Home')),
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            Container(
+                padding: EdgeInsets.only(top: 40.0, left: 15.0),
+                width: double.infinity,
+                color: new Color(0xffde5cbc),
+                height: 250.0,
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Icon(
+                      Icons.account_circle,
+                      size: 80.0,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Text(
+                      "Suthan",
+                      style: new TextStyle(color: Colors.white, fontSize: 30.0),
+                    ),
+                    Text(
+                      "suthanram@gmail.com",
+                      style: new TextStyle(color: Colors.white, fontSize: 15.0),
+                    )
+                  ],
+                )),
+            ListTile(
+              onTap: _goToProfilePage,
+              leading: Icon(Icons.details),
+              title: Text("Profile"),
+            ),
+            ListTile(
+              onTap: _goToHomePage,
+              leading: Icon(Icons.home),
+              title: Text("Home"),
+            ),
+            ListTile(
+              onTap: _goToSettingPage,
+              leading: Icon(Icons.settings),
+              title: Text("Setting"),
+            ),
+            ListTile(
+              onTap: _goToReviewPage,
+              leading: Icon(Icons.playlist_add_check),
+              title: Text("Review"),
+            ),
+          ],
+        ),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+            color: new Color(0xff622F74),
+            gradient: LinearGradient(
+              colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+              begin: Alignment.centerRight,
+              end: Alignment.centerLeft,
+            )),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints.expand(),
+          child: _buildBody(),
+        ),
+      ),
+    );
   }
 
   @override
@@ -159,17 +147,18 @@ class _LogInPageState extends State<LogInPage> {
             ),
           ),
           ButtonTheme(
-              minWidth: 150.0,
-              height: 50.0,
-              child: RaisedButton(
-                shape: StadiumBorder(),
-                color: Colors.purpleAccent,
-                child: const Text(
-                  ' Survey ',
-                  style: TextStyle(fontSize: 20.0, color: Colors.white),
-                ),
-                onPressed: _goToQuizPage,
-              )),
+            minWidth: 150.0,
+            height: 50.0,
+            child: RaisedButton(
+              shape: StadiumBorder(),
+              color: Colors.purpleAccent,
+              child: const Text(
+                ' Survey ',
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
+              ),
+              onPressed: _goToQuizPage,
+            ),
+          ),
           ButtonTheme(
             minWidth: 150.0,
             height: 50.0,
@@ -218,12 +207,14 @@ class _LogInPageState extends State<LogInPage> {
             child: RaisedButton(
               color: Colors.purpleAccent,
               shape: StadiumBorder(),
-              onPressed: _handleSignIn,
-              child: const Text('SIGN IN',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),),
+              onPressed: _handleSignInCredential,
+              child: const Text(
+                'SIGN IN',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
             ),
           )
         ],
@@ -251,37 +242,33 @@ class _LogInPageState extends State<LogInPage> {
       MaterialPageRoute(builder: (context) => PreQuizPage()),
     );
   }
-   _goToHomePage() {
+
+  _goToHomePage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => MyHomePage()),
     );
   }
-   _goToProfilePage() {
+
+  _goToProfilePage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ProfilePage()),
     );
   }
-   _goToSettingPage() {
+
+  _goToSettingPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SettingPage()),
     );
   }
-   _goToReviewPage() {
+
+  _goToReviewPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ReviewPage()),
     );
-  }
-
-  Future<void> _handleSignIn() async {
-    try {
-      await _googleSignIn.signIn();
-    } catch (error) {
-      print(error);
-    }
   }
 
   Future<void> _handleSignInCredential() async {
