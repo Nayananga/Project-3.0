@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:project_3s_mobile/models/entities/User.dart';
+import 'package:project_3s_mobile/models/entities/user.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

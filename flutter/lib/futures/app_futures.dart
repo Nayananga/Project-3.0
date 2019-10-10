@@ -18,9 +18,9 @@
 //import 'dart:async';
 //import 'dart:convert';
 //
-//import 'package:project_3s_mobile/models/ApiRequest.dart';
-//import 'package:project_3s_mobile/models/ApiResponse.dart';
-//import 'package:project_3s_mobile/models/User.dart';
+//import 'package:project_3s_mobile/models/api_request.dart';
+//import 'package:project_3s_mobile/models/api_response.dart';
+//import 'package:project_3s_mobile/models/user.dart';
 //import 'package:project_3s_mobile/models/base/EventObject.dart';
 //import 'package:project_3s_mobile/utils/constants.dart';
 //import 'package:http/http.dart' as http;

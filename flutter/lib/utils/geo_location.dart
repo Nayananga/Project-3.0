@@ -1,7 +1,6 @@
 import 'package:location/location.dart';
 
 class GeoLocation {
-
   Future<LocationData> getGeoLocation() async {
     LocationData _currentLocation;
     var _location = new Location();
@@ -14,10 +13,9 @@ class GeoLocation {
     }
   }
 
-  Future<Map<String, dynamic>> locationToJson() async{
+  Future<Map<String, dynamic>> locationToJson() async {
     LocationData _location = await getGeoLocation();
-    Map<String, dynamic> _jsonLocation =
-    {
+    Map<String, dynamic> _jsonLocation = {
       'longitude': _location.longitude,
       'latitude': _location.latitude,
     };

@@ -1,5 +1,6 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 import 'model.dart';
 
@@ -12,6 +13,12 @@ class ResultPresenter {
     showDialog<void>(
         context: context,
         builder: (context) {
+          ProgressDialog pr =
+              new ProgressDialog(context, type: ProgressDialogType.Normal);
+          pr.style(
+            message: 'Uploading answers..',
+            backgroundColor: Colors.white30,
+          );
           if (isLast) {
             return AlertDialog(
               title: SizedBox(
@@ -44,8 +51,10 @@ class ResultPresenter {
                 ),
                 FlatButton(
                   child: const Text('Submit'),
-                  onPressed: () {
-                    model.next();
+                  onPressed: () async {
+                    pr.show();
+                    await model.next();
+                    pr.hide();
                     Navigator.of(context)
                         .popUntil((route) => route.isFirst); // need to submit
                   },

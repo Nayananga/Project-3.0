@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:project_3s_mobile/models/entities/User.dart';
+import 'package:project_3s_mobile/models/entities/user.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
 class ApiResponse {
@@ -10,7 +10,7 @@ class ApiResponse {
       final _responseData = jsonDecode(response.body);
       print(_responseData['message']['id']);
     } else {
-      throw Exception(response.statusCode);
+      print(response.statusCode);
     }
   }
 
@@ -29,7 +29,7 @@ class ApiResponse {
           nic: '');
       AppSharedPreferences.setUserProfile(_user);
     } else {
-      throw new Exception(response.statusCode);
+      print(response.statusCode);
     }
   }
 }
