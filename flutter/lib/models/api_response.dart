@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/models/entities/user.dart';
-import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
 class ApiResponse {
   handleCreateReviewResponse(http.Response response) {
@@ -14,22 +13,32 @@ class ApiResponse {
     }
   }
 
-  handleLoginResponse(http.Response response) {
+  User handleGetOneUserResponse(http.Response response) {
+    User _user;
     if (response.statusCode == 200) {
       final _responseData = jsonDecode(response.body);
       print(_responseData);
-      final String _googleId = _responseData['message']['google_id'];
-      final String _nickname = _responseData['message']['nickname'];
-      final User _user = User(
-          googleId: _googleId,
-          email: '',
-          nickname: _nickname,
+      _user = User(
+          googleId: _responseData['message']['google_id'],
+          email: _responseData['message']['email'],
+          nickname: _responseData['message']['nickname'],
           image: '',
-          phoneNo: '',
-          nic: '');
-      AppSharedPreferences.setUserProfile(_user);
+          phoneNo: _responseData['message']['phoneNo'],
+          nic: _responseData['message']['nic']);
     } else {
       print(response.statusCode);
+    }
+    return _user;
+  }
+
+  bool handleLoginResponse(http.Response response) {
+    if (response.statusCode == 200) {
+      final _responseData = jsonDecode(response.body);
+      print(_responseData);
+      return true;
+    } else {
+      print(response.statusCode);
+      return false;
     }
   }
 }

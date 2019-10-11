@@ -3,7 +3,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/models/api_request.dart';
 import 'package:project_3s_mobile/models/api_response.dart';
-import 'package:project_3s_mobile/pages/chat_page/chat_page.dart';
 import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
 import 'package:project_3s_mobile/pages/home_page/home_page.dart';
 import 'package:project_3s_mobile/pages/home_page/profile_page.dart';
@@ -26,6 +25,7 @@ class LogInPage extends StatefulWidget {
 }
 
 class _LogInPageState extends State<LogInPage> {
+  bool isUserLoggedIn = false;
   GoogleSignInAccount _currentUser;
 
   @override
@@ -44,7 +44,7 @@ class _LogInPageState extends State<LogInPage> {
               )),
           child: ConstrainedBox(
             constraints: const BoxConstraints.expand(),
-            child: _buildBodyAfterLogin(),
+            child: _buildBody(),
           ),
         ),
         drawer: Drawer(
@@ -85,6 +85,17 @@ class _LogInPageState extends State<LogInPage> {
     _handleSignInCredential();
   }
 
+  Widget _buildBody() {
+    return SafeArea(
+      child: AnimatedSwitcher(
+        duration: Duration(milliseconds: 200),
+        child: isUserLoggedIn
+            ? _buildBodyAfterLogin()
+            : Center(child: const CircularProgressIndicator()),
+      ),
+    );
+  }
+
   Widget _buildBodyAfterLogin() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -93,19 +104,6 @@ class _LogInPageState extends State<LogInPage> {
           "Signed in successfull.",
           textAlign: TextAlign.left,
           style: TextStyle(color: Colors.white, fontSize: 20.0),
-        ),
-        ButtonTheme(
-          minWidth: 150.0,
-          height: 50.0,
-          child: RaisedButton(
-            shape: StadiumBorder(),
-            color: Colors.purpleAccent,
-            child: const Text(
-              'Lets Chat',
-              style: TextStyle(fontSize: 20.0, color: Colors.white),
-            ),
-            onPressed: _goToChatPage,
-          ),
         ),
         ButtonTheme(
           minWidth: 150.0,
@@ -203,11 +201,11 @@ class _LogInPageState extends State<LogInPage> {
                     identity: _currentUser,
                   ),
                   title: Text(
-                    _currentUser.displayName ?? '',
+                    _currentUser.displayName ?? 'Example Name',
                     style: new TextStyle(color: Colors.white, fontSize: 30.0),
                   ),
                   subtitle: Text(
-                    _currentUser.email ?? '',
+                    _currentUser.email ?? 'example.email@example.email',
                     style: new TextStyle(color: Colors.white, fontSize: 15.0),
                   ),
                 ),
@@ -234,13 +232,6 @@ class _LogInPageState extends State<LogInPage> {
           title: Text("Settings"),
         ),
       ],
-    );
-  }
-
-  _goToChatPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ChatPage()),
     );
   }
 
@@ -297,8 +288,11 @@ class _LogInPageState extends State<LogInPage> {
     AppSharedPreferences.setUserLoggedIdToken(_googleAuth.idToken)
         .whenComplete(() async {
       const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
-      http.Response response = await ApiRequest().apiGetRequest(url);
-      ApiResponse().handleLoginResponse(response);
+      await ApiRequest().apiGetRequest(url).then((http.Response response) {
+        setState(() {
+          isUserLoggedIn = ApiResponse().handleLoginResponse(response);
+        });
+      });
     });
   }
 

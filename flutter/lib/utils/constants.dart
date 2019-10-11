@@ -18,7 +18,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 class APIConstants {
   static const String OCTET_STREAM_ENCODING = "application/octet-stream";
-  static const String API_BASE_URL = "https://1ad37a06.ngrok.io";
+  static const String API_BASE_URL = "https://b81469cb.ngrok.io";
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -47,8 +47,8 @@ class APIRoutes {
   static const String DELETE_REVIEW = "/api/v1/reviews/"; // [{id}]
   static const String GET_ALL_USERS = "/api/v1/users";
   static const String LOGIN_USER = "/api/v1/users/login";
-  static const String GET_ONE_USER = "/api/v1/users/"; // [{id}]
-  static const String UPDATE_USER = "/api/v1/users/"; // [{id}]
+  static const String GET_ONE_USER = "/api/v1/users/getoneuser";
+  static const String UPDATE_USER = "/api/v1/users/updateuser";
   static const String GET_ALL_COMPLAINTS = "/api/v1/complaints";
   static const String GET_ONE_COMPLAINTS = "/api/v1/complaints/"; // [{id}]
   static const String SEARCH_COMPLAINTS = "/api/v1/complaints/"; // [{query}]
