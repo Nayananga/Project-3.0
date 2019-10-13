@@ -61,7 +61,7 @@ class _MyHomePageState extends State<ProfilePage> {
   initState() {
     super.initState();
     _getUserProfileData().then((receivedUserData) {
-      if (mounted) {
+      if (mounted && receivedUserData != null) {
         setState(() {
           _userProfileData = receivedUserData;
           _textControllerNic =
