@@ -25,7 +25,7 @@ class LogInPage extends StatefulWidget {
 }
 
 class _LogInPageState extends State<LogInPage> {
-  bool isUserLoggedIn = false;
+  bool _isUserLoggedIn = false;
   GoogleSignInAccount _currentUser;
 
   @override
@@ -89,7 +89,7 @@ class _LogInPageState extends State<LogInPage> {
     return SafeArea(
       child: AnimatedSwitcher(
         duration: Duration(seconds: 1),
-        child: isUserLoggedIn
+        child: _isUserLoggedIn
             ? _buildBodyAfterLogin()
             : Center(child: const CircularProgressIndicator()),
       ),
@@ -276,22 +276,28 @@ class _LogInPageState extends State<LogInPage> {
   }
 
   _handleSignInCredential() async {
-    GoogleSignInAuthentication _googleAuth;
+    const String _url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
     try {
-      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-      _googleAuth = await googleUser.authentication;
+      await _googleSignIn.signIn().then((GoogleSignInAccount account) async {
+        await account.authentication
+            .then((GoogleSignInAuthentication googleAuth) async {
+          await AppSharedPreferences.setUserLoggedIdToken(googleAuth.idToken)
+              .whenComplete(() async {
+            await ApiRequest()
+                .apiGetRequest(_url)
+                .then((http.Response response) {
+              if (mounted) {
+                setState(() {
+                  _isUserLoggedIn = ApiResponse().handleLoginResponse(response);
+                });
+              }
+            });
+          });
+        });
+      });
     } catch (error) {
       print(error);
     }
-    AppSharedPreferences.setUserLoggedIdToken(_googleAuth.idToken)
-        .whenComplete(() async {
-      const String url = APIConstants.API_BASE_URL + APIRoutes.LOGIN_USER;
-      await ApiRequest().apiGetRequest(url).then((http.Response response) {
-        setState(() {
-          isUserLoggedIn = ApiResponse().handleLoginResponse(response);
-        });
-      });
-    });
   }
 
   _handleSignOut() async {
