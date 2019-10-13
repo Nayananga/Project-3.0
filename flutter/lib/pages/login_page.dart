@@ -152,43 +152,41 @@ class _LogInPageState extends State<LogInPage> {
   }
 
   Widget _buildBodyBeforeLogin() {
-    {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            "You are not currently signed in.",
-            style: TextStyle(fontSize: 20.0),
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          ButtonTheme(
-            minWidth: 150.0,
-            height: 50.0,
-            child: RaisedButton(
-              color: Colors.purpleAccent,
-              shape: StadiumBorder(),
-              onPressed: _handleSignInCredential,
-              child: const Text(
-                'SIGN IN',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.white,
-                ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          "You are not currently signed in.",
+          style: TextStyle(fontSize: 20.0),
+        ),
+        SizedBox(
+          height: 30.0,
+        ),
+        ButtonTheme(
+          minWidth: 150.0,
+          height: 50.0,
+          child: RaisedButton(
+            color: Colors.purpleAccent,
+            shape: StadiumBorder(),
+            onPressed: _handleSignInCredential,
+            child: const Text(
+              'SIGN IN',
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.white,
               ),
             ),
-          )
-        ],
-      );
-    }
+          ),
+        )
+      ],
+    );
   }
 
   Widget _buildDrawer() {
     return Column(
       children: <Widget>[
         Container(
-            padding: EdgeInsets.only(top: 40.0, left: 15.0),
+            padding: EdgeInsets.only(top: 60.0, left: 15.0),
             width: double.infinity,
             color: new Color(0xffde5cbc),
             height: 200.0,

@@ -18,7 +18,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 class APIConstants {
   static const String OCTET_STREAM_ENCODING = "application/octet-stream";
-  static const String API_BASE_URL = "https://b81469cb.ngrok.io";
+  static const String API_BASE_URL = "https://d61e6126.ngrok.io";
 }
 
 ///////////////////////////////////////////////////////////////////////////////

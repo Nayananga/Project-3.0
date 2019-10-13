@@ -120,7 +120,7 @@ class _MyHomePageState extends State<ProfilePage> {
             const SizedBox(height: 20.0),
             TextFormField(
               controller: _textControllerNic,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
