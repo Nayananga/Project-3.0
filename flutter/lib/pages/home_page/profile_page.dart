@@ -77,7 +77,7 @@ class _MyHomePageState extends State<ProfilePage> {
   Widget _buildBody() {
     return SafeArea(
       child: AnimatedSwitcher(
-        duration: Duration(milliseconds: 200),
+        duration: Duration(seconds: 1),
         child: _isUserDataLoaded
             ? _editProfileForm()
             : Center(child: const CircularProgressIndicator()),

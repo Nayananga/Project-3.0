@@ -88,7 +88,7 @@ class _LogInPageState extends State<LogInPage> {
   Widget _buildBody() {
     return SafeArea(
       child: AnimatedSwitcher(
-        duration: Duration(milliseconds: 200),
+        duration: Duration(seconds: 1),
         child: isUserLoggedIn
             ? _buildBodyAfterLogin()
             : Center(child: const CircularProgressIndicator()),
