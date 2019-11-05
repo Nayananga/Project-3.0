@@ -25,10 +25,11 @@ class ApiResponse {
           image: '',
           phoneNo: _responseData['message']['phoneNo'],
           nic: _responseData['message']['nic']);
+      return _user;
     } else {
       print(response.statusCode);
+      throw new Exception("Error getting user data");
     }
-    return _user;
   }
 
   bool handleLoginResponse(http.Response response) {
@@ -38,7 +39,17 @@ class ApiResponse {
       return true;
     } else {
       print(response.statusCode);
-      return false;
+      throw new Exception("Error in login");
+    }
+  }
+
+  List handleSearchResponse(http.Response response) {
+    if (response.statusCode == 200) {
+      final _responseData = jsonDecode(response.body);
+      return _responseData['message'];
+    } else {
+      print(response.statusCode);
+      throw new Exception("Error getting hotel data");
     }
   }
 }

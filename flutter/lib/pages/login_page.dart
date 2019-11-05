@@ -9,6 +9,7 @@ import 'package:project_3s_mobile/pages/home_page/profile_page.dart';
 import 'package:project_3s_mobile/pages/home_page/review_page.dart';
 import 'package:project_3s_mobile/pages/home_page/settings_page.dart';
 import 'package:project_3s_mobile/pages/pre_quiz_page.dart';
+import 'package:project_3s_mobile/pages/search_page/search_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
 
@@ -26,6 +27,8 @@ class LogInPage extends StatefulWidget {
 
 class _LogInPageState extends State<LogInPage> {
   bool _isUserLoggedIn = false;
+  // bool _isUserLoggedIn = true;
+
   GoogleSignInAccount _currentUser;
 
   @override
@@ -258,7 +261,7 @@ class _LogInPageState extends State<LogInPage> {
   _goToQuizPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PreQuizPage()),
+      MaterialPageRoute(builder: (context) => SearchDemo()),
     );
   }
 
@@ -289,7 +292,8 @@ class _LogInPageState extends State<LogInPage> {
                 .then((http.Response response) {
               if (mounted) {
                 setState(() {
-                  _isUserLoggedIn = ApiResponse().handleLoginResponse(response);
+                 _isUserLoggedIn = ApiResponse().handleLoginResponse(response);
+                  // _isUserLoggedIn = true;
                 });
               }
             });
