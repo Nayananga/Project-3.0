@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/models/api_request.dart';
 import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/models/entities/answer.dart';
+import 'package:project_3s_mobile/models/entities/hotel.dart';
 import 'package:project_3s_mobile/models/entities/quiz.dart';
 import 'package:project_3s_mobile/models/quiz_loader.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
@@ -20,11 +21,13 @@ class Model extends ChangeNotifier {
 
   bool _quizListLoaded = false;
   int _index = 0;
+  final Hotel selectedHotel;
   final _answers = <Answer>[];
   final _answered = StreamController<bool>();
 
   Model({
     @required this.quizLoader,
+    @required this.selectedHotel,
   }) {
     _load();
   }
@@ -93,6 +96,7 @@ class Model extends ChangeNotifier {
           'question_and_answers': _answerListAsJson,
           'device_signature': info,
           'geo_location': jsonLocation,
+          'hotel_id': selectedHotel.hotelId,
         });
         print(body);
         http.Response _response = await ApiRequest().apiPostRequest(_url, body);

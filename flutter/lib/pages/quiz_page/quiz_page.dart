@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_3s_mobile/models/entities/hotel.dart';
 import 'package:project_3s_mobile/models/quiz_loader.dart';
 import 'package:project_3s_mobile/pages/quiz_page/selections.dart';
 import 'package:provider/provider.dart';
@@ -9,11 +10,16 @@ import 'question.dart';
 import 'result_presenter.dart';
 
 class QuizPage extends StatelessWidget {
+  final Hotel selectedHotel;
+
+  QuizPage(this.selectedHotel);
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       builder: (context) => Model(
         quizLoader: Provider.of<QuizLoader>(context, listen: false),
+        selectedHotel : selectedHotel,
       ),
       child: const _Page(),
     );

@@ -93,10 +93,10 @@ class _SearchDemoSearchDelegate extends SearchDelegate<Hotel> {
   @override
   Widget buildResults(BuildContext context) {
     final String searched = query;
-    if (searched == null) {
+    if (searched == null || _hotels.indexWhere((Hotel i) => i.hotelName == searched) == -1) {
       return Center(
         child: Text(
-          '"$query"\n is not a valid integer between 0 and 100,000.\nTry again.',
+          'Sorry, We couldnt`t find "$query"\n in our end .\nPlease Try another name.',
           textAlign: TextAlign.center,
         ),
       );
@@ -183,9 +183,9 @@ class _SearchDemoState extends State<SearchDemo> {
                         await showSearch<Hotel>(
                           context: context,
                           delegate: _delegate,
-                        ).then((Hotel hotel) {
-                          if (hotel != null) {
-                            _goToQuizPage();
+                        ).then((Hotel _hotel) {
+                          if (_hotel != null) {
+                            _goToQuizPage(_hotel);
                           }
                         });
                       },
@@ -220,10 +220,10 @@ class _SearchDemoState extends State<SearchDemo> {
     }
   }
 
-  _goToQuizPage() {
+  _goToQuizPage(Hotel _hotel) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PreQuizPage()),
+      MaterialPageRoute(builder: (context) => PreQuizPage(selectedHotel :_hotel)),
     );
   }
 }
