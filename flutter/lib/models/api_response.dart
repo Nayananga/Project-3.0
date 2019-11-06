@@ -39,7 +39,7 @@ class ApiResponse {
       return true;
     } else {
       print(response.statusCode);
-      throw new Exception("Error in login");
+      return false;
     }
   }
 
