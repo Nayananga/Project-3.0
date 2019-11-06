@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 class PreQuizPage extends StatelessWidget {
   final Hotel selectedHotel;
+
   const PreQuizPage({Key key, this.selectedHotel}) : super(key: key);
 
   @override

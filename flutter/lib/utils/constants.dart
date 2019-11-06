@@ -42,12 +42,12 @@ class APIRoutes {
   static const String GET_ONE_USER = "/api/v1/users/getoneuser";
   static const String UPDATE_USER = "/api/v1/users/updateuser";
   static const String GET_ONE_COMPLAINTS = "/api/v1/complaints/"; // [{id}]
-  static const String SEARCH_COMPLAINTS = "/api/v1/complaints/search/"; // [{query}]
+  static const String SEARCH_COMPLAINTS =
+      "/api/v1/complaints/search/"; // [{query}]
   static const String CREATE_COMPLAINTS = "/api/v1/complaints";
   static const String UPDATE_COMPLAINTS = "/api/v1/complaints/"; // [{id}]
   static const String DELETE_COMPLAINTS = "/api/v1/complaints/"; // [{id}]
   static const String GET_HOTELS = "/api/v1/hotels";
-
 }
 
 class EventConstants {

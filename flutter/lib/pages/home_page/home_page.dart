@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
-import 'package:project_3s_mobile/pages/home_page/review_page.dart';
 import 'package:project_3s_mobile/pages/home_page/circle_progress.dart';
+import 'package:project_3s_mobile/pages/home_page/review_page.dart';
 
 class MyHomePage extends StatefulWidget {
   @override

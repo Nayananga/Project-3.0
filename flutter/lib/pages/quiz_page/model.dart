@@ -75,7 +75,7 @@ class Model extends ChangeNotifier {
     super.dispose();
   }
 
-  next() async{
+  next() async {
     _index++;
     if (!_hasQuiz) {
       await _sendAnswers();

@@ -93,7 +93,8 @@ class _SearchDemoSearchDelegate extends SearchDelegate<Hotel> {
   @override
   Widget buildResults(BuildContext context) {
     final String searched = query;
-    if (searched == null || _hotels.indexWhere((Hotel i) => i.hotelName == searched) == -1) {
+    if (searched == null ||
+        _hotels.indexWhere((Hotel i) => i.hotelName == searched) == -1) {
       return Center(
         child: Text(
           'Sorry, We couldnt`t find "$query"\n in our end .\nPlease Try another name.',
@@ -223,7 +224,8 @@ class _SearchDemoState extends State<SearchDemo> {
   _goToQuizPage(Hotel _hotel) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PreQuizPage(selectedHotel :_hotel)),
+      MaterialPageRoute(
+          builder: (context) => PreQuizPage(selectedHotel: _hotel)),
     );
   }
 }

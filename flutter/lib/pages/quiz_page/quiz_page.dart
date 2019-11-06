@@ -19,7 +19,7 @@ class QuizPage extends StatelessWidget {
     return ChangeNotifierProvider(
       builder: (context) => Model(
         quizLoader: Provider.of<QuizLoader>(context, listen: false),
-        selectedHotel : selectedHotel,
+        selectedHotel: selectedHotel,
       ),
       child: const _Page(),
     );
