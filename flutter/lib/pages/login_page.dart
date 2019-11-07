@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/models/api_request.dart';
 import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
-import 'package:project_3s_mobile/pages/home_page/home_page.dart';
 import 'package:project_3s_mobile/pages/home_page/profile_page.dart';
 import 'package:project_3s_mobile/pages/home_page/review_page.dart';
 import 'package:project_3s_mobile/pages/home_page/settings_page.dart';
@@ -27,7 +26,7 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   bool _isUserLoggedIn = false;
 
-  // bool _isUserLoggedIn = true;
+  //  bool _isUserLoggedIn = true;
 
   GoogleSignInAccount _currentUser;
 
@@ -61,7 +60,6 @@ class _LogInPageState extends State<LogInPage> {
             backgroundColor: new Color(0xffde5cbc), title: const Text('Login')),
         body: Container(
           decoration: BoxDecoration(
-              color: new Color(0xff622F74),
               gradient: LinearGradient(
                 colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
                 begin: Alignment.centerRight,
@@ -224,11 +222,6 @@ class _LogInPageState extends State<LogInPage> {
           title: Text("Review"),
         ),
         ListTile(
-          onTap: _goToHomePage,
-          leading: Icon(Icons.home),
-          title: Text("Home"),
-        ),
-        ListTile(
           onTap: _goToSettingPage,
           leading: Icon(Icons.settings),
           title: Text("Settings"),
@@ -244,12 +237,6 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  _goToHomePage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MyHomePage()),
-    );
-  }
 
   _goToProfilePage() {
     Navigator.push(
@@ -293,7 +280,7 @@ class _LogInPageState extends State<LogInPage> {
               if (mounted) {
                 setState(() {
                   _isUserLoggedIn = ApiResponse().handleLoginResponse(response);
-                  // _isUserLoggedIn = true;
+                  //  _isUserLoggedIn = true;
                 });
               }
             });

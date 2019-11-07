@@ -32,17 +32,26 @@ class _ResultCard extends StatelessWidget {
         searchDelegate.close(context, hotel);
       },
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Text(hotel.hotelName),
-              Text(
-                hotel.hotelAddress,
-                style: theme.textTheme.headline.copyWith(fontSize: 72.0),
-              ),
-            ],
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                Text(hotel.hotelName),
+                Text(
+                  hotel.hotelAddress,
+                  style: theme.textTheme.headline.copyWith(fontSize: 72.0),
+                ),
+              ],
+            ),
           ),
+           decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+            begin: Alignment.centerRight,
+            end: Alignment.centerLeft,
+          ),
+        ),
         ),
       ),
     );
@@ -138,11 +147,24 @@ class _SearchDemoState extends State<SearchDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: const Text('Find Hotel'),
+      key: _scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: new Color(0xffde5cbc),
+        title: const Text('Find Hotel'),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+        )),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints.expand(),
+          child: _buildBody(),
         ),
-        body: _buildBody());
+      ),
+    );
   }
 
   @override
@@ -177,7 +199,7 @@ class _SearchDemoState extends State<SearchDemo> {
                     minWidth: 150.0,
                     height: 50.0,
                     child: RaisedButton(
-                      color: Colors.green,
+                      color: Colors.purpleAccent,
                       shape: StadiumBorder(),
                       onPressed: () async {
                         _delegate = _SearchDemoSearchDelegate();

@@ -44,7 +44,6 @@ class _MyHomePageState extends State<ProfilePage> {
         bottom: false,
         child: Container(
           decoration: BoxDecoration(
-            color: new Color(0xff622F74),
             gradient: LinearGradient(
               colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
               begin: Alignment.centerRight,
@@ -144,11 +143,6 @@ class _MyHomePageState extends State<ProfilePage> {
                   Icons.contacts,
                   color: Colors.black,
                 ),
-//                suffixText: "v",
-//                suffixStyle: TextStyle(
-//                  color: Colors.black,
-//                  fontSize: 25.0,
-//                ),
                 labelText: 'NIC',
                 helperText: "your NIC number",
                 labelStyle: TextStyle(
@@ -191,11 +185,6 @@ class _MyHomePageState extends State<ProfilePage> {
                   Icons.call,
                   color: Colors.black,
                 ),
-//                prefixText: "+94",
-//                prefixStyle: TextStyle(
-//                  color: Colors.black,
-//                  fontSize: 16,
-//                ),
                 labelText: 'TP number',
                 helperText: "your phone number",
                 labelStyle: TextStyle(
