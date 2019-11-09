@@ -52,4 +52,15 @@ class ApiResponse {
       throw new Exception("Error getting hotel data");
     }
   }
+
+  dynamic handleQuestionsResponse(http.Response response) {
+    if (response.statusCode == 200) {
+      final _responseData = jsonDecode(response.body);
+      print(_responseData['message']);
+      return _responseData['message'];
+    } else {
+      print(response.statusCode);
+      throw new Exception("Error getting questions data");
+    }
+  }
 }

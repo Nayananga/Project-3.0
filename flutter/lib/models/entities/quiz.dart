@@ -11,10 +11,13 @@ class Quiz {
   });
 
   factory Quiz.fromJson(Map<String, dynamic> json) {
-    final answersFromJson = json['answers'];
-    List<String> answersList = new List<String>.from(answersFromJson);
+    final String answersFromJson = json['expected_answer'];
+    List<String> answersList = answersFromJson
+        .substring(1, answersFromJson.length - 1)
+        .replaceAll('"', '')
+        .split(',');
     return new Quiz(
-      question: json['description'] as String,
+      question: json['question'] as String,
       answers: answersList,
     );
   }

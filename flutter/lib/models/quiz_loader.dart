@@ -1,16 +1,18 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:project_3s_mobile/models/api_request.dart';
+import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/models/entities/quiz.dart';
+import 'package:project_3s_mobile/utils/constants.dart';
 
 class QuizLoader {
   Future<List<Quiz>> load() async {
-    final quizzes =
-        (jsonDecode(await rootBundle.loadString('assets/data/widgets.json'))
-                as List)
-            .map<Quiz>(
-                (dynamic json) => Quiz.fromJson(json as Map<String, dynamic>))
-            .toList();
+    const String _url = APIConstants.API_BASE_URL + APIRoutes.GET_QUESTIONS;
+    http.Response _responce = await ApiRequest().apiGetRequest(_url);
+    final _questionList = ApiResponse().handleQuestionsResponse(_responce);
+    final quizzes = (_questionList as List)
+        .map<Quiz>(
+            (dynamic json) => Quiz.fromJson(json as Map<String, dynamic>))
+        .toList();
     return (quizzes..shuffle());
   }
 }

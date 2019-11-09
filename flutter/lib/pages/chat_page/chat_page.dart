@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:project_3s_mobile/models/entities/user.dart';
-import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/pages/chat_page/message.dart';
+import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 
 String defaultUserName = "John Doy";
 User loggedUser;
