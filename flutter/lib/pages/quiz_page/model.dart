@@ -108,9 +108,13 @@ class Model extends ChangeNotifier {
   _load() async {
     // TODO(mono): くるくる出したいのでとりあえず
     await Future<void>.delayed(Duration(seconds: 1));
-    _quizList = await quizLoader.load();
-    _quizListLoaded = true;
-    notifyListeners();
+    await quizLoader.load().then((_receivedQuizList) {
+      if (_receivedQuizList != null) {
+        _quizList = _receivedQuizList;
+        _quizListLoaded = true;
+        notifyListeners();
+      }
+    });
   }
 }
 
