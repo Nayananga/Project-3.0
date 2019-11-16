@@ -123,7 +123,7 @@ class Complaint extends State<ComplaintPage> {
                 ),
                 maxLines: 1,
               ),
-                    Expanded(child: Container()),
+                Expanded(child: Container()),
 
               Padding(
                 padding: const EdgeInsets.all(30.0),
