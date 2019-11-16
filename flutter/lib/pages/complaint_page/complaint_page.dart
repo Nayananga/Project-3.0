@@ -29,7 +29,6 @@ class Complaint extends State<ComplaintPage> {
     );
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      //resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: new Color(0xffde5cbc),
         title: Text("Complaint"),
@@ -83,7 +82,7 @@ class Complaint extends State<ComplaintPage> {
                 onPressed: _chooseImage,
                 child: Text('Choose Image'),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 30.0),
               TextField(
                 controller: _textController,
                 // keyboardType: TextInputType.emailAddress,
@@ -123,10 +122,10 @@ class Complaint extends State<ComplaintPage> {
                 ),
                 maxLines: 1,
               ),
-                Expanded(child: Container()),
+                    Expanded(child: Container()),
 
               Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
