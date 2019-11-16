@@ -87,7 +87,7 @@ class _MyHomePageState extends State<ProfilePage> {
   Widget _editProfileForm() {
     return Form(
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(25.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -201,7 +201,7 @@ class _MyHomePageState extends State<ProfilePage> {
               maxLines: 1,
             ),
             const SizedBox(
-              height: 190.0,
+              height: 100.0,
             ),
             Padding(
               padding: const EdgeInsets.all(5.0),
