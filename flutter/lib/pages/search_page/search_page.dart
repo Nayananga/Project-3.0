@@ -27,6 +27,7 @@ class _ResultCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+
     return GestureDetector(
       onTap: () {
         searchDelegate.close(context, hotel);
@@ -45,13 +46,13 @@ class _ResultCard extends StatelessWidget {
               ],
             ),
           ),
-           decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
-            begin: Alignment.centerRight,
-            end: Alignment.centerLeft,
-          ),
-        ),
+        //    decoration: BoxDecoration(
+        //   gradient: LinearGradient(
+        //     colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+        //     begin: Alignment.centerRight,
+        //     end: Alignment.centerLeft,
+        //   ),
+        // ),
         ),
       ),
     );
@@ -71,6 +72,15 @@ class _SearchDemoSearchDelegate extends SearchDelegate<Hotel> {
   ];
 
   @override
+  ThemeData appBarTheme(BuildContext context) {
+     final ThemeData theme = Theme.of(context);
+   return theme.copyWith(
+     primaryColor: theme.primaryColor,
+     primaryIconTheme: theme.primaryIconTheme,
+     primaryColorBrightness: theme.primaryColorBrightness,
+     primaryTextTheme: theme.primaryTextTheme,
+   );
+  }
   List<Widget> buildActions(BuildContext context) {
     return <Widget>[
       if (query.isNotEmpty)
