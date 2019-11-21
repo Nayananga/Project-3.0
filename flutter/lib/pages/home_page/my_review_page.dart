@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Review extends State<ReviewPage> with TickerProviderStateMixin {
+class MyReviews extends State<MyReviewsPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext ctx) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: new Color(0xffde5cbc),
-        title: Text("Review"),
+        title: Text("My Reviews"),
         elevation: Theme.of(ctx).platform == TargetPlatform.iOS ? 0.0 : 6.0,
       ),
       body: Container(
@@ -25,7 +25,7 @@ class Review extends State<ReviewPage> with TickerProviderStateMixin {
   }
 }
 
-class ReviewPage extends StatefulWidget {
+class MyReviewsPage extends StatefulWidget {
   @override
-  State createState() => Review();
+  State createState() => MyReviews();
 }

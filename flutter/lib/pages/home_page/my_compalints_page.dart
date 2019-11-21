@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
 import 'package:project_3s_mobile/pages/home_page/circle_progress.dart';
-import 'package:project_3s_mobile/pages/home_page/review_page.dart';
+import 'package:project_3s_mobile/pages/home_page/my_review_page.dart';
 
-class MyHomePage extends StatefulWidget {
+class MyComplaintsPage extends StatefulWidget {
   @override
   _CircleProgressState createState() => new _CircleProgressState();
 }
 
-class _CircleProgressState extends State<MyHomePage>
+class _CircleProgressState extends State<MyComplaintsPage>
     with SingleTickerProviderStateMixin {
   AnimationController progressController;
   Animation<double> animation;
@@ -19,7 +19,7 @@ class _CircleProgressState extends State<MyHomePage>
         appBar: AppBar(
           backgroundColor: new Color(0xffde5cbc),
           title: new Text(
-            'Home',
+            'My Complaints',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: "Herriweather-Black",
@@ -205,7 +205,7 @@ class _CircleProgressState extends State<MyHomePage>
   _goToReviewPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ReviewPage()),
+      MaterialPageRoute(builder: (context) => MyReviewsPage()),
     );
   }
 }

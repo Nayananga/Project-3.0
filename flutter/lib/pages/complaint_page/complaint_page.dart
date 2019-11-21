@@ -219,14 +219,46 @@ class Complaint extends State<ComplaintPage> {
             ),
           );
         } else if (null != snapshot.error) {
-          return const Text(
-            'Error Picking Image',
-            textAlign: TextAlign.center,
+          return Container(
+            height: 200.0,
+            width: 300.0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                top: BorderSide(color: Colors.indigo, width: 3.0),
+                right: BorderSide(color: Colors.indigo, width: 3.0),
+                left: BorderSide(color: Colors.indigo, width: 3.0),
+                bottom: BorderSide(color: Colors.indigo, width: 3.0),
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.0),
+              ),
+            ),
+            child: const Text(
+              'Error picking image',
+              textAlign: TextAlign.center,
+            ),
           );
         } else {
-          return const Text(
-            'No Image Selected',
-            textAlign: TextAlign.center,
+          return Container(
+            height: 200.0,
+            width: 300.0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                top: BorderSide(color: Colors.indigo, width: 3.0),
+                right: BorderSide(color: Colors.indigo, width: 3.0),
+                left: BorderSide(color: Colors.indigo, width: 3.0),
+                bottom: BorderSide(color: Colors.indigo, width: 3.0),
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.0),
+              ),
+            ),
+            child: const Text(
+              'No Image Selected',
+              textAlign: TextAlign.center,
+            ),
           );
         }
       },

@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:project_3s_mobile/models/api_request.dart';
 import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
-import 'package:project_3s_mobile/pages/home_page/home_page.dart';
+import 'package:project_3s_mobile/pages/home_page/my_compalints_page.dart';
 import 'package:project_3s_mobile/pages/home_page/profile_page.dart';
-import 'package:project_3s_mobile/pages/home_page/review_page.dart';
+import 'package:project_3s_mobile/pages/home_page/my_review_page.dart';
 import 'package:project_3s_mobile/pages/home_page/settings_page.dart';
 import 'package:project_3s_mobile/pages/search_page/search_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
@@ -119,7 +119,7 @@ class _LogInPageState extends State<LogInPage> {
               ' Survey ',
               style: TextStyle(fontSize: 20.0, color: Colors.white),
             ),
-            onPressed: _goToQuizPage,
+            onPressed: _goToSearchPage,
           ),
         ),
         ButtonTheme(
@@ -219,17 +219,17 @@ class _LogInPageState extends State<LogInPage> {
           title: Text("Profile"),
         ),
         ListTile(
-          onTap: _goToReviewPage,
+          onTap: _goToMyReviewsPage,
           leading: Icon(Icons.playlist_add_check),
-          title: Text("Review"),
+          title: Text("My Reviews"),
         ),
         ListTile(
-          onTap: _goToHomePage,
+          onTap: _goToMyComplaintsPage,
           leading: Icon(Icons.home),
-          title: Text("Home"),
+          title: Text("My Complaints"),
         ),
         ListTile(
-          onTap: _goToSettingPage,
+          onTap: _goToSettingsPage,
           leading: Icon(Icons.settings),
           title: Text("Settings"),
         ),
@@ -244,10 +244,10 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  _goToHomePage() {
+  _goToMyComplaintsPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MyHomePage()),
+      MaterialPageRoute(builder: (context) => MyComplaintsPage()),
     );
   }
 
@@ -258,24 +258,24 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  _goToQuizPage() {
+  _goToSearchPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SearchDemo()),
+      MaterialPageRoute(builder: (context) => SearchPage()),
     );
   }
 
-  _goToReviewPage() {
+  _goToMyReviewsPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ReviewPage()),
+      MaterialPageRoute(builder: (context) => MyReviewsPage()),
     );
   }
 
-  _goToSettingPage() {
+  _goToSettingsPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SettingPage()),
+      MaterialPageRoute(builder: (context) => SettingsPage()),
     );
   }
 

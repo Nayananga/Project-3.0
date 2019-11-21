@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Settings extends State<SettingPage> with TickerProviderStateMixin {
+class Settings extends State<SettingsPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext ctx) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: new Color(0xffde5cbc),
-        title: Text("Setting"),
+        title: Text("Settings"),
         elevation: Theme.of(ctx).platform == TargetPlatform.iOS ? 0.0 : 6.0,
       ),
       body: Container(
@@ -25,7 +25,7 @@ class Settings extends State<SettingPage> with TickerProviderStateMixin {
   }
 }
 
-class SettingPage extends StatefulWidget {
+class SettingsPage extends StatefulWidget {
   @override
   State createState() => Settings();
 }

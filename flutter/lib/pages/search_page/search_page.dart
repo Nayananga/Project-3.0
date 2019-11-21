@@ -13,9 +13,9 @@ import 'package:project_3s_mobile/utils/constants.dart';
 
 List<Hotel> _hotels;
 
-class SearchDemo extends StatefulWidget {
+class SearchPage extends StatefulWidget {
   @override
-  _SearchDemoState createState() => _SearchDemoState();
+  _SearchPageState createState() => _SearchPageState();
 }
 
 class _ResultCard extends StatelessWidget {
@@ -49,7 +49,7 @@ class _ResultCard extends StatelessWidget {
   }
 }
 
-class _SearchDemoSearchDelegate extends SearchDelegate<Hotel> {
+class _SearchDelegate extends SearchDelegate<Hotel> {
   final List<String> _data = _hotels.map<String>((Hotel i) {
     return i.hotelName;
   }).toList();
@@ -130,10 +130,10 @@ class _SearchDemoSearchDelegate extends SearchDelegate<Hotel> {
   }
 }
 
-class _SearchDemoState extends State<SearchDemo> {
+class _SearchPageState extends State<SearchPage> {
   bool _isLoaded = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  _SearchDemoSearchDelegate _delegate;
+  _SearchDelegate _delegate;
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +180,7 @@ class _SearchDemoState extends State<SearchDemo> {
                       color: Colors.green,
                       shape: StadiumBorder(),
                       onPressed: () async {
-                        _delegate = _SearchDemoSearchDelegate();
+                        _delegate = _SearchDelegate();
                         await showSearch<Hotel>(
                           context: context,
                           delegate: _delegate,
