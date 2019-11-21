@@ -36,10 +36,14 @@ class _ResultCard extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
-              Text(hotel.hotelName),
+              Text(
+                hotel.hotelName,
+                 style: theme.textTheme.headline
+                      .copyWith(fontSize: 40.0, color: Colors.blue),
+                ),
               Text(
                 hotel.hotelAddress,
-                style: theme.textTheme.headline.copyWith(fontSize: 72.0),
+                style: theme.textTheme.headline.copyWith(fontSize: 20.0),
               ),
             ],
           ),
@@ -62,6 +66,16 @@ class _SearchDelegate extends SearchDelegate<Hotel> {
   ];
 
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      primaryColor: Color(0xffde5cbc),
+      textTheme: Theme.of(context).textTheme.apply(
+            bodyColor: Colors.white,
+            fontSizeDelta: 5.0,
+          ),
+    );
+  }
   List<Widget> buildActions(BuildContext context) {
     return <Widget>[
       if (query.isNotEmpty)
@@ -99,6 +113,7 @@ class _SearchDelegate extends SearchDelegate<Hotel> {
         child: Text(
           'Sorry, We couldnt`t find "$query"\n in our end .\nPlease Try another name.',
           textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20.0),
         ),
       );
     }
@@ -140,11 +155,23 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
+           backgroundColor: new Color(0xffde5cbc),
           title: const Text('Find Hotel'),
         ),
-        body: _buildBody());
+         body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          colors: [new Color(0xff6094e8), new Color(0xffde5cbc)],
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+        )),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints.expand(),
+          child: _buildBody(),
+        ),
+      ),
+    );
   }
-
   @override
   initState() {
     super.initState();
@@ -177,7 +204,7 @@ class _SearchPageState extends State<SearchPage> {
                     minWidth: 150.0,
                     height: 50.0,
                     child: RaisedButton(
-                      color: Colors.green,
+                      color: Colors.purpleAccent,
                       shape: StadiumBorder(),
                       onPressed: () async {
                         _delegate = _SearchDelegate();
