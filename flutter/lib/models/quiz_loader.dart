@@ -9,13 +9,13 @@ class QuizLoader {
     const String _url = APIConstants.API_BASE_URL + APIRoutes.GET_QUESTIONS;
     http.Response _response = await ApiRequest().apiGetRequest(_url);
     final _questionList = ApiResponse().handleQuestionsResponse(_response);
-    try{
+    try {
       final quizzes = (_questionList as List)
-        .map<Quiz>(
-            (dynamic json) => Quiz.fromJson(json as Map<String, dynamic>))
-        .toList();
-    return (quizzes..shuffle());
-    } catch (error){
+          .map<Quiz>(
+              (dynamic json) => Quiz.fromJson(json as Map<String, dynamic>))
+          .toList();
+      return (quizzes..shuffle());
+    } catch (error) {
       print(error);
       return null;
     }

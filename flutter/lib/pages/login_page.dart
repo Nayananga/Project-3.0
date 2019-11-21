@@ -5,8 +5,8 @@ import 'package:project_3s_mobile/models/api_request.dart';
 import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/pages/complaint_page/complaint_page.dart';
 import 'package:project_3s_mobile/pages/home_page/my_compalints_page.dart';
-import 'package:project_3s_mobile/pages/home_page/profile_page.dart';
 import 'package:project_3s_mobile/pages/home_page/my_review_page.dart';
+import 'package:project_3s_mobile/pages/home_page/profile_page.dart';
 import 'package:project_3s_mobile/pages/home_page/settings_page.dart';
 import 'package:project_3s_mobile/pages/search_page/search_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
@@ -251,6 +251,13 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
+  _goToMyReviewsPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyReviewsPage()),
+    );
+  }
+
   _goToProfilePage() {
     Navigator.push(
       context,
@@ -262,13 +269,6 @@ class _LogInPageState extends State<LogInPage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SearchPage()),
-    );
-  }
-
-  _goToMyReviewsPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MyReviewsPage()),
     );
   }
 

@@ -86,6 +86,18 @@ class Model extends ChangeNotifier {
     notifyListeners(); // call quiz_page initStage()
   }
 
+  _load() async {
+    // TODO(mono): くるくる出したいのでとりあえず
+    await Future<void>.delayed(Duration(seconds: 1));
+    await quizLoader.load().then((_receivedQuizList) {
+      if (_receivedQuizList != null) {
+        _quizList = _receivedQuizList;
+        _quizListLoaded = true;
+        notifyListeners();
+      }
+    });
+  }
+
   _sendAnswers() async {
     List _answerListAsJson = List();
     const String _url = APIConstants.API_BASE_URL + APIRoutes.CREATE_REVIEW;
@@ -102,18 +114,6 @@ class Model extends ChangeNotifier {
         http.Response _response = await ApiRequest().apiPostRequest(_url, body);
         ApiResponse().handleCreateReviewResponse(_response);
       });
-    });
-  }
-
-  _load() async {
-    // TODO(mono): くるくる出したいのでとりあえず
-    await Future<void>.delayed(Duration(seconds: 1));
-    await quizLoader.load().then((_receivedQuizList) {
-      if (_receivedQuizList != null) {
-        _quizList = _receivedQuizList;
-        _quizListLoaded = true;
-        notifyListeners();
-      }
     });
   }
 }

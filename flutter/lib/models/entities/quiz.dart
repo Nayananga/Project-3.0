@@ -11,7 +11,7 @@ class Quiz {
   });
 
   factory Quiz.fromJson(Map<String, dynamic> json) {
-    final String answersFromJson = json['expected_answer']; 
+    final String answersFromJson = json['expected_answer'];
     List<String> answersList = answersFromJson
         .substring(1, answersFromJson.length - 1)
         .replaceAll('"', '')
