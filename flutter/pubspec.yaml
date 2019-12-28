@@ -18,6 +18,7 @@ dependencies:
   location: ^2.3.5
   image_picker: ^0.6.1+4
   progress_dialog: ^1.2.0
+  toast: ^0.1.5
 
 flutter_icons:
   image_path: "images/ic_launcher.png"

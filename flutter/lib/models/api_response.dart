@@ -50,7 +50,7 @@ class ApiResponse {
       return _responseData['message'];
     } else {
       print(response.statusCode);
-      throw new Exception("Error getting questions data");
+      return null;
     }
   }
 

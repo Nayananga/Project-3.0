@@ -95,6 +95,7 @@ class Model extends ChangeNotifier {
         _quizListLoaded = true;
         notifyListeners();
       }
+
     });
   }
 

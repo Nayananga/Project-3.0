@@ -11,6 +11,7 @@ import 'package:project_3s_mobile/pages/home_page/settings_page.dart';
 import 'package:project_3s_mobile/pages/search_page/search_page.dart';
 import 'package:project_3s_mobile/utils/app_shared_preferences.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
+import 'package:toast/toast.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
@@ -293,6 +294,9 @@ class _LogInPageState extends State<LogInPage> {
               if (mounted) {
                 setState(() {
                   _isUserLoggedIn = ApiResponse().handleLoginResponse(response);
+                  if(!_isUserLoggedIn){
+                    Toast.show("Login Failed", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                  }
                   // _isUserLoggedIn = true;
                 });
               }

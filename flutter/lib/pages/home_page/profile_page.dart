@@ -7,6 +7,7 @@ import 'package:project_3s_mobile/models/api_request.dart';
 import 'package:project_3s_mobile/models/api_response.dart';
 import 'package:project_3s_mobile/models/entities/user.dart';
 import 'package:project_3s_mobile/utils/constants.dart';
+import 'package:toast/toast.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -280,6 +281,7 @@ class _MyHomePageState extends State<ProfilePage> {
       });
     } else {
       print("Both Inputs are invalid");
+      Toast.show("Both Inputs are invalid", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
     }
   }
 
@@ -289,6 +291,7 @@ class _MyHomePageState extends State<ProfilePage> {
     if (regExp.hasMatch(value)) {
       return true;
     }
+    Toast.show("Mobile number is invalid", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
     return false;
   }
 
@@ -299,6 +302,7 @@ class _MyHomePageState extends State<ProfilePage> {
     if (regExp.hasMatch(value)) {
       return true;
     }
+    Toast.show("Nic number is invalid", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
     return false;
   }
 }
